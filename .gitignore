@@ -1,0 +1,132 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+
+.packages
+build/
+flutter_*.png
+
+
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/key.properties
+**/android/.idea
+**/android/*.iml
+**/android/.settings/
+**/android/.project
+**/android/.classpath
+**/android/.cxx/
+
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/.symlinks/
+**/ios/Pods/
+**/ios/Runner.xcworkspace/
+**/ios/build/
+**/ios/*.xcuserstate
+**/ios/*.moved-aside
+**/ios/.generated/
+**/ios/.dart_tool/
+
+# macOS
+**/macos/Flutter/ephemeral/
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Pods/
+**/macos/Runner.xcworkspace/
+**/macos/build/
+
+# Windows
+**/windows/flutter/ephemeral/
+**/windows/build/
+
+# Linux
+**/linux/flutter/ephemeral/
+**/linux/build/
+
+# Web
+**/web/.dart_tool/
+**/web/build/
+
+# VS Code
+.vscode/
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+.cache/
+out/
+
+*.lock
+*.tmp
+*.swo
+*.orig
+*.bak
+
+# Firebase / Secrets
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+.env
+
+# Coverage
+coverage/
+coverage.lcov
+
+# Fastlane
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+
+# Temporary files
+*.temp
+
