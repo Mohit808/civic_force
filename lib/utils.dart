@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 import 'common_widget/app_colors.dart';
 import 'common_widget/app_sizes.dart';
@@ -8,6 +9,55 @@ import 'common_widget/border_atom.dart';
 
 
 String token="";
+
+
+
+showToast(msg) {
+  // Fluttertoast.showToast(
+  //     msg: "$msg",
+  //     toastLength: Toast.LENGTH_SHORT,
+  //     gravity: ToastGravity.CENTER,
+  //     timeInSecForIosWeb: 1,
+  //     textColor: Colors.white,
+  //     fontSize: 12.0
+  // );
+  // Get.snackbar(
+  //   '',
+  //   "$msg",
+  //   snackPosition: SnackPosition.TOP,
+  //   backgroundColor: Colors.green.withOpacity(0.9),
+  //   colorText: Colors.white,
+  //   margin: const EdgeInsets.all(12),
+  //   borderRadius: 8,
+  //   duration: const Duration(seconds: 2),
+  // );
+}
+
+showToastSuccess(String? msg) {
+  // Fluttertoast.showToast(
+  //     msg: "$msg",
+  //     toastLength: Toast.LENGTH_SHORT,
+  //     backgroundColor: Colors.green,
+  //     textColor: Colors.white,
+  //     fontSize: 12.0
+  // );
+  // Get.snackbar(
+  //   'Success',
+  //   "$msg",
+  //   snackPosition: SnackPosition.TOP,
+  //   backgroundColor: Colors.green.withOpacity(0.9),
+  //   colorText: Colors.white,
+  //   margin: const EdgeInsets.all(12),
+  //   borderRadius: 8,
+  //   duration: const Duration(seconds: 2),
+  // );
+}
+
+
+showToastError(msg) {
+  // Fluttertoast.cancel();
+  // Fluttertoast.showToast(msg: "$msg", toastLength: Toast.LENGTH_SHORT, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 12.0);
+}
 
 hideKeyboard() {
   SystemChannels.textInput.invokeMethod('TextInput.hide');

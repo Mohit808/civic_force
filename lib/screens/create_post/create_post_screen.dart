@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../common_widget/app_bar.dart';
+import 'widget/select_location_widget.dart';
 
 
 
@@ -28,18 +29,12 @@ class TagData{
 }
 
 class CreatePostScreen extends StatelessWidget {
-  CreatePostScreen({super.key});
+  const CreatePostScreen({super.key, this.image});
+  final dynamic image;
 
-  List mockResults=[
-    TagData('John Doe', 'jdoe@flutter.io', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-    TagData('Abhinav Doe', 'jdoe@flutter.io', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-    TagData('Abhishek Doe', 'jdoe@flutter.io', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-    TagData('Rahul Doe', 'jdoe@flutter.io', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-  ];
   @override
   Widget build(BuildContext context) {
-    mockResults=[];
-    return GetBuilder(init: ControllerCreatePost(),
+    return GetBuilder(init: ControllerCreatePost(image: image),
       builder: (controller) {
         return Scaffold(
 
@@ -103,177 +98,216 @@ class CreatePostScreen extends StatelessWidget {
                         TextField(onTapOutside: (v){
                           hideKeyboard();
                         },controller: controller.textEditingControllerText,decoration: InputDecoration(hintStyle: TextStyle(fontSize: 14),isDense: true,hintText: "What's happening?",border: InputBorder.none),maxLines: 8,minLines: 1,style: TextStyle(fontSize: 14),),
-                        if(controller.selectedImage!=null)Stack(
+
+                        if(controller.listSelectedImage.isNotEmpty)Column(spacing: 8,crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(spacing: 8,
-                              children: [
-                                ImageCommon(borderRadius: 10,src:controller.selectedImage?? "https://images.unsplash.com/photo-1747021627449-945b5723ddbe?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                                Row(spacing: 8,children: [
-                                  Icon(Icons.add_location_alt_outlined,size: 16,color: Colors.deepOrange,),
-                                  SmallText(text: "Add location",color: Colors.deepOrange,fontWeight: FontWeight.w500,)
-                                ],),
 
+                            Wrap(spacing: 8,runSpacing: 8,children: [
+                              for(var x in controller.listSelectedImage)Stack(
+                                children: [
+                                  ImageCommon(borderRadius: 10,src:x,fit: BoxFit.cover,height: getSize(controller),width: getSize(controller),),
 
-                                InkWell(onTap: (){
-                                  if(!controller.showOnMapValue){
-                                    controller.showOnMapValue = !controller.showOnMapValue;
-                                    controller.update();
-                                  }
-                                },
-                                  child: Row(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,children: [
-                                    SizedBox(height: 16,width: 16,child: Transform.scale(
-                                      scale: 0.7, // adjust this factor (0.5 = 50% smaller, 1.0 = normal)
-                                      child: Checkbox(fillColor: MaterialStateProperty.resolveWith<Color>((states) {
-                                        if (states.contains(MaterialState.selected)) {
-                                          return Colors.blue; // selected color
-                                        }
-                                        return Colors.transparent; // unselected color (optional)
-                                      }),
-                                        value: controller.showOnMapValue,
-                                        onChanged: (val) {
-                                          controller.showOnMapValue = !controller.showOnMapValue;
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
+                                      Container(margin: EdgeInsets.all(4),decoration: BoxDecoration(color: Colors.black.withOpacity(0.5),borderRadius: BorderRadius.circular(20)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: SmallText(color: Colors.white,text: "Edit",fontWeight: FontWeight.w600,)),
+                                      Positioned(right: 4,top: 4,
+                                        child: InkWell(onTap: (){
+                                          controller.listSelectedImage.remove(x);
                                           controller.update();
-                                        },
-
+                                        },child: Container(decoration: BoxDecoration(color: Colors.black.withOpacity(0.5),borderRadius: BorderRadius.circular(20)),padding: EdgeInsets.symmetric(horizontal: 4,vertical: 4),child: Icon(Icons.close,size: 18,color: Colors.white,))),
                                       ),
-                                    )),
-                                    Expanded(
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,
+                                  //     // ContainerDecorated(child: Icon(Icons.close,size: 18,),borderRadius: 20,)
+                                  //   ],),
+                                  // ),
+                                ],
+                              ),
+                            ],),
+
+
+                            InkWell(onTap: (){
+                              showDialog(context: context, builder: (builder)=>Dialog(child: SelectLocationWidget(),));
+                            },
+                              child: Row(spacing: 8,children: [
+                                Icon(Icons.add_location_alt_outlined,size: 16,color: Colors.deepOrange,),
+                                SmallText(text: "Add location",color: Colors.deepOrange,fontWeight: FontWeight.w500,)
+                              ],),
+                            ),
+
+
+                            InkWell(onTap: (){
+                              if(!controller.showOnMapValue){
+                                controller.showOnMapValue = !controller.showOnMapValue;
+                                controller.update();
+                              }
+                            },
+                              child: Row(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,children: [
+                                SizedBox(height: 16,width: 16,child: Transform.scale(
+                                  scale: 0.7, // adjust this factor (0.5 = 50% smaller, 1.0 = normal)
+                                  child: Checkbox(fillColor: MaterialStateProperty.resolveWith<Color>((states) {
+                                    if (states.contains(MaterialState.selected)) {
+                                      return Colors.blue; // selected color
+                                    }
+                                    return Colors.transparent; // unselected color (optional)
+                                  }),
+                                    value: controller.showOnMapValue,
+                                    onChanged: (val) {
+                                      controller.showOnMapValue = !controller.showOnMapValue;
+                                      controller.update();
+                                    },
+
+                                  ),
+                                )),
+                                Expanded(
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,
+                                    children: [
+                                      Row(spacing: 8,
                                         children: [
                                           InkWell(onTap: (){
                                             controller.showOnMapValue = !controller.showOnMapValue;
                                             controller.update();
                                           },child: SmallText(text: "Show on map",color: Colors.blue,fontWeight: FontWeight.w500,)),
-                                          // if(controller.showOnMapValue)TextField(style: TextStyle(fontSize: 12),decoration: InputDecoration.collapsed(hintText: "Search label here...",hintStyle: TextStyle(fontSize: 12)),),
 
+                                          InkWell(onTap: () async {
 
+                                            var result=await showModalBottomSheet(showDragHandle: true,context: context, builder: (builder){
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                                child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                                                  SmallText(text: "Show Images in map??",size: 18,fontWeight: FontWeight.w600,letterSpacing: 0.5,),
+                                                  SizedBox(height: 4,),
+                                                  SmallText(text: "This will show your image in map publicly",size: 12,fontWeight: FontWeight.w600,letterSpacing: 0.5,color: Colors.black54,),
+                                                  SizedBox(height: 8,),
+                                                  Image.asset(AppImages.map),
+                                                ],),
+                                              );
+                                            });
 
-
-                                          if(controller.showOnMapValue)ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.2),color: Colors.blue.withOpacity(0.1),padding: 8,
-                                            child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,
-                                              children: [
-                                                TypeAheadField<String>(
-                                                  suggestionsCallback: (search){
-                                                    return ["Hello","hi","bye"];
-                                                  },
-                                                  builder: (context, controller, focusNode) {
-                                                    return TextField(
-                                                      style: TextStyle(fontSize: 13),
-                                                      onTapOutside: (v){
-                                                        hideKeyboard();
-                                                      },
-                                                        controller: controller,
-                                                        focusNode: focusNode,
-                                                        autofocus: true,
-                                                        decoration: InputDecoration.collapsed(hintText: 'Search tags...',hintStyle: TextStyle(fontSize: 13))
-                                                    );
-                                                  },
-                                                  itemBuilder: (context, city) {
-                                                    return Padding(
-                                                      padding: const EdgeInsets.all(12.0),
-                                                      child: SmallText(text: city,fontWeight: FontWeight.w600,),
-                                                    );
-                                                    //   ListTile(
-                                                    //   title: Text(city),
-                                                    //   // subtitle: Text(city),
-                                                    // );
-                                                  },
-                                                  onSelected: (city) {
-                                                    controller.selectedTagList.add(city);
-                                                    controller.update();
-                                                    // Navigator.of(context).push<void>(
-                                                    //   MaterialPageRoute(
-                                                    //     builder: (context) => CityPage(city: city),
-                                                    //   ),
-                                                    // );
-                                                  },
-                                                ),
-                                                if(controller.selectedTagList.isNotEmpty)Wrap(spacing: 8,runSpacing: 8,children: [
-                                                  for(var x in controller.selectedTagList)
-                                                    ContainerDecorated(color: Colors.black,borderRadius: 30,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 6,vertical: 4),
-                                                      child: Row(mainAxisSize: MainAxisSize.min,spacing: 4,
-                                                        children: [
-                                                          SmallText(text: x,size: 11,color: Colors.white,),
-                                                          InkWell(onTap: (){
-                                                            controller.selectedTagList.remove(x);
-                                                            controller.update();
-                                                          },child: Icon(Icons.close,size: 16,color: Colors.white,))
-                                                        ],
-                                                      ),
-                                                    )
-                                                ],)
-                                              ],
-                                            ),
-                                          ),
-
-                                          // ChipsInput(
-                                          //   initialValue: [
-                                          //     TagData('John Doe', 'jdoe@flutter.io', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg')
-                                          //   ],
-                                          //   decoration: InputDecoration(
-                                          //     labelText: "Select People",
-                                          //   ),
-                                          //   maxChips: 3,
-                                          //   findSuggestions: (String query) {
-                                          //     if (query.length != 0) {
-                                          //       var lowercaseQuery = query.toLowerCase();
-                                          //       return mockResults.where((profile) {
-                                          //         return profile.name.toLowerCase().contains(query.toLowerCase()) || profile.email.toLowerCase().contains(query.toLowerCase());
-                                          //       }).toList(growable: false)
-                                          //         ..sort((a, b) => a.name
-                                          //             .toLowerCase()
-                                          //             .indexOf(lowercaseQuery)
-                                          //             .compareTo(b.name.toLowerCase().indexOf(lowercaseQuery)));
-                                          //     } else {
-                                          //       return const <TagData>[];
-                                          //     }
-                                          //   },
-                                          //   onChanged: (data) {
-                                          //     print(data);
-                                          //   },
-                                          //   chipBuilder: (context, state, profile) {
-                                          //     return InputChip(
-                                          //       key: ObjectKey(profile),
-                                          //       label: Text(profile.name),
-                                          //       avatar: CircleAvatar(
-                                          //         backgroundImage: NetworkImage(profile.imageUrl),
-                                          //       ),
-                                          //       onDeleted: () => state.deleteChip(profile),
-                                          //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                          //     );
-                                          //   },
-                                          //   suggestionBuilder: (context, state, profile) {
-                                          //     return ListTile(
-                                          //       key: ObjectKey(profile),
-                                          //       leading: CircleAvatar(
-                                          //         backgroundImage: NetworkImage(profile.imageUrl),
-                                          //       ),
-                                          //       title: Text(profile.name),
-                                          //       subtitle: Text(profile.email),
-                                          //       onTap: () => state.selectSuggestion(profile),
-                                          //     );
-                                          //   },
-                                          // )
-
-
-
-
+                                          },child: Icon(Icons.info_outline,size: 16,color: Colors.blue,))
                                         ],
                                       ),
-                                    )
-                                  ],),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                                Container(decoration: BoxDecoration(color: Colors.black.withOpacity(0.5),borderRadius: BorderRadius.circular(20)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: SmallText(color: Colors.white,text: "Edit",fontWeight: FontWeight.w600,)),
-                                InkWell(onTap: (){
-                                  controller.selectedImage=null;
-                                  controller.update();
-                                },child: Container(decoration: BoxDecoration(color: Colors.black.withOpacity(0.5),borderRadius: BorderRadius.circular(20)),padding: EdgeInsets.symmetric(horizontal: 4,vertical: 4),child: Icon(Icons.close,size: 18,color: Colors.white,))),
-                                // ContainerDecorated(child: Icon(Icons.close,size: 18,),borderRadius: 20,)
+                                      // if(controller.showOnMapValue)TextField(style: TextStyle(fontSize: 12),decoration: InputDecoration.collapsed(hintText: "Search label here...",hintStyle: TextStyle(fontSize: 12)),),
+
+
+
+
+                                      if(controller.showOnMapValue)ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.2),color: Colors.blue.withOpacity(0.1),padding: 8,
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,
+                                          children: [
+                                            TypeAheadField<String>(
+                                              suggestionsCallback: (search){
+                                                return controller.fetchTags();
+                                              },
+                                              controller: controller.textEditingControllerTags,
+                                              hideOnEmpty: true,
+                                              hideOnError: true,
+                                              hideOnLoading: true,
+                                              builder: (context, controllerX, focusNode) {
+                                                return TextField(
+                                                  onChanged: (value){
+                                                    controller.fetchTags();
+                                                  },
+                                                  style: TextStyle(fontSize: 13),
+                                                  onTapOutside: (v){
+                                                    hideKeyboard();
+                                                  },
+                                                    controller: controllerX,
+                                                    focusNode: focusNode,
+                                                    autofocus: true,
+                                                    decoration: InputDecoration.collapsed(hintText: 'Search tags...',hintStyle: TextStyle(fontSize: 13))
+                                                );
+                                              },
+                                              itemBuilder: (context, city) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.all(12.0),
+                                                  child: SmallText(text: city,fontWeight: FontWeight.w600,),
+                                                );
+                                                //   ListTile(
+                                                //   title: Text(city),
+                                                //   // subtitle: Text(city),
+                                                // );
+                                              },
+                                              onSelected: (city) {
+                                                controller.textEditingControllerTags.text="";
+                                                controller.selectedTagList.add(city);
+                                                controller.update();
+                                              },
+                                            ),
+                                            if(controller.selectedTagList.isNotEmpty)Wrap(spacing: 8,runSpacing: 8,children: [
+                                              for(var x in controller.selectedTagList)
+                                                Container(padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),border: Border.all(color: Colors.grey)),
+                                                  child: Row(mainAxisSize: MainAxisSize.min,spacing: 4,
+                                                    children: [
+                                                      SmallText(text: x,size: 11,color: Colors.black,),
+                                                      InkWell(onTap: (){
+                                                        controller.selectedTagList.remove(x);
+                                                        controller.update();
+                                                      },child: Icon(Icons.close,size: 16,color: Colors.black,))
+                                                    ],
+                                                  ),
+                                                )
+                                            ],)
+                                          ],
+                                        ),
+                                      ),
+
+
+
+                                      // ChipsInput(
+                                      //   initialValue: [
+                                      //     TagData('John Doe', 'jdoe@flutter.io', 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg')
+                                      //   ],
+                                      //   decoration: InputDecoration(
+                                      //     labelText: "Select People",
+                                      //   ),
+                                      //   maxChips: 3,
+                                      //   findSuggestions: (String query) {
+                                      //     if (query.length != 0) {
+                                      //       var lowercaseQuery = query.toLowerCase();
+                                      //       return mockResults.where((profile) {
+                                      //         return profile.name.toLowerCase().contains(query.toLowerCase()) || profile.email.toLowerCase().contains(query.toLowerCase());
+                                      //       }).toList(growable: false)
+                                      //         ..sort((a, b) => a.name
+                                      //             .toLowerCase()
+                                      //             .indexOf(lowercaseQuery)
+                                      //             .compareTo(b.name.toLowerCase().indexOf(lowercaseQuery)));
+                                      //     } else {
+                                      //       return const <TagData>[];
+                                      //     }
+                                      //   },
+                                      //   onChanged: (data) {
+                                      //     print(data);
+                                      //   },
+                                      //   chipBuilder: (context, state, profile) {
+                                      //     return InputChip(
+                                      //       key: ObjectKey(profile),
+                                      //       label: Text(profile.name),
+                                      //       avatar: CircleAvatar(
+                                      //         backgroundImage: NetworkImage(profile.imageUrl),
+                                      //       ),
+                                      //       onDeleted: () => state.deleteChip(profile),
+                                      //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                      //     );
+                                      //   },
+                                      //   suggestionBuilder: (context, state, profile) {
+                                      //     return ListTile(
+                                      //       key: ObjectKey(profile),
+                                      //       leading: CircleAvatar(
+                                      //         backgroundImage: NetworkImage(profile.imageUrl),
+                                      //       ),
+                                      //       title: Text(profile.name),
+                                      //       subtitle: Text(profile.email),
+                                      //       onTap: () => state.selectSuggestion(profile),
+                                      //     );
+                                      //   },
+                                      // )
+
+
+
+
+                                    ],
+                                  ),
+                                )
                               ],),
                             ),
                           ],
@@ -281,10 +315,80 @@ class CreatePostScreen extends StatelessWidget {
 
 
                         // Row(spacing: 24,children: [
-                          Row(spacing: 4,children: [
+                          Row(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,children: [
                             Icon(Icons.person,size: 16,color: Colors.black54),
-                            SmallText(text: "Tag people",color: Colors.black54),
+                            // SmallText(text: "Tag people",color: Colors.black54),
+                            Expanded(
+                              child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if(!controller.showUserTag) InkWell(onTap: (){
+                                    controller.showUserTag = !controller.showUserTag;
+                                    controller.update();
+                                  },child: SmallText(text: "Tag people",color: Colors.black54)),
+                                  if(controller.showUserTag)TypeAheadField<String>(
+                                    suggestionsCallback: (search){
+                                      return controller.fetchTags();
+                                    },
+                                    controller: controller.textEditingControllerUsers,
+                                    hideOnEmpty: true,
+                                    hideOnError: true,
+                                    hideOnLoading: true,
+                                    builder: (context, controllerX, focusNode) {
+                                      return TextField(
+                                          onChanged: (value){
+                                            controller.fetchTags();
+                                          },
+                                          style: TextStyle(fontSize: 13),
+                                          onTapOutside: (v){
+                                            hideKeyboard();
+                                          },
+                                          controller: controllerX,
+                                          focusNode: focusNode,
+                                          autofocus: true,
+                                          decoration: InputDecoration.collapsed(hintText: 'Tags people...',hintStyle: TextStyle(fontSize: 13))
+                                      );
+                                    },
+                                    itemBuilder: (context, city) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: SmallText(text: city,fontWeight: FontWeight.w600,),
+                                      );
+                                      //   ListTile(
+                                      //   title: Text(city),
+                                      //   // subtitle: Text(city),
+                                      // );
+                                    },
+                                    onSelected: (city) {
+                                      controller.textEditingControllerUsers.text="";
+                                      controller.selectedUserList.add(city);
+                                      controller.update();
+                                    },
+                                  ),
+
+                                  SizedBox(height: 8,),
+
+                                  Wrap(spacing: 8,runSpacing: 8,children: [
+
+                                    for(var x in controller.selectedUserList)
+                                      Container(padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),border: Border.all(color: Colors.grey)),
+                                        child: Row(mainAxisSize: MainAxisSize.min,spacing: 4,
+                                          children: [
+                                            SmallText(text: x,size: 11,color: Colors.black,),
+                                            InkWell(onTap: (){
+                                              controller.selectedUserList.remove(x);
+                                              controller.update();
+                                            },child: Icon(Icons.close,size: 16,color: Colors.black,))
+                                          ],
+                                        ),
+                                      ),
+
+                                  ],)
+                                ],
+                              ),
+                            ),
                           ],),
+
+
                         //
                         //   Row(spacing: 4,children: [
                         //     Icon(Icons.description,size: 16,color: Colors.black54),
@@ -307,7 +411,8 @@ class CreatePostScreen extends StatelessWidget {
                             InkWell(onTap: () async {
                               XFile? xFile=await ImagePicker().pickImage(source: ImageSource.gallery);
                               if(xFile!=null){
-                                controller.selectedImage=xFile.path;
+                                // controller.selectedImage=xFile.path;
+                                controller.listSelectedImage.add(xFile.path);
                                 controller.update();
                               }
                             },child: Icon(Icons.image,size: 18,)),
@@ -317,35 +422,8 @@ class CreatePostScreen extends StatelessWidget {
                             Spacer(),
                             ContainerDecorated(height: 24,width: 2,color: Colors.black45,),
                             ContainerDecorated(onTap: () async {
-                              if(controller.selectedImage!=null){
 
-                                var result=await showModalBottomSheet(showDragHandle: true,context: context, builder: (builder){
-                                  return Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: SmallText(text: "Show Images in map??",size: 18,fontWeight: FontWeight.w600,letterSpacing: 0.5,),
-                                    ),
-                                    Image.asset(AppImages.map),
-                                    Spacer(),
-                                    Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Row(spacing: 16,children: [
-                                        Expanded(child: ButtonSingleAtom(widget: "No",tap: (){
-                                          Get.back();
-                                          controller.postData();
-                                          },)),
-                                        Expanded(child: ButtonSingleAtom(widget: "Yes",tap: (){
-
-                                          Get.back(result: true);
-                                          controller.postData();
-                                          },)),
-                                      ],),
-                                    )
-                                  ],);
-                                });
-                              }else {
-                                if(controller.textEditingControllerText.text.isNotEmpty) controller.postData();
-                              }
+                              controller.postData();
 
                             },borderRadius: 20,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16,vertical: 6),color: Colors.black,child: controller.apiResponse.status==Status.LOADING?SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,color: Colors.white,)):SmallText(text: "Post",fontWeight: FontWeight.w600,color: Colors.white,),)
                           ],),
@@ -365,6 +443,11 @@ class CreatePostScreen extends StatelessWidget {
         );
       }
     );
+  }
+
+
+  getSize(ControllerCreatePost controller){
+    return  controller.listSelectedImage.length==1?null:Get.width/3;
   }
 
 

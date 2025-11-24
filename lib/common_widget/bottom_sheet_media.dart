@@ -2,6 +2,7 @@
 import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/text_common.dart';
+import 'package:civic_force/screens/create_post/create_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,7 +21,8 @@ class BottomSheetMedia extends StatelessWidget {
           XFile? xFile=await ImagePicker().pickImage(source: ImageSource.camera);
           if(xFile!=null) {
             Get.back();
-            Get.to(() => CameraUploadScreen(image: xFile.path,));
+            // Get.to(() => CameraUploadScreen(image: xFile.path,));
+            Get.to(()=>CreatePostScreen(image: xFile.path,));
           }
         },
           child: Row(spacing: 16,children: [
@@ -33,9 +35,8 @@ class BottomSheetMedia extends StatelessWidget {
           XFile? xFile=await ImagePicker().pickImage(source: ImageSource.gallery);
           if(xFile!=null){
             Get.back();
-            Get.to(()=>CameraUploadScreen(image: xFile.path,));
-            // controller.selectedImage=xFile.path;
-            // controller.update();
+            // Get.to(()=>CameraUploadScreen(image: xFile.path,));
+            Get.to(()=>CreatePostScreen(image: xFile.path,));
           }
 
         },
