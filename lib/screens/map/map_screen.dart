@@ -24,6 +24,34 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
 
 
+  String _modernDarkMapStyle = '''
+[
+  {"elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
+  {"elementType": "labels.text.fill","stylers":[{"color": "#d0e0f0"}]},
+  {"elementType": "labels.text.stroke","stylers":[{"color": "#0f1c2c"}]},
+  
+  {"featureType": "administrative","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
+  {"featureType": "administrative.country","elementType": "labels.text.fill","stylers":[{"color": "#a0c0e0"}]},
+  
+  {"featureType": "landscape","elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
+  {"featureType": "poi","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
+  {"featureType": "poi.park","elementType": "geometry","stylers":[{"color": "#123744"}]},
+  
+  {"featureType": "road","elementType": "geometry","stylers":[{"color": "#1f3b5c"}]},
+  {"featureType": "road","elementType": "geometry.stroke","stylers":[{"color": "#123144"}]},
+  {"featureType": "road.highway","elementType": "geometry","stylers":[{"color": "#28506a"}]},
+  {"featureType": "road.highway","elementType": "geometry.stroke","stylers":[{"color": "#122839"}]},
+  
+  {"featureType": "transit","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
+  
+  {"featureType": "water","elementType": "geometry","stylers":[{"color": "#041f3d"}]},
+  {"featureType": "water","elementType": "labels.text.fill","stylers":[{"color": "#7aa7c4"}]}
+]
+''';
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +65,9 @@ class _MapScreenState extends State<MapScreen> {
               child: Stack(
                 children: [
                   GoogleMap(
+                    style: _modernDarkMapStyle,
                     mapType: MapType.normal,
+                    fortyFiveDegreeImageryEnabled: true,
                     zoomControlsEnabled: false,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(28.611999, 77.178675),
@@ -57,23 +87,30 @@ class _MapScreenState extends State<MapScreen> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(spacing: 16,crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(spacing: 8,children: [
-                            Expanded(child: TextFieldCommon(prefixIcon: Icon(Icons.search,color: Colors.white,),borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))
-                            // ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.5),padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.arrow_back_ios_new_rounded,size: 24,color: Colors.white,)),
-                            // Expanded(child: Material(elevation: 10,borderRadius: BorderRadius.circular(30),child: TextFieldCommon(borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))),
-                            // ContainerDecorated(padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.search,size: 24,color: Colors.white,)),
-
-                          ],),
-                          SingleChildScrollView(scrollDirection: Axis.horizontal,
-                            child: Row(spacing: 8,children: [
-                              for(var x in [{"icon":Icons.border_all_rounded,"text":"All"},{"icon":Icons.remove_road_rounded,"text":"Road"},{"icon":Icons.sanitizer,"text":"Litter"},{"icon":Icons.electric_bolt,"text":"Electricity"}])
-                                ContainerDecorated(colorBorder: Colors.grey.shade300,borderRadius: 30,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16,vertical: 6),elevation: 1,color: x['text']!="All"?AppColors.primary: Colors.red,child: Row(spacing: 8,
-                                  children: [
-                                    Icon(x['icon'] as IconData,size: 16,color:Colors.white,),
-                                    SmallText(text: "${x['text']}",fontWeight: FontWeight.w600,color:Colors.white,),
-                                  ],
-                                ))
-                            ],),
+                          // Row(spacing: 8,children: [
+                          //   Expanded(child: TextFieldCommon(prefixIcon: Icon(Icons.search,color: Colors.white,),borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))
+                          //   // ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.5),padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.arrow_back_ios_new_rounded,size: 24,color: Colors.white,)),
+                          //   // Expanded(child: Material(elevation: 10,borderRadius: BorderRadius.circular(30),child: TextFieldCommon(borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))),
+                          //   // ContainerDecorated(padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.search,size: 24,color: Colors.white,)),
+                          //
+                          // ],),
+                          Row(spacing: 8,
+                            children: [
+                              ContainerDecorated(color: Color(0xFFCFCECE),borderRadius: 40,child: Icon(Icons.search,color: AppColors.primary,size: 20,)),
+                              Expanded(
+                                child: SingleChildScrollView(scrollDirection: Axis.horizontal,
+                                  child: Row(spacing: 8,children: [
+                                    for(var x in controller.listTags)
+                                      Container(decoration: BoxDecoration(color: Color(0xFFCFCECE),borderRadius: BorderRadius.circular(30)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: Row(spacing: 8,
+                                        children: [
+                                          // Icon(x['icon'] as IconData,size: 16,color:Colors.white,),
+                                          SmallText(text: "${x.name}",fontWeight: FontWeight.w600,),
+                                        ],
+                                      )),
+                                  ],),
+                                ),
+                              ),
+                            ],
                           ),
 
 
@@ -120,9 +157,8 @@ class _MapScreenState extends State<MapScreen> {
                 ],
               ),
             ),
-
           ],),
-          floatingActionButton: FloatingActionButton(child: Icon(Icons.camera_alt),onPressed: (){
+          floatingActionButton: FloatingActionButton(backgroundColor: Colors.transparent,elevation: 1,child: Icon(Icons.camera_alt,color: Colors.white,),onPressed: (){
             showModalBottomSheet(showDragHandle: true,context: context, builder: (builder){
               return BottomSheetMedia();
             });

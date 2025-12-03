@@ -1,14 +1,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
 import 'common_widget/app_colors.dart';
 import 'common_widget/app_sizes.dart';
 import 'common_widget/border_atom.dart';
+import 'model/user_model.dart';
 
 
 String token="";
+UserInfo? userInfo;
+late GetStorage box;
+late SharedPreferences sharedPreferences;
+
+isMobile(){
+  return Get.width<1200;
+}
 
 
 
@@ -93,15 +104,19 @@ class Utils {
   static String userToken = "token";
   static String user = "user";
   static String info = "info";
+  static String intro = "intro";
 
   initialize() async {
-    // await GetStorage.init();
-    // box = GetStorage();
-    // var value = box.read(Utils.userToken);
-    // if (value != null) {
-    //   token = value;
-    //   getEmailClients();
-    //   // print("TOKEEEEN= $token");
-    // }
+    await GetStorage.init();
+    box = GetStorage();
+    sharedPreferences=await SharedPreferences.getInstance();
+    var value = box.read(Utils.userToken);
+    if (value != null) {
+      token = value;
+    }
+    var user = box.read(Utils.user);
+    if(user!=null){
+      userInfo=UserInfo.fromJson(user);
+    }
   }
 }

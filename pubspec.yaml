@@ -39,6 +39,20 @@ dependencies:
   image_picker: any
   google_maps_flutter: ^2.12.3
   flutter_typeahead: ^5.2.0
+  pinput : any
+  dotlottie_loader: ^0.0.4
+  shared_preferences: any
+  location: ^8.0.1
+  google_sign_in: ^7.2.0
+#  fluttertoast: ^9.0.0
+  shimmer_animation : any
+  pull_to_refresh: any
+  video_thumbnail: ^0.5.6
+  video_player: any
+  get_storage: any
+  croppy: ^1.4.1
+  image : any
+  firebase_messaging: any
 #  fluttertoast: ^9.0.0
 #  flutter_chips_input: ^2.0.0
   # The following adds the Cupertino Icons font to your application.

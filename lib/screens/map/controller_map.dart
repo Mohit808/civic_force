@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:civic_force/common_widget/network_image_widget.dart';
+import 'package:civic_force/model/tags_model.dart' as tm;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,6 +14,7 @@ import '../../utils/app_urls.dart';
 
 class ControllerMap extends GetxController{
   List<Data> list=[];
+  List<tm.Data> listTags=[];
   ApiResponse apiResponse=ApiResponse(status: Status.LOADING);
 
   Completer<GoogleMapController> controllerGoogleMap = Completer<GoogleMapController>();
@@ -48,8 +50,18 @@ class ControllerMap extends GetxController{
   void onInit() {
     super.onInit();
     fetchData();
+    fetchTags();
   }
 
+  
+  fetchTags() async {
+    try{
+      var res=await NetworkManager().get(AppUrls.tags);
+      tm.TagsModel tagsModel=tm.TagsModel.fromJson(res);
+      listTags.addAll(tagsModel.data??[]);
+    }catch(e){}
+    update();
+  }
 
   fetchData() async {
     try{
@@ -77,6 +89,8 @@ class ControllerMap extends GetxController{
         tagXimage=AppImages.trash;
       }else if(tagX=="Water"){
         tagXimage=AppImages.drop;
+      }else{
+        tagXimage=AppImages.trash;
       }
     }
     final BitmapDescriptor icon = await BitmapDescriptor.fromAssetImage(

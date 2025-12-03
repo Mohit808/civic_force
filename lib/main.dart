@@ -1,13 +1,18 @@
 import 'package:civic_force/dashboard_screen.dart';
+import 'package:civic_force/screens/basic_details/basic_details_screen.dart';
+import 'package:civic_force/screens/intro_slider_screen/intro_slider_screen.dart';
 import 'package:civic_force/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'auth/login/login_screen.dart';
 import 'common_widget/app_colors.dart';
 import 'common_widget/app_sizes.dart';
 
-void main() {
-  Utils().init(colorCode: 0xFF282C35, radius: AppSizes.h_10);
+Future<void> main() async {
+  await Utils().init(colorCode: 0xFF282C35, radius: AppSizes.h_10);
+  await Utils().initialize();
+
   runApp(const MyApp());
 }
 
@@ -24,7 +29,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
         primarySwatch: AppColors.materialColor,
       ),
-      home: DashboardScreen(),
+      // home: DashboardScreen(),
+      home:   box.read(Utils.intro)==null?IntroSliderScreen():  box.read(Utils.userToken)==null?LoginScreen(): box.read(Utils.info)==null? BasicDetailsScreen():  DashboardScreen(),
+
     );
   }
 }

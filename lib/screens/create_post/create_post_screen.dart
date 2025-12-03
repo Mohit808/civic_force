@@ -5,6 +5,7 @@ import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:civic_force/common_widget/textfield_atom.dart';
+import 'package:civic_force/model/search_user_model.dart';
 import 'package:civic_force/network_handling/api_response.dart';
 import 'package:civic_force/screens/create_post/controller_create_post.dart';
 import 'package:civic_force/utils.dart';
@@ -325,9 +326,9 @@ class CreatePostScreen extends StatelessWidget {
                                     controller.showUserTag = !controller.showUserTag;
                                     controller.update();
                                   },child: SmallText(text: "Tag people",color: Colors.black54)),
-                                  if(controller.showUserTag)TypeAheadField<String>(
+                                  if(controller.showUserTag)TypeAheadField<Data>(
                                     suggestionsCallback: (search){
-                                      return controller.fetchTags();
+                                      return controller.fetchUsers();
                                     },
                                     controller: controller.textEditingControllerUsers,
                                     hideOnEmpty: true,
@@ -336,7 +337,7 @@ class CreatePostScreen extends StatelessWidget {
                                     builder: (context, controllerX, focusNode) {
                                       return TextField(
                                           onChanged: (value){
-                                            controller.fetchTags();
+                                            controller.fetchUsers();
                                           },
                                           style: TextStyle(fontSize: 13),
                                           onTapOutside: (v){
@@ -348,19 +349,24 @@ class CreatePostScreen extends StatelessWidget {
                                           decoration: InputDecoration.collapsed(hintText: 'Tags people...',hintStyle: TextStyle(fontSize: 13))
                                       );
                                     },
-                                    itemBuilder: (context, city) {
+                                    itemBuilder: (context, data) {
                                       return Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: SmallText(text: city,fontWeight: FontWeight.w600,),
+                                        child: Row(spacing: 8,
+                                          children: [
+                                            ImageCommon(src: "${data.profilePicture}",height: 24,width: 24,fit: BoxFit.cover,borderRadius: 30,),
+                                            Expanded(child: SmallText(text: "${data.name}",fontWeight: FontWeight.w600,maxLine: 1,)),
+                                          ],
+                                        ),
                                       );
                                       //   ListTile(
                                       //   title: Text(city),
                                       //   // subtitle: Text(city),
                                       // );
                                     },
-                                    onSelected: (city) {
+                                    onSelected: (data) {
                                       controller.textEditingControllerUsers.text="";
-                                      controller.selectedUserList.add(city);
+                                      controller.selectedUserList.add(data);
                                       controller.update();
                                     },
                                   ),
@@ -373,7 +379,7 @@ class CreatePostScreen extends StatelessWidget {
                                       Container(padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),border: Border.all(color: Colors.grey)),
                                         child: Row(mainAxisSize: MainAxisSize.min,spacing: 4,
                                           children: [
-                                            SmallText(text: x,size: 11,color: Colors.black,),
+                                            SmallText(text: "${x.name}",size: 11,color: Colors.black,),
                                             InkWell(onTap: (){
                                               controller.selectedUserList.remove(x);
                                               controller.update();

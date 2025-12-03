@@ -16,5 +16,9 @@ class AppImages{
   static String get map => "${assetPath}map.png";
   static String get drop => "${assetPath}drop.png";
   static String get trash => "${assetPath}trash.png";
-
+  static String get forgotPassword => "${assetPath}forgot_password.lottie";
+  static String get anim1 => "${assetPath}anim1.lottie";
+  static String get anim2 => "${assetPath}anim2.lottie";
+  static String get anim3 => "${assetPath}anim3.lottie";
+  static String get user => "${assetPath}user.png";
 }

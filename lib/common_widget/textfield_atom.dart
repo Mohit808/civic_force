@@ -19,6 +19,8 @@ class TextFieldCommon extends TextFormField{
     bool? isDense,
     double? contentPadding,
     Color? BorderColor,
+    Color? colorHint,
+    Color? colorText,
     dynamic label,
     super.minLines,
     Function()? onTapOutside,
@@ -39,26 +41,28 @@ class TextFieldCommon extends TextFormField{
     super.textInputAction,
     bool isPassword=false,
     super.autofillHints,
-    TextStyle? textStyleHint
+    TextCapitalization? textCapitalization,
+    bool? tapOutsideOff
 
   }):super(
       textAlign: textAlign??TextAlign.start,
       obscureText: isPassword,
       onFieldSubmitted: onFieldSubmitted,
-      onTapOutside: (value){
+      onTapOutside: tapOutsideOff!=null?null: (value){
         FocusManager.instance.primaryFocus?.unfocus();
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         if(onTapOutside!=null){
           onTapOutside();
         }
       },
-      style: textStyleHint?? const TextStyle(fontSize: 12),
-      textCapitalization: TextCapitalization.sentences,
+      style: TextStyle(fontSize: 12,color: colorText),
+      textCapitalization: textCapitalization?? TextCapitalization.sentences,
+
       decoration: InputDecoration(label: label.runtimeType==String?SmallText(text: label,):label,filled: true,isDense: isDense,fillColor:fillColor,enabledBorder: hideOutlineBorder!=null?null:OutlineInputBorder(borderRadius: borderRadius!=null?BorderRadius.circular(borderRadius):BorderAtom.borderRadiusTextField,borderSide: BorderSide(color: BorderColor??Colors.grey.shade300)),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
-        hintStyle: textStyleHint??TextStyle(fontSize: 12,),
+        hintStyle:  TextStyle(fontSize: 12,color: colorHint),
         contentPadding:  EdgeInsets.all(contentPadding??AppSizes.h_12),
         border:  hideOutlineBorder!=null?null:OutlineInputBorder(
           borderRadius:  borderRadius!=null?BorderRadius.circular(borderRadius):BorderAtom.borderRadiusTextField,

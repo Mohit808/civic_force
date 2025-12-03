@@ -19,6 +19,7 @@ class UserProfileScreen extends StatelessWidget {
           appBar: AppBarCommon(title: "Fons Mans",color: AppColors.scaffoldBackgroundColor,colorIconTheme: AppColors.primary,titleColor: AppColors.primary,centerTitle: false,actions: [Icon(Icons.more_vert),SizedBox(width: 8,)],),
           body: SingleChildScrollView(
             child: Column(children: [
+
               SizedBox(height: 16,),
               SizedBox(height: 100,width: 100,child: ImageCommon(src: "https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,borderRadius: 50),),
               SizedBox(height: 8,),

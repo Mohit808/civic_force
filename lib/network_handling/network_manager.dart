@@ -1,25 +1,29 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:civic_force/utils/app_urls.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import '../auth/login/login_screen.dart';
 import '../utils.dart';
+import '../utils/app_urls.dart';
 import 'custom_exception.dart';
 
 class NetworkManager {
   NetworkManager();
   get(String endPoint) async {
-    var header = {"Authorization": token,};
+
+    print(token);
+    var header = {"Authorization": "token $token",};
     try {
-      print("GET ${AppUrls.baseUrl}$endPoint");
       // var res = await http.get(Uri.parse(ApiConstants.baseUrl + endPoint), headers: header,);
       // // if (kDebugMode) print(res);
       // if (kDebugMode) print(res.statusCode);
       // return responseReturn(res);
 
       var request = http.Request('GET',Uri.parse(AppUrls.baseUrl + endPoint));
+      print(AppUrls.baseUrl + endPoint);
       request.headers.addAll(header);
       http.StreamedResponse response = await request.send();
       print(response.statusCode);
@@ -34,18 +38,16 @@ class NetworkManager {
 
   post(String endPoint, {data, headers}) async {
     var header = {
-      "Authorization": token,
-      "Custom-Api-Key": "BKIA2UTVXGLLR4YW",
+      "Authorization": token.isEmpty?"":"token $token",
       "Content-type":"application/json"
-      // "Custom-Api-Key": EnvKeyEnum.getEnvValue(EnvKeyEnum.customApiKey),
     };
     if (headers != null) header.addAll(headers);
     if (kDebugMode) print("POST "+AppUrls.baseUrl + endPoint);
-    if (kDebugMode) log(data.toString());
-    // log(token);
-
+    log(token);
+    if (kDebugMode) log(jsonEncode(data).toString());
     // var res = await http.post(Uri.parse(ApiConstants.baseUrl + endPoint), body: data, headers: header);
     var request = http.Request('POST',Uri.parse(AppUrls.baseUrl + endPoint));
+    print('===========${request.body}');
     if(data is Map){
       request.body=jsonEncode(data);
     }else{
@@ -65,13 +67,19 @@ class NetworkManager {
   }
 
   put(String endPoint, {data, headers}) async {
-    var header = {"Authorization": token};
+    var header = {
+      "Authorization": token.isEmpty?"":"token $token",
+      "Content-type":"application/json"
+    };
     if (headers != null) header.addAll(headers);
+
+    print(token);
 
     if (kDebugMode) print(AppUrls.baseUrl + endPoint);
     if (kDebugMode) print(data);
+    // if (kDebugMode) print(data);
 
-    // var res = await http.put(Uri.parse(AppUrls.baseUrl + endPoint), body: data, headers: header);
+    // var res = await http.put(Uri.parse(ApiConstants.baseUrl + endPoint), body: data, headers: header);
 
     try {
       // return responseReturn(res);
@@ -90,13 +98,13 @@ class NetworkManager {
   }
 
   delete(String endPoint, {data, headers}) async {
-    var header = {"Authorization": token, "accept": "application/json"};
+    var header = {"Authorization": "token $token", "Content-type": "application/json"};
     if (headers != null) header.addAll(headers);
 
     if (kDebugMode) print(header);
     if (kDebugMode) print(AppUrls.baseUrl + endPoint);
     if (kDebugMode) print(data);
-    // var res = await http.delete(Uri.parse(AppUrls.baseUrl + endPoint),body: data, headers: header);
+    // var res = await http.delete(Uri.parse(ApiConstants.baseUrl + endPoint),body: data, headers: header);
     // print(res.body);
     try {
       // return responseReturn(res);
@@ -122,17 +130,31 @@ class NetworkManager {
       case 400:
         throw BadRequestException(result);
       case 401:
-        // await box.erase();
-        // if(box.read(Utils.userToken)!=null){
-        //   showToast("Invalid Token");
-        //   Get.offAll(() => const LoginScreen());
-        // }
+      // await box.erase();
+      // token="";
+      // if(box.read(Utils.userToken)!=null){
+      //   showToastError("Invalid Token");
+      //   Get.offAll(() => const MobileScreen());
+      // }
         throw UnauthorizedException(result);
       case 403:
-        // showToast("Subscribe for access the data");
+        await box.erase();
+        token="";
+        try{
+          sharedPreferences.clear();
+          sharedPreferences.reload();
+          FirebaseMessaging.instance.deleteToken();
+        }catch(e){}
+        showToast("Invalid Token");
+        Get.offAll(() => const LoginScreen());
+        // if(box.read(Utils.userToken)!=null){
+        //   // showToast("Invalid Token");
+        //   // Get.offAll(() => const MobileScreen());
+        // }
+        // // showToastError("Something went wrong");
         throw ExhaustException(result);
       case 429:
-        // showToast("Subscribe for access the data");
+        showToast("Subscribe for access the data");
         throw ExhaustException(result);
       case 500:
         throw FetchDataException('Server error : ${response.statusCode}');
@@ -140,7 +162,7 @@ class NetworkManager {
         throw FetchDataException('Server error : ${response.statusCode}');
       default:
         throw FetchDataException('Server error : ${response.statusCode}');
-        // throw FetchDataException('Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
+    // throw FetchDataException('Error occurred while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
 }

@@ -104,7 +104,11 @@ class HomeScreen extends StatelessWidget {
                                   if(controller.list[index].text!=null&&controller.list[index].text!.isNotEmpty)SmallText(text: controller.list[index].text??""),
                                   if(controller.list[index].image!=null && controller.list[index].image!.isNotEmpty)Padding(
                                     padding: const EdgeInsets.only(top: 8.0,bottom: 8),
-                                    child: SizedBox(width: double.infinity,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src: controller.list[index].image??"https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
+                                    child:
+                                      GridView.builder(physics: NeverScrollableScrollPhysics(),itemCount: controller.list[index].image!.split(",").length==1?1:2,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: controller.list[index].image!.split(",").length,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 1), itemBuilder: (itemBuilder,indexXX){
+                                        return ImageCommon(src: controller.list[index].image!.split(",")[indexXX],fit: BoxFit.cover,borderRadius: 15,);
+                                      }),
+                                    // SizedBox(width: double.infinity,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src: controller.list[index].image?.split(",").first??"https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
                                   ),
                                   SizedBox(height: 8,),
                                   Row(children: [
