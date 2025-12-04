@@ -79,7 +79,8 @@ class Data {
       dynamic canReply, 
       bool? isPublic, 
       num? likesCount, 
-      num? commentsCount, 
+      bool? isLiked,
+      num? commentsCount,
       num? retweetCount, 
       bool? isDeleted, 
       bool? isReported, 
@@ -87,6 +88,7 @@ class Data {
       String? createdAt, 
       String? updatedAt, 
       num? userId, 
+      bool? isSaved,
       List<dynamic>? peopleTagged,}){
     _id = id;
     _text = text;
@@ -99,6 +101,7 @@ class Data {
     _canReply = canReply;
     _isPublic = isPublic;
     _likesCount = likesCount;
+    _isLiked = isLiked;
     _commentsCount = commentsCount;
     _retweetCount = retweetCount;
     _isDeleted = isDeleted;
@@ -108,6 +111,7 @@ class Data {
     _updatedAt = updatedAt;
     _userId = userId;
     _peopleTagged = peopleTagged;
+    _isSaved = isSaved;
 }
 
   Data.fromJson(dynamic json) {
@@ -122,6 +126,7 @@ class Data {
     _canReply = json['can_reply'];
     _isPublic = json['is_public'];
     _likesCount = json['likes_count'];
+    _isLiked = json['is_liked'];
     _commentsCount = json['comments_count'];
     _retweetCount = json['retweet_count'];
     _isDeleted = json['is_deleted'];
@@ -130,6 +135,7 @@ class Data {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
     _userId = json['user_id'];
+    _isSaved = json['is_saved'];
     if (json['people_tagged'] != null) {
       _peopleTagged = [];
       json['people_tagged'].forEach((v) {
@@ -148,6 +154,7 @@ class Data {
   dynamic _canReply;
   bool? _isPublic;
   num? _likesCount;
+  bool? _isLiked;
   num? _commentsCount;
   num? _retweetCount;
   bool? _isDeleted;
@@ -156,6 +163,7 @@ class Data {
   String? _createdAt;
   String? _updatedAt;
   num? _userId;
+  bool? _isSaved;
   List<dynamic>? _peopleTagged;
 Data copyWith({  num? id,
   String? text,
@@ -168,6 +176,7 @@ Data copyWith({  num? id,
   dynamic canReply,
   bool? isPublic,
   num? likesCount,
+  bool? isLiked,
   num? commentsCount,
   num? retweetCount,
   bool? isDeleted,
@@ -188,6 +197,7 @@ Data copyWith({  num? id,
   canReply: canReply ?? _canReply,
   isPublic: isPublic ?? _isPublic,
   likesCount: likesCount ?? _likesCount,
+  isLiked: isLiked ?? _isLiked,
   commentsCount: commentsCount ?? _commentsCount,
   retweetCount: retweetCount ?? _retweetCount,
   isDeleted: isDeleted ?? _isDeleted,
@@ -209,6 +219,7 @@ Data copyWith({  num? id,
   dynamic get canReply => _canReply;
   bool? get isPublic => _isPublic;
   num? get likesCount => _likesCount;
+  bool? get isLiked => _isLiked;
   num? get commentsCount => _commentsCount;
   num? get retweetCount => _retweetCount;
   bool? get isDeleted => _isDeleted;
@@ -217,7 +228,18 @@ Data copyWith({  num? id,
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   num? get userId => _userId;
+  bool? get isSaved => _isSaved;
   List<dynamic>? get peopleTagged => _peopleTagged;
+
+  set setLike(bool value){
+    _isLiked=value;
+  }
+  set setLikeCount(value){
+    _likesCount=value;
+  }
+  set setSaved(value){
+    _isSaved=value;
+  }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -232,6 +254,7 @@ Data copyWith({  num? id,
     map['can_reply'] = _canReply;
     map['is_public'] = _isPublic;
     map['likes_count'] = _likesCount;
+    map['is_liked'] = _isLiked;
     map['comments_count'] = _commentsCount;
     map['retweet_count'] = _retweetCount;
     map['is_deleted'] = _isDeleted;

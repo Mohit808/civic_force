@@ -7,18 +7,20 @@ import 'package:civic_force/utils.dart';
 import 'package:civic_force/utils/app_urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 import '../../config/cloudinary.dart';
 import '../../model/model_x.dart';
+import '../../services/location_service.dart';
 
 class ControllerCreatePost extends GetxController{
   TextEditingController textEditingControllerTags=TextEditingController();
   TextEditingController textEditingControllerText=TextEditingController();
   TextEditingController textEditingControllerUsers=TextEditingController();
-  // var selectedImage;
   List<String> listSelectedImage=[];
   bool showOnMapValue=false;
-  dynamic latLng;
+  LatLng? latLng;
   FocusNode focusNode=FocusNode();
   FocusNode focusNode2=FocusNode();
   bool showUserTag=false;
@@ -27,8 +29,9 @@ class ControllerCreatePost extends GetxController{
   List<Data> selectedUserList=[];
   ApiResponse apiResponse=ApiResponse(status: Status.INITIAL);
 
-  final dynamic image;
+  String? selectedAddress;
 
+  final dynamic image;
   ControllerCreatePost({this.image});
 
   @override
@@ -44,8 +47,9 @@ class ControllerCreatePost extends GetxController{
 
     if(textEditingControllerText.text.isEmpty && listSelectedImage.isEmpty) return showToast("Please add text or image");
     // if(showOnMapValue && selectedTagList.isEmpty) return showToast("Tags are mandatory");
-    // if(showOnMapValue && latLng==null) return showToast("Please select location");
+    if(showOnMapValue && latLng==null) return showToast("Please select location");
     if(apiResponse.status==Status.LOADING) return;
+
 
     apiResponse=ApiResponse(status: Status.LOADING);
     update();
@@ -61,6 +65,9 @@ class ControllerCreatePost extends GetxController{
         "image":listImages.join(","),
         "people_tagged":selectedUserList.map((toElement)=>toElement.userId).toList(),
         "tags":selectedTagList,
+        "location": selectedAddress??"",
+        "latitude":latLng?.latitude??"",
+        "longitude":latLng?.longitude??""
       }));
       print(res);
       ModelX modelX=ModelX.fromJson(res);
@@ -83,7 +90,6 @@ class ControllerCreatePost extends GetxController{
       list.add(x['name']);
     }
     return list;
-    // return (res['data'] as List).map<String>((e) => e['name'].toString()).toList();
   }
 
   Future<List<Data>> fetchUsers() async {
@@ -95,6 +101,21 @@ class ControllerCreatePost extends GetxController{
       list.add(x);
     }
     return list;
-    // return (res['data'] as List).map<String>((e) => e['name'].toString()).toList();
+  }
+
+  locateMe() async {
+    LocationService locationService = LocationService();
+    LocationData? loc = await locationService.getCurrentLocation();
+
+    if (loc != null) {
+      print("Latitude: ${loc.latitude}");
+      print("Longitude: ${loc.longitude}");
+      try{
+        await LocationService().decodeLocation(LatLng(loc.latitude??0, loc.longitude??0));
+      }catch(e){}
+
+    } else {
+      print("Location permission denied or service disabled");
+    }
   }
 }

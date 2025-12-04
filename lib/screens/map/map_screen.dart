@@ -24,33 +24,30 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
 
 
-  String _modernDarkMapStyle = '''
-[
-  {"elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
-  {"elementType": "labels.text.fill","stylers":[{"color": "#d0e0f0"}]},
-  {"elementType": "labels.text.stroke","stylers":[{"color": "#0f1c2c"}]},
-  
-  {"featureType": "administrative","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
-  {"featureType": "administrative.country","elementType": "labels.text.fill","stylers":[{"color": "#a0c0e0"}]},
-  
-  {"featureType": "landscape","elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
-  {"featureType": "poi","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
-  {"featureType": "poi.park","elementType": "geometry","stylers":[{"color": "#123744"}]},
-  
-  {"featureType": "road","elementType": "geometry","stylers":[{"color": "#1f3b5c"}]},
-  {"featureType": "road","elementType": "geometry.stroke","stylers":[{"color": "#123144"}]},
-  {"featureType": "road.highway","elementType": "geometry","stylers":[{"color": "#28506a"}]},
-  {"featureType": "road.highway","elementType": "geometry.stroke","stylers":[{"color": "#122839"}]},
-  
-  {"featureType": "transit","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
-  
-  {"featureType": "water","elementType": "geometry","stylers":[{"color": "#041f3d"}]},
-  {"featureType": "water","elementType": "labels.text.fill","stylers":[{"color": "#7aa7c4"}]}
-]
-''';
-
-
-
+  // String _modernDarkMapStyle = '''
+// [
+//   {"elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
+//   {"elementType": "labels.text.fill","stylers":[{"color": "#d0e0f0"}]},
+//   {"elementType": "labels.text.stroke","stylers":[{"color": "#0f1c2c"}]},
+//  
+//   {"featureType": "administrative","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
+//   {"featureType": "administrative.country","elementType": "labels.text.fill","stylers":[{"color": "#a0c0e0"}]},
+//  
+//   {"featureType": "landscape","elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
+//   {"featureType": "poi","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
+//   {"featureType": "poi.park","elementType": "geometry","stylers":[{"color": "#123744"}]},
+//  
+//   {"featureType": "road","elementType": "geometry","stylers":[{"color": "#1f3b5c"}]},
+//   {"featureType": "road","elementType": "geometry.stroke","stylers":[{"color": "#123144"}]},
+//   {"featureType": "road.highway","elementType": "geometry","stylers":[{"color": "#28506a"}]},
+//   {"featureType": "road.highway","elementType": "geometry.stroke","stylers":[{"color": "#122839"}]},
+//  
+//   {"featureType": "transit","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
+//  
+//   {"featureType": "water","elementType": "geometry","stylers":[{"color": "#041f3d"}]},
+//   {"featureType": "water","elementType": "labels.text.fill","stylers":[{"color": "#7aa7c4"}]}
+// ]
+// ''';
 
 
   @override
@@ -65,7 +62,7 @@ class _MapScreenState extends State<MapScreen> {
               child: Stack(
                 children: [
                   GoogleMap(
-                    style: _modernDarkMapStyle,
+                    // style: _modernDarkMapStyle,
                     mapType: MapType.normal,
                     fortyFiveDegreeImageryEnabled: true,
                     zoomControlsEnabled: false,
@@ -87,24 +84,36 @@ class _MapScreenState extends State<MapScreen> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(spacing: 16,crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Row(spacing: 8,children: [
-                          //   Expanded(child: TextFieldCommon(prefixIcon: Icon(Icons.search,color: Colors.white,),borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))
-                          //   // ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.5),padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.arrow_back_ios_new_rounded,size: 24,color: Colors.white,)),
-                          //   // Expanded(child: Material(elevation: 10,borderRadius: BorderRadius.circular(30),child: TextFieldCommon(borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))),
-                          //   // ContainerDecorated(padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.search,size: 24,color: Colors.white,)),
-                          //
-                          // ],),
+                          if(controller.showSearch)Row(spacing: 8,children: [
+                            Expanded(child: TextFieldCommon(isDense: true,suffixIcon: InkWell(onTap: (){
+                              controller.showSearch=false;
+                              controller.update();
+                            },child: Icon(Icons.close,color: Colors.white,)),prefixIcon: Icon(Icons.search,color: Colors.white,),borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,))
+                            // ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.5),padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.arrow_back_ios_new_rounded,size: 24,color: Colors.white,)),
+                            // Expanded(child: Material(elevation: 10,borderRadius: BorderRadius.circular(30),child: TextFieldCommon(borderRadius: 30,hintText: "Search anything",fillColor: AppColors.primary,textStyleHint: TextStyle(color: Colors.white,fontSize: 12),))),
+                            // ContainerDecorated(padding: 8,elevation: 10,borderRadius: 30,color: AppColors.primary,child: Icon(Icons.search,size: 24,color: Colors.white,)),
+
+                          ],),
                           Row(spacing: 8,
                             children: [
-                              ContainerDecorated(color: Color(0xFFCFCECE),borderRadius: 40,child: Icon(Icons.search,color: AppColors.primary,size: 20,)),
+                              if(!controller.showSearch)ContainerDecorated(onTap: (){
+                                controller.showSearch=true;
+                                controller.update();
+                              },color: AppColors.primary,borderRadius: 40,child: Row(spacing: 4,
+                                children: [
+                                  ContainerDecorated(borderRadius: 40,padding: 2,child: Icon(Icons.search,size: 16,)),
+                                  SmallText(text: "Search",color: Colors.white,size: 11,),
+                                  SizedBox(width: 8,)
+                                ],
+                              )),
                               Expanded(
                                 child: SingleChildScrollView(scrollDirection: Axis.horizontal,
                                   child: Row(spacing: 8,children: [
                                     for(var x in controller.listTags)
-                                      Container(decoration: BoxDecoration(color: Color(0xFFCFCECE),borderRadius: BorderRadius.circular(30)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: Row(spacing: 8,
+                                      Container(decoration: BoxDecoration(border: Border.all(color: AppColors.primary),borderRadius: BorderRadius.circular(30)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: Row(spacing: 8,
                                         children: [
                                           // Icon(x['icon'] as IconData,size: 16,color:Colors.white,),
-                                          SmallText(text: "${x.name}",fontWeight: FontWeight.w600,),
+                                          SmallText(text: "${x.name}",fontWeight: FontWeight.w600,color: AppColors.primary,),
                                         ],
                                       )),
                                   ],),

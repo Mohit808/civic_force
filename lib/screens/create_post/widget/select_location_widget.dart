@@ -1,5 +1,6 @@
 import 'package:civic_force/common_widget/button_single_atom.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
+import 'package:civic_force/screens/create_post/controller_create_post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +8,8 @@ import '../../../common_widget/text_common.dart';
 import '../select_location_screen/select_location_screen.dart';
 
 class SelectLocationWidget extends StatelessWidget {
-  const SelectLocationWidget({super.key});
+  const SelectLocationWidget({super.key, required this.controllerCreatePost});
+  final ControllerCreatePost controllerCreatePost;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +23,16 @@ class SelectLocationWidget extends StatelessWidget {
         SmallText(text: "Hi uses your location to find awesome content near by your location. It's one of the most important part of our app.",fontWeight: FontWeight.w400,textAlign: TextAlign.center,),
         Row(spacing: 16,children: [
           Expanded(child: ButtonSingleAtom(tap: (){
+            Get.back();
             Get.to(()=>SelectLocationScreen());
           },color: Color(0xFFDADADA),widget: Row(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
             Icon(Icons.map,size: 15,),
             SmallText(text: "Map",fontWeight: FontWeight.w600,size: 10,)
           ],),)),
-          Expanded(child: ButtonSingleAtom(color: Colors.blueAccent,widget: Row(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
+          Expanded(child: ButtonSingleAtom(tap: (){
+            Get.back();
+            controllerCreatePost.locateMe();
+          },color: Colors.blueAccent,widget: Row(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
             Icon(Icons.my_location_rounded,size: 15,color: Colors.white,),
             SmallText(text: "Locate me",color: Colors.white,fontWeight: FontWeight.w600,size: 10,)
           ],),)),

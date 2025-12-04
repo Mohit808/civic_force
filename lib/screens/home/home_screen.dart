@@ -5,6 +5,7 @@ import 'package:civic_force/network_handling/network_widgets/loading_widget.dart
 import 'package:civic_force/network_handling/network_widgets/no_data_widget.dart';
 import 'package:civic_force/network_handling/network_widgets/something_went_wrong_widget.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
+import 'package:civic_force/story/story_main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ import '../../common_widget/app_colors.dart';
 import '../../common_widget/container_decorated.dart';
 import '../../common_widget/network_image_widget.dart';
 import '../../common_widget/text_common.dart';
+import '../comment_screen/comment_screen.dart';
 import '../user_profile/user_profile_screen.dart';
 
 
@@ -33,26 +35,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     NormalHeadingText(text: "Story",letterSpacing: 2,),
                     SizedBox(height: 8,),
-                    SizedBox(height: 80,child: ListView.builder(scrollDirection: Axis.horizontal,itemBuilder: (itemBuilder,index){
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: SizedBox(height: 100,width: 56,
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  ContainerDecorated(padding: 2,colorBorder: index==0?Colors.blue:Colors.grey,color: Colors.transparent,borderRadius: 50,child: SizedBox(height: 50,width: 50,child: ClipRRect(borderRadius: BorderRadius.circular(50),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,)))),
-
-                                  index!=0?SizedBox():Positioned(bottom: 0,right: 0,child: ContainerDecorated(borderRadius: 20,color: Colors.blue,padding: 2,child: Icon(Icons.add,color: Colors.white,size: 16,)))
-                                ],
-                              ),
-                              SizedBox(height: 4,),
-                              SmallText(text: index==0?"You":"Username",fontWeight: FontWeight.w500,overflow: TextOverflow.ellipsis,)
-                            ],
-                          ),
-                        ),
-                      );
-                    }),),
+                    StoryMainWidget(),
                     SizedBox(height: 16,),
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -61,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                           child: PopupMenuButton(onSelected: (value){
                             // controller.changeLayout();
                           },iconSize: 16,itemBuilder: (BuildContext context) { return [
-                            PopupMenuItem(child: SmallText(text: "Change layout",),value: "value",)
+                            PopupMenuItem(value: "value",child: SmallText(text: "Change layout",),)
                           ]; },),
                         ),
                       ],
@@ -91,15 +74,16 @@ class HomeScreen extends StatelessWidget {
                                             !controller.layoutChanged?SizedBox(): SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
                                             !controller.layoutChanged?SizedBox(): SizedBox(width: 8,),
                                             SmallText(text: "Ivan Brennan",fontWeight: FontWeight.w700,letterSpacing: 0.3,),
+                                            SizedBox(width: 16,),
+                                            ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
+                                            SizedBox(width: 8,),
+                                            SmallText(text: formatDateRelative(controller.list[index].createdAt),color: Colors.black54,size: 11,),
                                           ],
                                         ),
                                       ),
-                                      SizedBox(width: 16,),
-                                      ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
-                                      SizedBox(width: 8,),
-                                      SmallText(text: "2m",color: Colors.black54,),
                                     ],
                                   ),
+
                                   SizedBox(height: 4,),
                                   if(controller.list[index].text!=null&&controller.list[index].text!.isNotEmpty)SmallText(text: controller.list[index].text??""),
                                   if(controller.list[index].image!=null && controller.list[index].image!.isNotEmpty)Padding(
@@ -112,9 +96,15 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 8,),
                                   Row(children: [
-                                    FaIcon(FontAwesomeIcons.heart,size: 16,color: Colors.black54,),
-                                    SizedBox(width: 8,),
-                                    SmallText(text: "${controller.list[index].likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
+
+                                    controller.indexLoadingLike==index ?
+                                    SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)) :InkWell(onTap: (){
+                                      controller.likePost(index: index);
+                                    }, child: Row(children: [
+                                      FaIcon(controller.list[index].isLiked==true? FontAwesomeIcons.solidHeart: FontAwesomeIcons.heart,size: 16,color: controller.list[index].isLiked==true?Colors.red:Colors.black54,),
+                                      SizedBox(width: 8,),
+                                      SmallText(text: "${controller.list[index].likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
+                                    ],),),
 
                                     Spacer(),
                                     FaIcon(FontAwesomeIcons.retweet,size: 16,color: Colors.black54,),
@@ -123,7 +113,9 @@ class HomeScreen extends StatelessWidget {
 
 
                                     Spacer(),
-                                    FaIcon(FontAwesomeIcons.commentDots,size: 16,color: Colors.black54,),
+                                    InkWell(onTap: (){
+                                      Get.to(()=>CommentScreen(postId: controller.list[index].id,));
+                                    },child: FaIcon(FontAwesomeIcons.commentDots,size: 16,color: Colors.black54,)),
                                     SizedBox(width: 8,),
                                     SmallText(text: "${controller.list[index].likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
 
@@ -135,7 +127,10 @@ class HomeScreen extends StatelessWidget {
 
 
                                     Spacer(),
-                                    FaIcon(FontAwesomeIcons.bookmark,size: 14,color: Colors.black54,),
+                                    controller.apiResponseSavedPost.status==Status.LOADING && controller.indexLoadingSaved==index?SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)):
+                                    InkWell(onTap: (){
+                                      controller.postSavedPost(index: index);
+                                    },child: FaIcon(controller.list[index].isSaved==true?FontAwesomeIcons.solidBookmark: FontAwesomeIcons.bookmark,size: 14,color: controller.list[index].isSaved==true?Colors.red:Colors.black54,)),
                                     SizedBox(width: 16,),
                                     // SmallText(text: "Saved",fontWeight: FontWeight.w600,color: Colors.black54,),
 
@@ -237,4 +232,49 @@ class HomeScreen extends StatelessWidget {
         }
     );
   }
+}
+
+
+
+String formatDateRelative(String? isoUtc) {
+  if (isoUtc == null || isoUtc.trim().isEmpty) return "";
+
+  DateTime dtUtc;
+  try {
+    dtUtc = DateTime.parse(isoUtc);
+  } catch (e) {
+    return isoUtc;
+  }
+
+  // convert to local time
+  final DateTime dtLocal = dtUtc.toLocal();
+
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+  final dateOnly = DateTime(dtLocal.year, dtLocal.month, dtLocal.day);
+
+  String formatTime(DateTime dt) {
+    int hour = dt.hour;
+    final minute = dt.minute.toString().padLeft(2, '0');
+    final ampm = hour >= 12 ? 'PM' : 'AM';
+    if (hour == 0) {
+      hour = 12; // Midnight
+    } else if (hour > 12) {
+      hour -= 12;
+    }
+    return '$hour:$minute $ampm';
+  }
+
+  final timeString = formatTime(dtLocal);
+
+  if (dateOnly == today) return timeString;
+  if (dateOnly == today.subtract(const Duration(days: 1))) return 'Yesterday';
+
+  // fallback for other dates
+  String two(int n) => n.toString().padLeft(2, '0');
+  final day = two(dtLocal.day);
+  final month = two(dtLocal.month);
+  final year = two(dtLocal.year % 100);
+
+  return '$day/$month/$year';
 }

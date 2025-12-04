@@ -58,11 +58,11 @@ class TextFieldCommon extends TextFormField{
       style: TextStyle(fontSize: 12,color: colorText),
       textCapitalization: textCapitalization?? TextCapitalization.sentences,
 
-      decoration: InputDecoration(label: label.runtimeType==String?SmallText(text: label,):label,filled: true,isDense: isDense,fillColor:fillColor,enabledBorder: hideOutlineBorder!=null?null:OutlineInputBorder(borderRadius: borderRadius!=null?BorderRadius.circular(borderRadius):BorderAtom.borderRadiusTextField,borderSide: BorderSide(color: BorderColor??Colors.grey.shade300)),
+      decoration: InputDecoration(label: label.runtimeType==String?Text(label,style: TextStyle(fontSize: 12,color: Colors.white),):label,filled: true,isDense: isDense,fillColor:fillColor,enabledBorder: hideOutlineBorder!=null?null:OutlineInputBorder(borderRadius: borderRadius!=null?BorderRadius.circular(borderRadius):BorderAtom.borderRadiusTextField,borderSide: BorderSide(color: BorderColor??Colors.grey.shade300)),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
-        hintStyle:  TextStyle(fontSize: 12,color: colorHint),
+        hintStyle:  TextStyle(fontSize: 12,color: Colors.white70),
         contentPadding:  EdgeInsets.all(contentPadding??AppSizes.h_12),
         border:  hideOutlineBorder!=null?null:OutlineInputBorder(
           borderRadius:  borderRadius!=null?BorderRadius.circular(borderRadius):BorderAtom.borderRadiusTextField,

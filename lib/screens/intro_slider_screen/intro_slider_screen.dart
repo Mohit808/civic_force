@@ -1,8 +1,6 @@
 import 'package:civic_force/auth/login/login_screen.dart';
-import 'package:dotlottie_loader/dotlottie_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import '../../common_widget/app_bar.dart';
 import '../../common_widget/button_single_atom.dart';
 import '../../common_widget/container_decorated.dart';
@@ -78,7 +76,6 @@ class IntroSliderScreen extends StatelessWidget {
                       ],),
                     ),
                   ),
-
                 ],
               ),
             ],

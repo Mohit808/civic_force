@@ -13,13 +13,12 @@ import '../../utils/app_images.dart';
 import '../../utils/app_urls.dart';
 
 class ControllerMap extends GetxController{
+  bool showSearch=false;
   List<Data> list=[];
   List<tm.Data> listTags=[];
   ApiResponse apiResponse=ApiResponse(status: Status.LOADING);
 
   Completer<GoogleMapController> controllerGoogleMap = Completer<GoogleMapController>();
-
-
   late BitmapDescriptor customIcon;
 
 

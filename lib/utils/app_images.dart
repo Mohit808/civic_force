@@ -21,4 +21,5 @@ class AppImages{
   static String get anim2 => "${assetPath}anim2.lottie";
   static String get anim3 => "${assetPath}anim3.lottie";
   static String get user => "${assetPath}user.png";
+  static String get rightArrow => "${assetPath}right_arrow.png";
 }

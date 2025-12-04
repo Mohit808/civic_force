@@ -12,4 +12,12 @@ class AppUrls {
   static String resetPassword="resetPassword";
   static String generatePresignedUrl="generatePresignedUrl";
   static String userProfile="userProfile";
+  static String like="like";
+  static String story="story";
+  static String storyViewCount="storyViewCount";
+  static String comment="comment";
+  static String replyComment="replyComment";
+  static String likeComment="likeComment";
+  static String savedPost="savedPost";
 }
+

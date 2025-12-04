@@ -4,7 +4,7 @@ import 'package:civic_force/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
 class ImageCommon extends StatelessWidget {
-  const ImageCommon({super.key, required this.src, this.color, this.borderRadius, this.height, this.width, this.fit,this.isFile});
+  const ImageCommon({required this.src,super.key,  this.color, this.borderRadius, this.height, this.width, this.fit,this.isFile});
   final String src;
   final Color? color;
   final double? borderRadius;

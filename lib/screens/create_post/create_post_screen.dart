@@ -127,11 +127,16 @@ class CreatePostScreen extends StatelessWidget {
 
 
                             InkWell(onTap: (){
-                              showDialog(context: context, builder: (builder)=>Dialog(child: SelectLocationWidget(),));
+                              showDialog(context: context, builder: (builder)=>Dialog(child: SelectLocationWidget(controllerCreatePost: controller,),));
                             },
                               child: Row(spacing: 8,children: [
                                 Icon(Icons.add_location_alt_outlined,size: 16,color: Colors.deepOrange,),
-                                SmallText(text: "Add location",color: Colors.deepOrange,fontWeight: FontWeight.w500,)
+                                Expanded(child: SmallText(text: controller.selectedAddress?? "Add location",color: Colors.deepOrange,fontWeight: FontWeight.w500,maxLine: 1,overflow: TextOverflow.ellipsis,)),
+                                if(controller.selectedAddress!=null)InkWell(onTap: (){
+                                  controller.selectedAddress=null;
+                                  controller.latLng=null;
+                                  controller.update();
+                                },child: Icon(Icons.close,size: 16,))
                               ],),
                             ),
 
