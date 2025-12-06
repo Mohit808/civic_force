@@ -135,6 +135,9 @@ class CreatePostScreen extends StatelessWidget {
                                 if(controller.selectedAddress!=null)InkWell(onTap: (){
                                   controller.selectedAddress=null;
                                   controller.latLng=null;
+                                  controller.selectedCity=null;
+                                  controller.selectedState=null;
+                                  controller.selectedCountry=null;
                                   controller.update();
                                 },child: Icon(Icons.close,size: 16,))
                               ],),
@@ -217,6 +220,13 @@ class CreatePostScreen extends StatelessWidget {
                                                   onTapOutside: (v){
                                                     hideKeyboard();
                                                   },
+                                                    onSubmitted: (value){
+                                                      if(value.isNotEmpty){
+                                                        controller.selectedTagList.add(value);
+                                                        controller.update();
+                                                        controller.textEditingControllerTags.text="";
+                                                      }
+                                                    },
                                                     controller: controllerX,
                                                     focusNode: focusNode,
                                                     autofocus: true,

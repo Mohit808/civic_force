@@ -1,3 +1,4 @@
+import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import '../../auth/login/login_screen.dart';
 import '../../common_widget/app_bar.dart';
 import '../../utils.dart';
+import '../add_city_image/add_city_image_screen.dart';
 import '../polls_screen/polls_screen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -37,6 +39,15 @@ class AccountScreen extends StatelessWidget {
               SmallText(text: "${userInfo?.name}",fontWeight: FontWeight.w600,size: 18,),
             ],),
             SizedBox(height: 16,),
+            
+            ContainerDecorated(onTap: (){
+              Get.to(()=>AddCityImageScreen());
+            },padding: 16,child: Row(spacing: 16,children: [
+              Icon(Icons.add_a_photo_outlined),
+              Expanded(child: SmallText(text: "Add photos to city and tags to help others explore the city.",fontWeight: FontWeight.w600,)),
+              ContainerDecorated(color: AppColors.primary,child: Icon(Icons.arrow_forward,color: Colors.white,size: 16,)),
+            ],),),
+            
 
             Divider(),
             Row(spacing: 16,children: [

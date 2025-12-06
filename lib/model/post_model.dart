@@ -82,7 +82,8 @@ class Data {
       bool? isLiked,
       num? commentsCount,
       num? retweetCount, 
-      bool? isDeleted, 
+      Data? retweetedPost,
+      bool? isDeleted,
       bool? isReported, 
       bool? isArchived, 
       String? createdAt, 
@@ -104,6 +105,7 @@ class Data {
     _isLiked = isLiked;
     _commentsCount = commentsCount;
     _retweetCount = retweetCount;
+    _retweetedPost = retweetedPost;
     _isDeleted = isDeleted;
     _isReported = isReported;
     _isArchived = isArchived;
@@ -129,6 +131,7 @@ class Data {
     _isLiked = json['is_liked'];
     _commentsCount = json['comments_count'];
     _retweetCount = json['retweet_count'];
+    _retweetedPost = json['retweeted_post'];
     _isDeleted = json['is_deleted'];
     _isReported = json['is_reported'];
     _isArchived = json['is_archived'];
@@ -157,6 +160,7 @@ class Data {
   bool? _isLiked;
   num? _commentsCount;
   num? _retweetCount;
+  Data? _retweetedPost;
   bool? _isDeleted;
   bool? _isReported;
   bool? _isArchived;
@@ -179,6 +183,7 @@ Data copyWith({  num? id,
   bool? isLiked,
   num? commentsCount,
   num? retweetCount,
+  Data? retweetedPost,
   bool? isDeleted,
   bool? isReported,
   bool? isArchived,
@@ -200,6 +205,7 @@ Data copyWith({  num? id,
   isLiked: isLiked ?? _isLiked,
   commentsCount: commentsCount ?? _commentsCount,
   retweetCount: retweetCount ?? _retweetCount,
+  retweetedPost: retweetedPost ?? _retweetedPost,
   isDeleted: isDeleted ?? _isDeleted,
   isReported: isReported ?? _isReported,
   isArchived: isArchived ?? _isArchived,
@@ -222,6 +228,7 @@ Data copyWith({  num? id,
   bool? get isLiked => _isLiked;
   num? get commentsCount => _commentsCount;
   num? get retweetCount => _retweetCount;
+  Data? get retweetedPost => _retweetedPost;
   bool? get isDeleted => _isDeleted;
   bool? get isReported => _isReported;
   bool? get isArchived => _isArchived;
@@ -257,6 +264,7 @@ Data copyWith({  num? id,
     map['is_liked'] = _isLiked;
     map['comments_count'] = _commentsCount;
     map['retweet_count'] = _retweetCount;
+    map['retweeted_post'] = _retweetedPost;
     map['is_deleted'] = _isDeleted;
     map['is_reported'] = _isReported;
     map['is_archived'] = _isArchived;

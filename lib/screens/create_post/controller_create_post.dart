@@ -30,6 +30,9 @@ class ControllerCreatePost extends GetxController{
   ApiResponse apiResponse=ApiResponse(status: Status.INITIAL);
 
   String? selectedAddress;
+  String? selectedCity;
+  String? selectedState;
+  String? selectedCountry;
 
   final dynamic image;
   ControllerCreatePost({this.image});
@@ -60,6 +63,19 @@ class ControllerCreatePost extends GetxController{
         listImages.add(image);
       }
 
+      print(jsonEncode({
+        "text":textEditingControllerText.text,
+        "image":listImages.join(","),
+        "people_tagged":selectedUserList.map((toElement)=>toElement.userId).toList(),
+        "tags":selectedTagList,
+        "location": selectedAddress??"",
+        "latitude":latLng?.latitude??"",
+        "longitude":latLng?.longitude??"",
+        "city":selectedCity??"",
+        "state":selectedState??"",
+        "country":selectedCountry??""
+      }));
+
       var res=await NetworkManager().post(AppUrls.post,data: jsonEncode({
         "text":textEditingControllerText.text,
         "image":listImages.join(","),
@@ -67,7 +83,10 @@ class ControllerCreatePost extends GetxController{
         "tags":selectedTagList,
         "location": selectedAddress??"",
         "latitude":latLng?.latitude??"",
-        "longitude":latLng?.longitude??""
+        "longitude":latLng?.longitude??"",
+        "city":selectedCity??"",
+        "state":selectedState??"",
+        "country":selectedCountry??""
       }));
       print(res);
       ModelX modelX=ModelX.fromJson(res);

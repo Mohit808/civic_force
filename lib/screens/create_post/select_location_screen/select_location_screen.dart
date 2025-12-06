@@ -26,7 +26,7 @@ class SelectLocationScreen extends StatelessWidget {
               controller.markers.add(Marker(markerId: MarkerId(latLng.toString()),position: latLng));
               controller.googleMapController!.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15));
               try{
-                await LocationService().decodeLocation(latLng);
+                controller.selectedAddress =await LocationService().decodeLocation(latLng);
               }catch(e){
                 controller.failedLocation=true;
               }
