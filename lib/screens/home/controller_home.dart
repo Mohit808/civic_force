@@ -23,24 +23,27 @@ class ControllerHome extends GetxController{
   fetchData() async {
     try{
       var res=await NetworkManager().get(AppUrls.post);
+      // print(res);
       PostModel postModel=PostModel.fromJson(res);
       list.addAll(postModel.data!);
       apiResponse=ApiResponse(status: Status.COMPLETED);
     }catch(e){
+      print(e);
       apiResponse=ApiResponse(status: Status.ERROR);
     }
     update();
   }
 
 
-  likePost({index}) async {
-    indexLoadingLike =index;
+  likePost({id}) async {
+    indexLoadingLike =id.toInt();
     update();
     try{
       var res=await NetworkManager().post(AppUrls.like,data: {
-        "post_id":"${list[index].id}"
+        "post_id":"$id"
       });
       like_model.LikeModel likeModel=like_model.LikeModel.fromJson(res);
+      int index=list.indexWhere((test)=>test.id==id);
       if(likeModel.status==200){
         showToastSuccess(likeModel.message);
         list[index].setLike=likeModel.data?.like??false;
@@ -59,18 +62,20 @@ class ControllerHome extends GetxController{
     update();
   }
 
-  postSavedPost({index}) async {
+  postSavedPost({id}) async {
     apiResponseSavedPost = ApiResponse(status: Status.LOADING);
-    indexLoadingSaved=index;
+    indexLoadingSaved=id;
     update();
     try{
       var res=await NetworkManager().post(AppUrls.savedPost,data: {
-        "post_id": "${list[index].id}"
+        "post_id": "${id}"
       });
       ModelX modelX=ModelX.fromJson(res);
       if(modelX.status==200){
         showToastSuccess(modelX.message);
-        list[index].setSaved=modelX.data['saved'];
+        // list[index].setSaved=modelX.data['saved'];
+        int index=list.indexWhere((test)=>"${test.id}"=="$id");
+        list[index].setSaved=modelX.data['saved']??false;
       }else{
         showToastError(modelX.message);
       }

@@ -1,6 +1,7 @@
 import 'package:civic_force/dashboard_screen.dart';
 import 'package:civic_force/screens/basic_details/basic_details_screen.dart';
 import 'package:civic_force/screens/intro_slider_screen/intro_slider_screen.dart';
+import 'package:civic_force/screens/map/map_screen.dart';
 import 'package:civic_force/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
         primarySwatch: AppColors.materialColor,
       ),
-      // home: DashboardScreen(),
+      // home: MapScreen(),
       home:   box.read(Utils.intro)==null?IntroSliderScreen():  box.read(Utils.userToken)==null?LoginScreen(): box.read(Utils.info)==null? BasicDetailsScreen():  DashboardScreen(),
 
     );

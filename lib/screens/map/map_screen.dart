@@ -29,21 +29,21 @@ class _MapScreenState extends State<MapScreen> {
 //   {"elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
 //   {"elementType": "labels.text.fill","stylers":[{"color": "#d0e0f0"}]},
 //   {"elementType": "labels.text.stroke","stylers":[{"color": "#0f1c2c"}]},
-//  
+//
 //   {"featureType": "administrative","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
 //   {"featureType": "administrative.country","elementType": "labels.text.fill","stylers":[{"color": "#a0c0e0"}]},
-//  
+//
 //   {"featureType": "landscape","elementType": "geometry","stylers":[{"color": "#0f1c2c"}]},
 //   {"featureType": "poi","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
 //   {"featureType": "poi.park","elementType": "geometry","stylers":[{"color": "#123744"}]},
-//  
+//
 //   {"featureType": "road","elementType": "geometry","stylers":[{"color": "#1f3b5c"}]},
 //   {"featureType": "road","elementType": "geometry.stroke","stylers":[{"color": "#123144"}]},
 //   {"featureType": "road.highway","elementType": "geometry","stylers":[{"color": "#28506a"}]},
 //   {"featureType": "road.highway","elementType": "geometry.stroke","stylers":[{"color": "#122839"}]},
-//  
+//
 //   {"featureType": "transit","elementType": "geometry","stylers":[{"color": "#1b2a43"}]},
-//  
+//
 //   {"featureType": "water","elementType": "geometry","stylers":[{"color": "#041f3d"}]},
 //   {"featureType": "water","elementType": "labels.text.fill","stylers":[{"color": "#7aa7c4"}]}
 // ]
@@ -64,16 +64,29 @@ class _MapScreenState extends State<MapScreen> {
                   GoogleMap(
                     // style: _modernDarkMapStyle,
                     mapType: MapType.normal,
+                    buildingsEnabled: true,
+                    tiltGesturesEnabled: true,
                     fortyFiveDegreeImageryEnabled: true,
                     zoomControlsEnabled: false,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(28.611999, 77.178675),
-                      zoom: 5.4746,
+                      zoom: controller.zoom,
                     ),
+                    onCameraMove: (CameraPosition position) {
+                      controller.zoom = position.zoom;
+                      // debugPrint("Current Zoom: ${controller.zoom}");
+                    },
+
+                    // (Optional) Called when user stops moving the map
+                    onCameraIdle: () {
+                      debugPrint("Final Zoom: ${controller.zoom}");
+                      controller.getVisibleCorners();
+                    },
+
                     onMapCreated: (GoogleMapController mapController) {
                       controller.controllerGoogleMap.complete(mapController);
                     },
-                      // circles: controller.circles,
+                    circles: controller.circles,
                     markers: controller.markers,
                   ),
                   // Image.network("https://www.thestatesman.com/wp-content/uploads/2020/04/googl_ED.jpg",height: Get.height-70,fit: BoxFit.cover,),
@@ -110,12 +123,19 @@ class _MapScreenState extends State<MapScreen> {
                                 child: SingleChildScrollView(scrollDirection: Axis.horizontal,
                                   child: Row(spacing: 8,children: [
                                     for(var x in controller.listTags)
-                                      Container(decoration: BoxDecoration(border: Border.all(color: AppColors.primary),borderRadius: BorderRadius.circular(30)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: Row(spacing: 8,
-                                        children: [
-                                          // Icon(x['icon'] as IconData,size: 16,color:Colors.white,),
-                                          SmallText(text: "${x.name}",fontWeight: FontWeight.w600,color: AppColors.primary,),
-                                        ],
-                                      )),
+                                      InkWell(onTap: (){
+                                        controller.selectedTag=x.name;
+
+                                        controller.update();
+                                        controller.fetchData();
+                                      },
+                                        child: Container(decoration: BoxDecoration(color: x.name==controller.selectedTag?Colors.red:Colors.transparent,border: Border.all(color: AppColors.primary),borderRadius: BorderRadius.circular(30)),padding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),child: Row(spacing: 8,
+                                          children: [
+                                            // Icon(x['icon'] as IconData,size: 16,color:Colors.white,),
+                                            SmallText(text: "${x.name}",fontWeight: FontWeight.w600,color: AppColors.primary,),
+                                          ],
+                                        )),
+                                      ),
                                   ],),
                                 ),
                               ),

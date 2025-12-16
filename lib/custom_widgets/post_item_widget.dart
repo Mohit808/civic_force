@@ -1,4 +1,5 @@
 import 'package:civic_force/common_widget/app_colors.dart';
+import 'package:civic_force/model/post_model.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
 import 'package:civic_force/utils.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,12 @@ import '../screens/retweet/retweet_widget.dart';
 import '../screens/user_profile/user_profile_screen.dart';
 
 class PostItemWidget extends StatelessWidget {
-  const PostItemWidget({super.key, required this.controller, required this.index});
+  const PostItemWidget({super.key, required this.controller, required this.data, this.hideRetweet});
   final ControllerHome controller;
-  final int index;
+  final Data data;
+  final bool? hideRetweet;
+
+  // final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +46,7 @@ class PostItemWidget extends StatelessWidget {
                       SizedBox(width: 16,),
                       ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
                       SizedBox(width: 8,),
-                      SmallText(text: formatDateRelative(controller.list[index].createdAt),color: Colors.black54,size: 11,),
+                      SmallText(text: formatDateRelative(data.createdAt),color: Colors.black54,size: 11,),
                     ],
                   ),
                 ),
@@ -50,27 +54,30 @@ class PostItemWidget extends StatelessWidget {
             ),
 
             SizedBox(height: 4,),
-            if(controller.list[index].text!=null&&controller.list[index].text!.isNotEmpty)SmallText(text: controller.list[index].text??""),
-            if(controller.list[index].image!=null && controller.list[index].image!.isNotEmpty)Padding(
+            if(data.text!=null&&data.text!.isNotEmpty)SmallText(text: data.text??""),
+            if(data.image!=null && data.image!.isNotEmpty)Padding(
               padding: const EdgeInsets.only(top: 8.0,bottom: 8),
               child:
-              GridView.builder(physics: NeverScrollableScrollPhysics(),itemCount: controller.list[index].image!.split(",").length==1?1:2,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: controller.list[index].image!.split(",").length,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 1), itemBuilder: (itemBuilder,indexXX){
-                return ImageCommon(src: controller.list[index].image!.split(",")[indexXX],fit: BoxFit.cover,borderRadius: 15,);
+              GridView.builder(physics: NeverScrollableScrollPhysics(),itemCount:data.image!.split(",").length==1?1:2,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: data.image!.split(",").length,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 1), itemBuilder: (itemBuilder,indexXX){
+                return ImageCommon(src: data.image!.split(",")[indexXX],fit: BoxFit.cover,borderRadius: 15,);
               }),
               // SizedBox(width: double.infinity,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src: controller.list[index].image?.split(",").first??"https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
             ),
 
-            // if(controller.list[index].retweetedPost!=null) PostItemWidget(controller: controller, index: index),
-            SizedBox(height: 8,),
-            Row(children: [
+            if(data.retweetedPost!=null) ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),margin: 8,
+              child: PostItemWidget(controller: controller, data: data.retweetedPost!,hideRetweet: true,),
+            ),
+            if(hideRetweet!=true)SizedBox(height: 8,),
+            if(hideRetweet!=true)Row(children: [
 
-              controller.indexLoadingLike==index ?
+              controller.list.any((test)=>"${test.id}"=="${controller.indexLoadingLike}")?
+              // controller.indexLoadingLike==index ?
               SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)) :InkWell(onTap: (){
-                controller.likePost(index: index);
+                controller.likePost(id: data.id);
               }, child: Row(children: [
-                FaIcon(controller.list[index].isLiked==true? FontAwesomeIcons.solidHeart: FontAwesomeIcons.heart,size: 16,color: controller.list[index].isLiked==true?Colors.red:Colors.black54,),
+                FaIcon(data.isLiked==true? FontAwesomeIcons.solidHeart: FontAwesomeIcons.heart,size: 16,color: data.isLiked==true?Colors.red:Colors.black54,),
                 SizedBox(width: 8,),
-                SmallText(text: "${controller.list[index].likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
+                SmallText(text: "${data.likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
               ],),),
 
               Spacer(),
@@ -87,7 +94,7 @@ class PostItemWidget extends StatelessWidget {
                           },child: Icon(Icons.close))
                         ],),
                         SizedBox(height: 16,),
-                        ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, index: index)),
+                        ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, data: data.retweetedPost!)),
                         SizedBox(height: 16,),
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -106,7 +113,7 @@ class PostItemWidget extends StatelessWidget {
                               )
                             ],),
                             ContainerDecorated(onTap: (){
-                              DataSourceCommon().retweetFunction(controller.list[index].id);
+                              DataSourceCommon().retweetFunction(data.id);
                             },color: AppColors.primary,paddingEdgeInsets: EdgeInsets.symmetric(vertical: 5,horizontal: 8),
                               child: Row(mainAxisSize: MainAxisSize.min,spacing: 8,
                                 children: [
@@ -129,30 +136,30 @@ class PostItemWidget extends StatelessWidget {
                 child: Row(children: [
                   FaIcon(FontAwesomeIcons.retweet,size: 16,color: Colors.black54,),
                   SizedBox(width: 8,),
-                  SmallText(text: "${controller.list[index].retweetCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
+                  SmallText(text: "${data.retweetCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
                 ],),
               ),
 
 
               Spacer(),
               InkWell(onTap: (){
-                Get.to(()=>CommentScreen(postId: controller.list[index].id,));
+                Get.to(()=>CommentScreen(postId: data.id,));
               },child: FaIcon(FontAwesomeIcons.commentDots,size: 16,color: Colors.black54,)),
               SizedBox(width: 8,),
-              SmallText(text: "${controller.list[index].likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
+              SmallText(text: "${data.likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
 
 
               Spacer(),
               FaIcon(FontAwesomeIcons.chartSimple,size: 16,color: Colors.black54,),
               SizedBox(width: 8,),
-              SmallText(text: "${controller.list[index].likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
+              SmallText(text: "${data.likesCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
 
 
               Spacer(),
-              controller.apiResponseSavedPost.status==Status.LOADING && controller.indexLoadingSaved==index?SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)):
+              controller.apiResponseSavedPost.status==Status.LOADING && controller.indexLoadingSaved==data.id!.toInt()?SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)):
               InkWell(onTap: (){
-                controller.postSavedPost(index: index);
-              },child: FaIcon(controller.list[index].isSaved==true?FontAwesomeIcons.solidBookmark: FontAwesomeIcons.bookmark,size: 14,color: controller.list[index].isSaved==true?Colors.red:Colors.black54,)),
+                controller.postSavedPost(id: data.id);
+              },child: FaIcon(data.isSaved==true?FontAwesomeIcons.solidBookmark: FontAwesomeIcons.bookmark,size: 14,color: data.isSaved==true?Colors.red:Colors.black54,)),
               SizedBox(width: 16,),
               // SmallText(text: "Saved",fontWeight: FontWeight.w600,color: Colors.black54,),
 

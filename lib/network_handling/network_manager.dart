@@ -145,7 +145,7 @@ class NetworkManager {
           sharedPreferences.reload();
           FirebaseMessaging.instance.deleteToken();
         }catch(e){}
-        showToast("Invalid Token");
+        // showToast("Invalid Token");
         Get.offAll(() => const LoginScreen());
         // if(box.read(Utils.userToken)!=null){
         //   // showToast("Invalid Token");

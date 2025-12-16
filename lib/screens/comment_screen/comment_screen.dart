@@ -4,6 +4,7 @@ import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:civic_force/network_handling/api_response.dart';
+import 'package:civic_force/network_handling/network_widgets/no_data_widget.dart';
 import 'package:civic_force/screens/home/home_screen.dart';
 import 'package:civic_force/utils.dart';
 import 'package:civic_force/utils/app_images.dart';
@@ -31,7 +32,10 @@ class CommentScreen extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
 
               Expanded(
-                child: ListView.separated(padding: EdgeInsets.all(16),itemCount: controller.list.length,itemBuilder: (itemBuilder,index){
+                child:
+
+                controller.list.isEmpty?NoDataWidget(center: true,):
+                ListView.separated(padding: EdgeInsets.all(16),itemCount: controller.list.length,itemBuilder: (itemBuilder,index){
                   return Row(crossAxisAlignment: CrossAxisAlignment.start,spacing: 16,children: [
                     ImageCommon(src: controller.list[index].user?.image??"",fit: BoxFit.cover,height: 40,width: 40,borderRadius: 30,),
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,

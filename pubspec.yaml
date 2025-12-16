@@ -54,6 +54,7 @@ dependencies:
   image : any
   firebase_messaging: any
   geocoding: ^4.0.0
+  google_maps_cluster_manager: ^3.1.0
 #  fluttertoast: ^9.0.0
 #  flutter_chips_input: ^2.0.0
   # The following adds the Cupertino Icons font to your application.

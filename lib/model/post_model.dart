@@ -131,7 +131,7 @@ class Data {
     _isLiked = json['is_liked'];
     _commentsCount = json['comments_count'];
     _retweetCount = json['retweet_count'];
-    _retweetedPost = json['retweeted_post'];
+    _retweetedPost = json['retweeted_post'] != null ? Data.fromJson(json['retweeted_post']) : null;
     _isDeleted = json['is_deleted'];
     _isReported = json['is_reported'];
     _isArchived = json['is_archived'];

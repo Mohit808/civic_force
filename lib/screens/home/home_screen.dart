@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:civic_force/model/post_model.dart';
 import 'package:civic_force/network_handling/api_response.dart';
 import 'package:civic_force/network_handling/network_widgets/loading_widget.dart';
 import 'package:civic_force/network_handling/network_widgets/no_data_widget.dart';
@@ -28,6 +29,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(init: ControllerHome(),
         builder: (controller) {
+          // print(controller.list.first.toJson());
+          // print(Data.fromJson(controller.list.first.retweetedPost));
           return Scaffold(
             appBar: AppBarCommon(title: "",height: 0,color: AppColors.scaffoldBackgroundColor,elevation: 0,),
             body: SingleChildScrollView(
@@ -154,7 +157,7 @@ class HomeScreen extends StatelessWidget {
                           //     )
                           //   ],),
                           // ),
-                          PostItemWidget(controller: controller,index: index,),
+                          PostItemWidget(controller: controller,data: controller.list[index],),
                           Divider()
                         ],
                       );
