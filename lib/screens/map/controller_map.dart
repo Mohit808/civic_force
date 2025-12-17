@@ -149,10 +149,11 @@ class ControllerMap extends GetxController{
       circles.clear();
       for(var x in list) {
         print("qwertyuiop");
-        print(x.markers?.first.tagList?.first.color);
+        // print(x.markers?.first.tagList?.first.color);
         circles.add(Circle(circleId: CircleId("${x.markers?.first.id}",),center: LatLng(double.parse("${x.latitude??0}"),double.parse("${x.longitude??0}") ),fillColor:
+        // Colors.red,
         // Colors.red.withOpacity(getOpacity(x.count?.toInt()??0)),
-        hexToColor(x.markers?.first.tagList?.first.color??"#bf3480").withOpacity(getOpacity(x.count?.toInt()??0)),
+        hexToColor(x.markers==null?"#bf3480": x.markers?.first.tagList==null || x.markers!.first.tagList!.isEmpty?"#bf3480":x.markers?.first.tagList?.first.color??"#bf3480").withOpacity(getOpacity(x.count?.toInt()??0)),
             strokeWidth: 1,strokeColor: Colors.red,radius: double.parse("${x.radius??0}")));
 
 
@@ -165,20 +166,11 @@ class ControllerMap extends GetxController{
 
       }
     }catch(e){
+      print("ERRRRRRRRPRRRRRR");
       print(e);
       apiResponse=ApiResponse(status: Status.ERROR);
     }
     update();
-  }
-
-  Color hexToColor(String hex) {
-    hex = hex.replaceAll('#', '');
-
-    if (hex.length == 6) {
-      hex = 'FF$hex'; // add full opacity
-    }
-
-    return Color(int.parse(hex, radix: 16));
   }
 
   double getOpacity(int count) {
@@ -282,4 +274,16 @@ class ControllerMap extends GetxController{
     );
   }
 
+}
+
+
+
+Color hexToColor(String hex) {
+  hex = hex.replaceAll('#', '');
+
+  if (hex.length == 6) {
+    hex = 'FF$hex'; // add full opacity
+  }
+
+  return Color(int.parse(hex, radix: 16));
 }

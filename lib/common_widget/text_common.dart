@@ -15,7 +15,7 @@ class SmallText extends StatelessWidget{
   const SmallText({super.key, required this.text, this.color, this.size, this.fontWeight, this.textAlign, this.overflow, this.textDecoration, this.letterSpacing, this.maxLine,this.maxLength});
   @override
   Widget build(BuildContext context) {
-    return text==null ?SizedBox.shrink(): text!.isEmpty?SizedBox.shrink(): Text(maxLength!=null && text!.length>maxLength!?text!.substring(0,maxLength):text!,maxLines: maxLine,style: TextStyle(letterSpacing: letterSpacing,decoration: textDecoration,color: color,fontSize: size??12,fontWeight: fontWeight),textAlign: textAlign,overflow: overflow,);
+    return text==null ?SizedBox.shrink(): text!.isEmpty?SizedBox.shrink(): Text(maxLength!=null && text!.length>maxLength!?text!.substring(0,maxLength):text!,maxLines: maxLine,style: TextStyle(letterSpacing: letterSpacing,decoration: textDecoration,color: color,fontSize: size,fontWeight: fontWeight),textAlign: textAlign,overflow: overflow,);
   }
 }
 

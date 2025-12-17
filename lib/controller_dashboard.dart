@@ -5,6 +5,8 @@ import 'package:civic_force/screens/map/map_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import 'screens/analysis_screen/analysis2_screen.dart';
+
 class ControllerDashboard extends GetxController{
 
   int currentIndex =0;
@@ -14,7 +16,7 @@ class ControllerDashboard extends GetxController{
     HomeScreen(),
     MapScreen(),
     // SizedBox(),
-    AnalysisScreen(),
+    Analysis2Screen(),
     AccountScreen()
   ];
 

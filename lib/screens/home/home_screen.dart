@@ -32,21 +32,24 @@ class HomeScreen extends StatelessWidget {
           // print(controller.list.first.toJson());
           // print(Data.fromJson(controller.list.first.retweetedPost));
           return Scaffold(
-            appBar: AppBarCommon(title: "",height: 0,color: AppColors.scaffoldBackgroundColor,elevation: 0,),
+            appBar: AppBarCommon(title: SmallText(text: "Social Fabric",fontWeight: FontWeight.w800,size: 20,color: Colors.black,),color: AppColors.scaffoldBackgroundColor,elevation: 0,colorIconTheme: Colors.black,titleColor: AppColors.primary,centerTitle: false,actions: [
+              Icon(Icons.account_circle,size: 40,),
+              SizedBox(width: 16,)
+            ],),
             body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    NormalHeadingText(text: "Story",letterSpacing: 2,),
+                    NormalHeadingText(text: "Story",letterSpacing: 2,size: 16,),
                     SizedBox(height: 8,),
                     StoryMainWidget(),
-                    SizedBox(height: 16,),
+                    SizedBox(height: 24,),
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        NormalHeadingText(text: "Feed",letterSpacing: 2,),
+                        NormalHeadingText(text: "Feed",letterSpacing: 2,size: 16,),
                         SizedBox(height: 16,
-                          child: PopupMenuButton(onSelected: (value){
+                          child: PopupMenuButton(child: Icon(Icons.more_vert_rounded,size: 16,),onSelected: (value){
                             // controller.changeLayout();
                           },iconSize: 16,itemBuilder: (BuildContext context) { return [
                             PopupMenuItem(value: "value",child: SmallText(text: "Change layout",),)

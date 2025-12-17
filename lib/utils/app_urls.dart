@@ -23,5 +23,8 @@ class AppUrls {
   static String likeComment="likeComment";
   static String savedPost="savedPost";
   static String city="city";
+  static String analysis="analysis";
+  static String poll="poll";
+  static String vote="vote";
 }
 

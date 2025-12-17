@@ -40,9 +40,9 @@ class PostItemWidget extends StatelessWidget {
                 },
                   child: Row(
                     children: [
-                      !controller.layoutChanged?SizedBox(): SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
+                      !controller.layoutChanged?SizedBox(): SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
                       !controller.layoutChanged?SizedBox(): SizedBox(width: 8,),
-                      SmallText(text: "Ivan Brennan",fontWeight: FontWeight.w700,letterSpacing: 0.3,),
+                      SmallText(text: "${data.user?.name??"Ivan"}",fontWeight: FontWeight.w700,letterSpacing: 0.3,),
                       SizedBox(width: 16,),
                       ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
                       SizedBox(width: 8,),
@@ -94,7 +94,7 @@ class PostItemWidget extends StatelessWidget {
                           },child: Icon(Icons.close))
                         ],),
                         SizedBox(height: 16,),
-                        ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, data: data.retweetedPost!)),
+                        ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, data: data)),
                         SizedBox(height: 16,),
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -169,7 +169,33 @@ class PostItemWidget extends StatelessWidget {
               // SizedBox(width: 8,),
               // SmallText(text: "Share",fontWeight: FontWeight.w600,color: Colors.black54,),
             ],),
-            // SmallText(text: "${controller.list[index].tags}")
+            if(data.tagList!=null && data.tagList!.isNotEmpty)Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Wrap(spacing: 16,runSpacing: 8,children: [
+                for(var x in data.tagList!)
+                  SmallText(text: "#${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,)
+              ],),
+            ),
+
+            if(data.peopleTagged!=null && data.peopleTagged!.isNotEmpty)Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Wrap(spacing: 16,runSpacing: 8,children: [
+                for(var x in data.peopleTagged!)
+                  InkWell(onTap: (){
+                    Get.to(()=>UserProfileScreen());
+                  },child: SmallText(text: "@${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,))
+              ],),
+            ),
+            if(data.location!=null)
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(spacing: 4,
+                  children: [
+                    Icon(Icons.location_on_outlined,color:Colors.deepOrange,size: 16,),
+                    SmallText(text: "${data.location}",size: 13,color: Colors.deepOrange,),
+                  ],
+                ),
+              )
           ],),
         )
       ],),
