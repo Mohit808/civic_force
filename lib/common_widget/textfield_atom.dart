@@ -62,7 +62,7 @@ class TextFieldCommon extends TextFormField{
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
-        hintStyle:  TextStyle(fontSize: 12,color: Colors.white70),
+        hintStyle:  TextStyle(fontSize: 12,),
         contentPadding:  EdgeInsets.all(contentPadding??AppSizes.h_12),
         border:  hideOutlineBorder!=null?null:OutlineInputBorder(
           borderRadius:  borderRadius!=null?BorderRadius.circular(borderRadius):BorderAtom.borderRadiusTextField,

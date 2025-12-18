@@ -1,4 +1,5 @@
 import 'package:civic_force/common_widget/app_bar.dart';
+import 'package:civic_force/screens/analysis_screen/analysis_detail/analysis_detail_screen.dart';
 import 'package:civic_force/screens/map/controller_map.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,9 @@ class Analysis2Screen extends StatelessWidget {
                               child: Column(spacing: 8,crossAxisAlignment: CrossAxisAlignment.start,children: [
                                 SmallText(text: "${controller.list[index].name}",color: hexToColor(controller.list[index].color??"#ff595e"),size: 18,fontWeight: FontWeight.w600,),
                                 SmallText(text: "${controller.list[index].postCount} case reported",color:  hexToColor(controller.list[index].color??"#ff595e"),),
-                                ContainerDecorated(borderRadius: 30,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16,vertical: 4),color:  hexToColor(controller.list[index].color??"#ff595e"),child: Row(spacing: 4,mainAxisSize: MainAxisSize.min,children: [
+                                ContainerDecorated(onTap: (){
+                                  Get.to(()=>AnalysisDetailScreen());
+                                },borderRadius: 30,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16,vertical: 4),color:  hexToColor(controller.list[index].color??"#ff595e"),child: Row(spacing: 4,mainAxisSize: MainAxisSize.min,children: [
                                   SmallText(text: "View",color: Colors.white,fontWeight: FontWeight.w600,size: 11,),
                                   Icon(Icons.arrow_forward,size: 16,color: Colors.white,),
                                 ],),)

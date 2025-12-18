@@ -19,6 +19,7 @@ import '../../common_widget/network_image_widget.dart';
 import '../../common_widget/text_common.dart';
 import '../../custom_widgets/post_item_widget.dart';
 import '../comment_screen/comment_screen.dart';
+import '../polls_screen/widget/poll_item_widget.dart';
 import '../user_profile/user_profile_screen.dart';
 
 
@@ -62,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                     controller.apiResponse.status==Status.ERROR?SomethingWentWrongWidget(center: true,):
                     controller.list.isEmpty?NoDataWidget():
 
-                    ListView.builder(shrinkWrap: true,itemCount: controller.list.length,physics: NeverScrollableScrollPhysics(),itemBuilder: (itemBuilder,index){
+                    ListView.separated(shrinkWrap: true,itemCount: controller.list.length,physics: NeverScrollableScrollPhysics(),itemBuilder: (itemBuilder,index){
                       return Column(
                         children: [
                           // Padding(
@@ -161,10 +162,9 @@ class HomeScreen extends StatelessWidget {
                           //   ],),
                           // ),
                           PostItemWidget(controller: controller,data: controller.list[index],),
-                          Divider()
                         ],
                       );
-                    }),
+                    }, separatorBuilder: (BuildContext context, int index) { return Divider(height: 48,); },),
 
                     SizedBox(height: 24,),
                     Row(children: [

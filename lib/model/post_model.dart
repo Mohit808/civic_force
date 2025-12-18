@@ -1,5 +1,6 @@
 
 import 'package:civic_force/model/user_model.dart';
+import 'poll_model.dart' as pm;
 
 class PostModel {
   PostModel({
@@ -74,7 +75,7 @@ PostModel copyWith({  String? message,
 class Data {
   Data({
       num? id, 
-      dynamic retweetedPost,
+
     UserInfo? user,
       List<UserInfo>? peopleTagged,
       List<TagList>? tagList, 
@@ -89,8 +90,10 @@ class Data {
       bool? isPublic,
       num? likesCount, 
       num? commentsCount, 
-      num? retweetCount, 
-      bool? isDeleted, 
+      num? retweetCount,
+    dynamic retweetedPost,
+    pm.Data? poll,
+      bool? isDeleted,
       bool? isReported, 
       bool? isArchived, 
       String? createdAt, 
@@ -99,6 +102,7 @@ class Data {
       bool? isSaved,}){
     _id = id;
     _retweetedPost = retweetedPost;
+    _poll = poll;
     _user = user;
     _peopleTagged = peopleTagged;
     _tagList = tagList;
@@ -127,6 +131,7 @@ class Data {
     _id = json['id'];
     // _retweetedPost = json['retweeted_post'];
     _retweetedPost = json['retweeted_post'] != null ? Data.fromJson(json['retweeted_post']) : null;
+    _poll = json['poll'] != null ? pm.Data.fromJson(json['poll']) : null;
 
     _user = json['user'] != null ? UserInfo.fromJson(json['user']) : null;
     if (json['people_tagged'] != null) {
@@ -163,6 +168,7 @@ class Data {
   }
   num? _id;
   dynamic _retweetedPost;
+  pm.Data? _poll;
   UserInfo? _user;
   List<UserInfo>? _peopleTagged;
   List<TagList>? _tagList;
@@ -187,6 +193,7 @@ class Data {
   bool? _isSaved;
 Data copyWith({  num? id,
   dynamic retweetedPost,
+  pm.Data? poll,
   UserInfo? user,
   List<UserInfo>? peopleTagged,
   List<TagList>? tagList,
@@ -211,6 +218,7 @@ Data copyWith({  num? id,
   bool? isSaved,
 }) => Data(  id: id ?? _id,
   retweetedPost: retweetedPost ?? _retweetedPost,
+  poll: poll ?? _poll,
   user: user ?? _user,
   peopleTagged: peopleTagged ?? _peopleTagged,
   tagList: tagList ?? _tagList,
@@ -236,6 +244,7 @@ Data copyWith({  num? id,
 );
   num? get id => _id;
   dynamic get retweetedPost => _retweetedPost;
+  pm.Data? get poll => _poll;
   UserInfo? get user => _user;
   List<UserInfo>? get peopleTagged => _peopleTagged;
   List<TagList>? get tagList => _tagList;
@@ -276,6 +285,7 @@ Data copyWith({  num? id,
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['retweeted_post'] = _retweetedPost;
+    map['_poll'] = poll;
     if (_user != null) {
       map['user'] = _user?.toJson();
     }

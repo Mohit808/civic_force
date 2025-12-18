@@ -15,6 +15,10 @@ class ControllerPolls extends GetxController{
   RefreshController refreshController=RefreshController();
   List listAlreadyVote=[];
 
+  dynamic selectedRadio;
+
+  dynamic loadingDelete;
+
 
   @override
   void onInit() {
@@ -39,25 +43,45 @@ class ControllerPolls extends GetxController{
     }
     apiResponse=ApiResponse(status: Status.COMPLETED);
     update();
+    refreshController.loadComplete();
+    refreshController.refreshCompleted();
   }
 
-  postVote({pollOptionId}) async {
-    try{
-      var res = await NetworkManager().post(AppUrls.vote,data: {
-        "poll_option_id":"$pollOptionId"
-      });
-      print(res);
-      ModelX modelX=ModelX.fromJson(res);
-      if(modelX.status==200){
-        list[list.indexWhere((o) => "${o.id}" == "$pollOptionId")].setVoted=true;
-        showToastSuccess(modelX.message);
-      }else{
-        showToastError(modelX.message);
-      }
-    }catch(e){
-      print(e);
-    }
-    update();
-
-  }
+  // postVote({pollOptionId,index}) async {
+  //   try{
+  //     var res = await NetworkManager().post(AppUrls.vote,data: {
+  //       "poll_option_id":"$pollOptionId"
+  //     });
+  //     print(res);
+  //     ModelX modelX=ModelX.fromJson(res);
+  //     if(modelX.status==200){
+  //       list[index].setVoted=true;
+  //       showToastSuccess(modelX.message);
+  //     }else{
+  //       showToastError(modelX.message);
+  //     }
+  //   }catch(e){
+  //     print(e);
+  //   }
+  //   update();
+  // }
+  //
+  // deletePoll(pollId,{index}) async {
+  //   loadingDelete=index;
+  //   update();
+  //   try{
+  //     var res=await NetworkManager().delete(AppUrls.poll,data: {
+  //       "poll_id":"$pollId"
+  //     });
+  //     ModelX modelX=ModelX.fromJson(res);
+  //     if(modelX.status==200){
+  //       showToastSuccess(modelX.message);
+  //       list.removeAt(index);
+  //     }else{
+  //       showToastError(modelX.message);
+  //     }
+  //   }catch(e){}
+  //   loadingDelete=null;
+  //   update();
+  // }
 }

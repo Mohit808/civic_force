@@ -13,6 +13,7 @@ import '../data_source/data_source_common.dart';
 import '../network_handling/api_response.dart';
 import '../screens/comment_screen/comment_screen.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/polls_screen/widget/poll_item_widget.dart';
 import '../screens/retweet/retweet_widget.dart';
 import '../screens/user_profile/user_profile_screen.dart';
 
@@ -67,6 +68,25 @@ class PostItemWidget extends StatelessWidget {
             if(data.retweetedPost!=null) ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),margin: 8,
               child: PostItemWidget(controller: controller, data: data.retweetedPost!,hideRetweet: true,),
             ),
+
+
+            if(data.poll!=null) SizedBox(height: 16,),
+            if(data.poll!=null)ContainerDecorated(marginEdgeInsets: EdgeInsets.only(bottom: 8),padding: 16,color: Color(
+                0xFFE5F2FF),
+              child: PollItemWidget(data: data.poll,onVote: (){
+                data.poll!.setVoted=true;
+                controller.update();
+              },onDeleteClick: (){
+                controller.list.removeWhere((test)=>test.id==data.id);
+                controller.update();
+                // controller.list.removeAt(index);
+              },),
+            ),
+
+
+
+
+
             if(hideRetweet!=true)SizedBox(height: 8,),
             if(hideRetweet!=true)Row(children: [
 
@@ -83,7 +103,7 @@ class PostItemWidget extends StatelessWidget {
               Spacer(),
               InkWell(onTap: (){
                 showDialog(context: context, builder: (builder){
-                  return Dialog(backgroundColor: Color(0xFFC8C8C2),insetPadding: EdgeInsets.zero,child: Padding(
+                  return Dialog(insetPadding: EdgeInsets.zero,child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(mainAxisSize: MainAxisSize.min,
                       children: [
@@ -93,8 +113,8 @@ class PostItemWidget extends StatelessWidget {
                             Get.back();
                           },child: Icon(Icons.close))
                         ],),
-                        SizedBox(height: 16,),
-                        ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, data: data)),
+                        // SizedBox(height: 16,),
+                        ContainerDecorated(color: Colors.white,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, data: data)),
                         SizedBox(height: 16,),
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
