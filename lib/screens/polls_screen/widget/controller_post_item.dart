@@ -5,13 +5,13 @@ import '../../../network_handling/network_manager.dart';
 import '../../../utils.dart';
 import '../../../utils/app_urls.dart';
 
-class ControllerPostItem extends GetxController{
+class ControllerPollItem extends GetxController{
 
   dynamic selectedRadio;
   bool loadingDelete= false;
   final Function()? onDeleteClick;
   final Function()? onVote;
-  ControllerPostItem({this.onDeleteClick, this.onVote});
+  ControllerPollItem({this.onDeleteClick, this.onVote});
 
 
 

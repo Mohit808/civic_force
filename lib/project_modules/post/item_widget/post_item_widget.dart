@@ -1,49 +1,47 @@
 import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/model/post_model.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
+import 'package:civic_force/screens/polls_screen/widget/controller_post_item.dart';
 import 'package:civic_force/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import '../common_widget/container_decorated.dart';
-import '../common_widget/network_image_widget.dart';
-import '../common_widget/text_common.dart';
-import '../data_source/data_source_common.dart';
-import '../network_handling/api_response.dart';
-import '../screens/comment_screen/comment_screen.dart';
-import '../screens/home/home_screen.dart';
-import '../screens/polls_screen/widget/poll_item_widget.dart';
-import '../screens/retweet/retweet_widget.dart';
-import '../screens/user_profile/user_profile_screen.dart';
+import '../../../common_widget/container_decorated.dart';
+import '../../../common_widget/network_image_widget.dart';
+import '../../../common_widget/text_common.dart';
+import '../../../data_source/data_source_common.dart';
+import '../../../network_handling/api_response.dart';
+import '../../../screens/comment_screen/comment_screen.dart';
+import '../../../screens/home/home_screen.dart';
+import '../../../screens/polls_screen/widget/poll_item_widget.dart';
+import '../../../screens/user_profile/user_profile_screen.dart';
+import '../controller_post_list.dart';
+import 'controller_post_item.dart';
 
 class PostItemWidget extends StatelessWidget {
-  const PostItemWidget({super.key, required this.controller, required this.data, this.hideRetweet});
-  final ControllerHome controller;
+  const PostItemWidget({super.key, required this.data, this.hideRetweet});
+
   final Data data;
   final bool? hideRetweet;
 
-  // final int index;
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0,top: 8),
-      child: Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
-        controller.layoutChanged?SizedBox():SizedBox(height: 40,width: 40,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
-        controller.layoutChanged?SizedBox():SizedBox(width: 16,),
-        Expanded(
+    return GetBuilder(init: ControllerPostItem(),
+      builder: (controller) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8.0,top: 8),
           child: Column(mainAxisSize: MainAxisSize.min,crossAxisAlignment: CrossAxisAlignment.start,children: [
             Row(
               children: [
                 InkWell(onTap: (){
-                  Get.to(()=>UserProfileScreen());
+                  Get.to(()=>UserProfileScreen(userId: data.user?.userId,));
                 },
                   child: Row(
                     children: [
-                      !controller.layoutChanged?SizedBox(): SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
-                      !controller.layoutChanged?SizedBox(): SizedBox(width: 8,),
-                      SmallText(text: "${data.user?.name??"Ivan"}",fontWeight: FontWeight.w700,letterSpacing: 0.3,),
+                      SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
+                      SizedBox(width: 16,),
+                      SmallText(text: data.user?.name??"Ivan",fontWeight: FontWeight.w700,letterSpacing: 0.3,size: 15,),
                       SizedBox(width: 16,),
                       ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
                       SizedBox(width: 8,),
@@ -62,11 +60,10 @@ class PostItemWidget extends StatelessWidget {
               GridView.builder(physics: NeverScrollableScrollPhysics(),itemCount:data.image!.split(",").length==1?1:2,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: data.image!.split(",").length,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 1), itemBuilder: (itemBuilder,indexXX){
                 return ImageCommon(src: data.image!.split(",")[indexXX],fit: BoxFit.cover,borderRadius: 15,);
               }),
-              // SizedBox(width: double.infinity,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src: controller.list[index].image?.split(",").first??"https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
             ),
 
             if(data.retweetedPost!=null) ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),margin: 8,
-              child: PostItemWidget(controller: controller, data: data.retweetedPost!,hideRetweet: true,),
+              child: PostItemWidget(data: data.retweetedPost!,hideRetweet: true,),
             ),
 
 
@@ -77,9 +74,8 @@ class PostItemWidget extends StatelessWidget {
                 data.poll!.setVoted=true;
                 controller.update();
               },onDeleteClick: (){
-                controller.list.removeWhere((test)=>test.id==data.id);
+                // controller.list.removeWhere((test)=>test.id==data.id);
                 controller.update();
-                // controller.list.removeAt(index);
               },),
             ),
 
@@ -90,9 +86,11 @@ class PostItemWidget extends StatelessWidget {
             if(hideRetweet!=true)SizedBox(height: 8,),
             if(hideRetweet!=true)Row(children: [
 
-              controller.list.any((test)=>"${test.id}"=="${controller.indexLoadingLike}")?
-              // controller.indexLoadingLike==index ?
-              SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)) :InkWell(onTap: (){
+              // controller.list.any((test)=>"${test.id}"=="${controller.indexLoadingLike}")?
+              data.id==controller.indexLoadingLike?
+              // controller.list.any((test)=>"${test.id}"=="${controller.indexLoadingLike}")?
+              SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)) :
+              InkWell(onTap: (){
                 controller.likePost(id: data.id);
               }, child: Row(children: [
                 FaIcon(data.isLiked==true? FontAwesomeIcons.solidHeart: FontAwesomeIcons.heart,size: 16,color: data.isLiked==true?Colors.red:Colors.black54,),
@@ -108,13 +106,13 @@ class PostItemWidget extends StatelessWidget {
                     child: Column(mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(children: [
-                          Expanded(child: SmallText(text: "Re-Tweet",fontWeight: FontWeight.w700,size: 16,)),
+                          Expanded(child: SmallText(text: "Re-Post",fontWeight: FontWeight.w700,size: 16,)),
                           InkWell(onTap: (){
                             Get.back();
                           },child: Icon(Icons.close))
                         ],),
                         // SizedBox(height: 16,),
-                        ContainerDecorated(color: Colors.white,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(controller: controller, data: data)),
+                        ContainerDecorated(color: Colors.white,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),child: PostItemWidget(data: data)),
                         SizedBox(height: 16,),
                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -148,10 +146,6 @@ class PostItemWidget extends StatelessWidget {
                     ),
                   ),);
                 });
-                // showModalBottomSheet(context: context, builder: (builder){
-                //   return Dialog(child: PostItemWidget(controller: controller, index: index),);
-                //   // return Dialog(child: RetweetWidget(index: index,),);
-                // });
               },
                 child: Row(children: [
                   FaIcon(FontAwesomeIcons.retweet,size: 16,color: Colors.black54,),
@@ -217,8 +211,8 @@ class PostItemWidget extends StatelessWidget {
                 ),
               )
           ],),
-        )
-      ],),
+        );
+      }
     );
   }
 }

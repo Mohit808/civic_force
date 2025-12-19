@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../city/city_screen.dart';
+
 class AnalysisDetailScreen extends StatelessWidget {
   const AnalysisDetailScreen({super.key});
 
@@ -27,7 +29,9 @@ class AnalysisDetailScreen extends StatelessWidget {
 
               Row(spacing: 8,
                 children: [
-                  Expanded(child: ContainerDecorated(padding: 0,height: 190,child: Stack(
+                  Expanded(child: ContainerDecorated(onTap: (){
+                    Get.to(()=>CityScreen());
+                  },padding: 0,height: 190,child: Stack(
                     children: [
                       Row(
                         children: [

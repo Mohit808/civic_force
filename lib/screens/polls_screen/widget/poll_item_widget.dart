@@ -19,7 +19,7 @@ class PollItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GetBuilder(init: ControllerPostItem(onDeleteClick: onDeleteClick,onVote: onVote),
+    return  GetBuilder(init: ControllerPollItem(onDeleteClick: onDeleteClick,onVote: onVote),
       builder: (controller) {
         return Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
           SmallText(text: "${data?.question}",fontWeight: FontWeight.w600,size: 20,),

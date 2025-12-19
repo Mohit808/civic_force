@@ -1,6 +1,6 @@
 class AppUrls {
-  // static String baseUrl="http://192.168.1.51:8000/social/";
-  static String baseUrl="http://192.168.1.75:8000/social/";
+  static String baseUrl="http://192.168.1.51:8000/social/";
+  // static String baseUrl="http://192.168.1.75:8000/social/";
   // static String baseUrl="http://192.168.1.16:8000/social/";
   // static String baseUrl="http://172.17.237.89:8000/social/";
   // static String baseUrl="https://commonmodule.pythonanywhere.com/social/";
@@ -15,7 +15,7 @@ class AppUrls {
   static String verifyForgotPassword="verifyForgotPassword";
   static String resetPassword="resetPassword";
   static String generatePresignedUrl="generatePresignedUrl";
-  static String userProfile="userProfile";
+  static String userProfile="userProfile"; // myself
   static String like="like";
   static String story="story";
   static String storyViewCount="storyViewCount";
@@ -27,5 +27,9 @@ class AppUrls {
   static String analysis="analysis";
   static String poll="poll";
   static String vote="vote";
+  static String userInfo="userInfo"; // other user
+  static String follow="follow";
+  static String unfollow="unfollow";
+  static String tagByCity="tagByCity";
 }
 

@@ -3,17 +3,20 @@ import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
+import 'package:civic_force/network_handling/api_response.dart';
+import 'package:civic_force/project_modules/post/post_main_list_widget.dart';
 import 'package:civic_force/screens/user_profile/controller_user_profile.dart';
+import 'package:civic_force/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  const UserProfileScreen({super.key});
-
+  const UserProfileScreen({super.key, this.userId});
+  final dynamic userId;
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(init: ControllerUserProfile(),
+    return GetBuilder(init: ControllerUserProfile(userId: userId),
       builder: (controller) {
         return Scaffold(
           appBar: AppBarCommon(title: "Fons Mans",color: AppColors.scaffoldBackgroundColor,colorIconTheme: AppColors.primary,titleColor: AppColors.primary,centerTitle: false,actions: [Icon(Icons.more_vert),SizedBox(width: 8,)],),
@@ -31,20 +34,20 @@ class UserProfileScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Row(spacing: 2,children: [
-                        SmallText(text: "100",fontWeight: FontWeight.w600,),
-                        SmallText(text: "Posts",size: 11,color: Colors.black54,),
+                        SmallText(text: "${controller.otherUserInfoModel?.data?.postCount??"--"}",fontWeight: FontWeight.w600,size: 15,),
+                        SmallText(text: "Posts",color: Colors.black54,),
                       ],),
                     ),
                     Expanded(
                       child: Row(mainAxisAlignment: MainAxisAlignment.center,spacing: 2,children: [
-                        SmallText(text: "294K",fontWeight: FontWeight.w600,),
-                        SmallText(text: "Followers",size: 11,color: Colors.black54,),
+                        SmallText(text: "${controller.otherUserInfoModel?.data?.followerCount??"--"}",fontWeight: FontWeight.w600,size: 15,),
+                        SmallText(text: "Followers",color: Colors.black54,),
                       ],),
                     ),
                     Expanded(
                       child: Row(mainAxisAlignment: MainAxisAlignment.end,spacing: 2,children: [
-                        SmallText(text: "100",fontWeight: FontWeight.w600,),
-                        SmallText(text: "Following",size: 11,color: Colors.black54,),
+                        SmallText(text: "${controller.otherUserInfoModel?.data?.followingCount??"--"}",fontWeight: FontWeight.w600,size: 15,),
+                        SmallText(text: "Following",color: Colors.black54,),
                       ],),
                     ),
                   ],
@@ -56,8 +59,21 @@ class UserProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Row(spacing: 16,
                   children: [
-                    Expanded(child: ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(vertical: 8),child: SmallText(text: "Follow",textAlign: TextAlign.center,fontWeight: FontWeight.w600,),),),
-                    Expanded(child: ContainerDecorated(color: Colors.black,paddingEdgeInsets: EdgeInsets.symmetric(vertical: 8),child: SmallText(text: "Message",textAlign: TextAlign.center,color: Colors.white,),),),
+                    Expanded(child: Stack(
+                      children: [
+                        ContainerDecorated(onTap: (){
+                          controller.postFollow();
+                        },color: controller.otherUserInfoModel?.data?.isFollowing==true?Colors.black:null,paddingEdgeInsets: EdgeInsets.symmetric(vertical: 8),child: Row(mainAxisAlignment: MainAxisAlignment.center,spacing: 8,
+                          children: [
+                            SmallText(text: controller.otherUserInfoModel?.data?.isFollowing==true?"Unfollow":"Follow",textAlign: TextAlign.center,fontWeight: FontWeight.w600,color: controller.otherUserInfoModel?.data?.isFollowing==true?Colors.white:null,),
+                            if(controller.apiResponseFollow.status==Status.LOADING) SizedBox(height: 12,width: 12,child: CircularProgressIndicator(strokeWidth: 1,)),
+                          ],
+                        ),),
+
+                        if(controller.otherUserInfoModel?.data?.isFollowing==true) Positioned(right: 16,top: 0,bottom: 0,child: Icon(Icons.keyboard_arrow_down_rounded,color: Colors.white,size: 16,))
+                      ],
+                    ),),
+                    Expanded(child: ContainerDecorated(color: Colors.black,paddingEdgeInsets: EdgeInsets.symmetric(vertical: 8),child: SmallText(text: "Message",fontWeight: FontWeight.w600,textAlign: TextAlign.center,color: Colors.white,),),),
                   ],
                 ),
               ),
@@ -71,6 +87,7 @@ class UserProfileScreen extends StatelessWidget {
                     Expanded(child: InkWell(onTap: (){
                       controller.selectedTab=0;
                       controller.update();
+                      controller.refreshData();
                     },
                       child: Row(spacing: 4,mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -88,6 +105,7 @@ class UserProfileScreen extends StatelessWidget {
                     Expanded(child: InkWell(onTap: (){
                       controller.selectedTab=1;
                       controller.update();
+                      controller.refreshData();
                     },
                       child: Row(spacing: 4,mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -105,6 +123,7 @@ class UserProfileScreen extends StatelessWidget {
                     Expanded(child: InkWell(onTap: (){
                       controller.selectedTab=2;
                       controller.update();
+                      controller.refreshData();
                     },
                       child: Row(spacing: 4,mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -126,8 +145,19 @@ class UserProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              if(controller.selectedTab==0)allData(),
-              if(controller.selectedTab==1)gridData(),
+              SizedBox(height: 16,),
+
+              // if(controller.selectedTab==0)allData(),
+              if(controller.selectedTab==0 || controller.selectedTab==2) Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: PostMainListWidget(listReceived: controller.list,tag: "userProfile",),
+              ),
+
+              if(controller.selectedTab==1) GridView.builder(itemCount: controller.list.length,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), itemBuilder: (itemBuilder,index){
+                return ImageCommon(src: controller.list[index].image??"",fit: BoxFit.cover,borderRadius: 10,);
+              }),
+
+
 
 
               SizedBox(height: 40,)
@@ -138,74 +168,15 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  allData(){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-        Row(
-          children: [
-            InkWell(onTap: (){
-              Get.to(()=>UserProfileScreen());
-            },
-              child: Row(
-                children: [
-                  SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
-                  SizedBox(width: 8,),
-                  SmallText(text: "Ivan Brennan",fontWeight: FontWeight.w700,letterSpacing: 0.3,),
-                ],
-              ),
-            ),
-            SizedBox(width: 16,),
-            ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
-            SizedBox(width: 8,),
-            SmallText(text: "2m",color: Colors.black54,),
-          ],
-        ),
-        SizedBox(height: 4,),
-        SmallText(text: "eraeaaf"),
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0,bottom: 8),
-          child: SizedBox(width: double.infinity,child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
-        ),
-        SizedBox(height: 8,),
-        Row(children: [
-          FaIcon(FontAwesomeIcons.heart,size: 16,color: Colors.black54,),
-          SizedBox(width: 8,),
-          SmallText(text: "${"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
-
-          Spacer(),
-          FaIcon(FontAwesomeIcons.retweet,size: 16,color: Colors.black54,),
-          SizedBox(width: 8,),
-          SmallText(text: "${"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
-
-
-          Spacer(),
-          FaIcon(FontAwesomeIcons.commentDots,size: 16,color: Colors.black54,),
-          SizedBox(width: 8,),
-          SmallText(text: "${"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
-
-
-          Spacer(),
-          FaIcon(FontAwesomeIcons.chartSimple,size: 16,color: Colors.black54,),
-          SizedBox(width: 8,),
-          SmallText(text: "${"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
-
-
-          Spacer(),
-          FaIcon(FontAwesomeIcons.bookmark,size: 14,color: Colors.black54,),
-          SizedBox(width: 16,),
-          // SmallText(text: "Saved",fontWeight: FontWeight.w600,color: Colors.black54,),
-
-          SizedBox(width: 16,),
-          // Spacer(),
-          FaIcon(FontAwesomeIcons.shareFromSquare,size: 16,color: Colors.black54,),
-          // SizedBox(width: 8,),
-          // SmallText(text: "Share",fontWeight: FontWeight.w600,color: Colors.black54,),
-        ],)
-      ],),
-    );
-
-  }
+  // allData(){
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+  //     child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+  //       PostMainListWidget(list: [],)
+  //     ],),
+  //   );
+  //
+  // }
 
   gridData(){
     return Column(children: [

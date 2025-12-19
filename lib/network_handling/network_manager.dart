@@ -124,6 +124,7 @@ class NetworkManager {
 
   responseReturn(http.StreamedResponse response) async {
     var result=await response.stream.bytesToString();
+    // print(result);
     switch (response.statusCode) {
       case 200 || 201:
         return jsonDecode(result);

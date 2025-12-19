@@ -2,6 +2,7 @@ import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
+import 'package:civic_force/project_modules/city/city_main_widget.dart';
 import 'package:civic_force/utils/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class AnalysisScreen extends StatelessWidget {
             // SmallText(text: "Public Transport"),
             // SmallText(text: "Violence"),
             // SmallText(text: "Police Misconduct"),
+
 
 
             ListView.separated(physics: NeverScrollableScrollPhysics(),shrinkWrap: true,itemCount: list.length, itemBuilder: (itemBuilder,index){
