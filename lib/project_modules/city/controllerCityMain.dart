@@ -1,4 +1,4 @@
-import 'package:civic_force/model/tag_by_city_model.dart';
+import 'package:civic_force/model/tag_post_by_city_model.dart';
 import 'package:civic_force/network_handling/api_response.dart';
 import 'package:civic_force/network_handling/network_manager.dart';
 import 'package:civic_force/utils/app_urls.dart';
@@ -16,11 +16,11 @@ class ControllerCityMain extends GetxController{
   }
   fetchData() async {
     try{
-      var res=await NetworkManager().get("${AppUrls.tagByCity}?city=$myCity");
+      var res=await NetworkManager().get("${AppUrls.tagPostByCity}?city=$myCity");
       print(res);
-      TagByCityModel tagByCityModel=TagByCityModel.fromJson(res);
-      cityDetails=tagByCityModel.data?.cityDetails;
-      list.addAll(tagByCityModel.data?.tags??[]);
+      TagPostByCityModel tagPostByCityModel=TagPostByCityModel.fromJson(res);
+      cityDetails=tagPostByCityModel.data?.cityDetails;
+      list.addAll(tagPostByCityModel.data?.tags??[]);
     }catch(e){
       print(e);
     }

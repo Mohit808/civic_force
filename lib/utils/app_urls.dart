@@ -1,6 +1,7 @@
 class AppUrls {
   static String baseUrl="http://192.168.1.51:8000/social/";
-  // static String baseUrl="http://192.168.1.75:8000/social/";
+  // static String baseUrl="http://10.183.166.89:8000/social/";
+  // static String baseUrl="http://10.14.125.89:8000/social/";
   // static String baseUrl="http://192.168.1.16:8000/social/";
   // static String baseUrl="http://172.17.237.89:8000/social/";
   // static String baseUrl="https://commonmodule.pythonanywhere.com/social/";
@@ -30,6 +31,8 @@ class AppUrls {
   static String userInfo="userInfo"; // other user
   static String follow="follow";
   static String unfollow="unfollow";
-  static String tagByCity="tagByCity";
+  static String tagPostByCity="tagPostByCity";
+  static String tagsByCity="tagsByCity";
+  static String cityByTag="cityByTag";
 }
 

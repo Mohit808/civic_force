@@ -2,6 +2,7 @@ import 'package:civic_force/project_modules/city/city_main_widget.dart';
 import 'package:civic_force/project_modules/post/controller_post_list.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
 import 'package:civic_force/story/story_main_widget.dart';
+import 'package:civic_force/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
             appBar: AppBarCommon(title: SmallText(text: "Social Fabric",fontWeight: FontWeight.w800,size: 20,color: Colors.black,),color: AppColors.scaffoldBackgroundColor,elevation: 0,titleColor: AppColors.primary,centerTitle: false,actions: [
-              Icon(Icons.message_outlined,color: Colors.black54,),
+              Image.asset(AppImages.message,height: 30,width: 30,),
               SizedBox(width: 16,)
             ],),
             body: GetBuilder(init: ControllerPostList(),
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                   onLoading: controllerPostItemList.fetchData,
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           NormalHeadingText(text: "Story",letterSpacing: 2,size: 16,),

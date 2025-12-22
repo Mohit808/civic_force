@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
+import 'package:civic_force/screens/analysis_screen/analysis_detail/analysis_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class CityMainWidget extends StatelessWidget {
               child: Row(spacing: 8,children: [
 
                 InkWell(onTap: (){
-                  Get.to(()=>CityScreen());
+                  Get.to(()=>CityScreen(cityName: controller.cityDetails?.name,));
                 },
                   child: Stack(
                     children: [
@@ -75,7 +76,7 @@ class CityMainWidget extends StatelessWidget {
                 // ),
                 // SizedBox(width: 8,),
                 InkWell(onTap: (){
-                  Get.to(()=>CityScreen());
+                  Get.to(()=>CityScreen(cityName: controller.myCity,));
                 },
                   child: Row(
                     children: [
@@ -92,7 +93,9 @@ class CityMainWidget extends StatelessWidget {
           SingleChildScrollView(scrollDirection: Axis.horizontal,
             child: Row(spacing: 8,children: [
               for(var x in controller.list)
-                ContainerDecorated(color: Colors.transparent,colorBorder: Colors.grey,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 14,vertical: 8),borderRadius: 30,child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                ContainerDecorated(onTap: (){
+                  Get.to(()=>AnalysisDetailScreen(tagName: x.name,));
+                },color: Colors.transparent,colorBorder: Colors.grey,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 14,vertical: 8),borderRadius: 30,child: Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SmallText(text: "${x.name}",fontWeight: FontWeight.w500,size: 13,),
                     SmallText(text: " (${x.postCount})",size: 12,fontWeight: FontWeight.w600,)

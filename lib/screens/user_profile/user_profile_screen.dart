@@ -12,21 +12,23 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  const UserProfileScreen({super.key, this.userId});
+  const UserProfileScreen({super.key, this.userId, this.name, this.image});
   final dynamic userId;
+  final dynamic name;
+  final dynamic image;
   @override
   Widget build(BuildContext context) {
     return GetBuilder(init: ControllerUserProfile(userId: userId),
       builder: (controller) {
         return Scaffold(
-          appBar: AppBarCommon(title: "Fons Mans",color: AppColors.scaffoldBackgroundColor,colorIconTheme: AppColors.primary,titleColor: AppColors.primary,centerTitle: false,actions: [Icon(Icons.more_vert),SizedBox(width: 8,)],),
+          appBar: AppBarCommon(title: name??"Fons Mans",color: AppColors.scaffoldBackgroundColor,colorIconTheme: AppColors.primary,titleColor: AppColors.primary,centerTitle: false,actions: [Icon(Icons.more_vert),SizedBox(width: 8,)],),
           body: SingleChildScrollView(
             child: Column(children: [
 
               SizedBox(height: 16,),
-              SizedBox(height: 100,width: 100,child: ImageCommon(src: "https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,borderRadius: 50),),
+              SizedBox(height: 100,width: 100,child: ImageCommon(src: image??"https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,borderRadius: 50),),
               SizedBox(height: 8,),
-              SmallText(text: "Fons Mans",fontWeight: FontWeight.w600,size: 15,),
+              SmallText(text: name??"Fons Mans",fontWeight: FontWeight.w600,size: 15,),
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0,vertical: 24),

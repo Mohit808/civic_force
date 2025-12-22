@@ -1,5 +1,6 @@
 import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/model/post_model.dart';
+import 'package:civic_force/screens/analysis_screen/analysis_detail/analysis_detail_screen.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
 import 'package:civic_force/screens/polls_screen/widget/controller_post_item.dart';
 import 'package:civic_force/utils.dart';
@@ -35,17 +36,17 @@ class PostItemWidget extends StatelessWidget {
             Row(
               children: [
                 InkWell(onTap: (){
-                  Get.to(()=>UserProfileScreen(userId: data.user?.userId,));
+                  Get.to(()=>UserProfileScreen(userId: data.user?.userId,name: data.user?.name,image: data.user?.image,));
                 },
                   child: Row(
                     children: [
-                      SizedBox(height: 24,width: 24,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,))),
+                      SizedBox(height: 40,width:40,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,))),
                       SizedBox(width: 16,),
-                      SmallText(text: data.user?.name??"Ivan",fontWeight: FontWeight.w700,letterSpacing: 0.3,size: 15,),
+                      SmallText(text: data.user?.name??"Ivan",fontWeight: FontWeight.w600,letterSpacing: 0.3,size: 16,),
                       SizedBox(width: 16,),
                       ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
                       SizedBox(width: 8,),
-                      SmallText(text: formatDateRelative(data.createdAt),color: Colors.black54,size: 11,),
+                      SmallText(text: formatDateRelative(data.createdAt),color: Colors.black54,size: 12,),
                     ],
                   ),
                 ),
@@ -53,7 +54,7 @@ class PostItemWidget extends StatelessWidget {
             ),
 
             SizedBox(height: 4,),
-            if(data.text!=null&&data.text!.isNotEmpty)SmallText(text: data.text??""),
+            if(data.text!=null&&data.text!.isNotEmpty)SmallText(text: data.text??"",size: 16,),
             if(data.image!=null && data.image!.isNotEmpty)Padding(
               padding: const EdgeInsets.only(top: 8.0,bottom: 8),
               child:
@@ -62,14 +63,13 @@ class PostItemWidget extends StatelessWidget {
               }),
             ),
 
-            if(data.retweetedPost!=null) ContainerDecorated(paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),margin: 8,
+            if(data.retweetedPost!=null) ContainerDecorated(color: Colors.white,colorBorder: Colors.grey.shade400,paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 16),margin: 8,
               child: PostItemWidget(data: data.retweetedPost!,hideRetweet: true,),
             ),
 
 
             if(data.poll!=null) SizedBox(height: 16,),
-            if(data.poll!=null)ContainerDecorated(marginEdgeInsets: EdgeInsets.only(bottom: 8),padding: 16,color: Color(
-                0xFFE5F2FF),
+            if(data.poll!=null)ContainerDecorated(marginEdgeInsets: EdgeInsets.only(bottom: 8),padding: 16,color: Colors.white,colorBorder: Colors.grey.shade400,
               child: PollItemWidget(data: data.poll,onVote: (){
                 data.poll!.setVoted=true;
                 controller.update();
@@ -187,7 +187,9 @@ class PostItemWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0),
               child: Wrap(spacing: 16,runSpacing: 8,children: [
                 for(var x in data.tagList!)
-                  SmallText(text: "#${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,)
+                  InkWell(onTap: (){
+                    Get.to(()=>AnalysisDetailScreen(tagName: x.name));
+                  },child: SmallText(text: "#${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,size: 16,))
               ],),
             ),
 
@@ -196,8 +198,8 @@ class PostItemWidget extends StatelessWidget {
               child: Wrap(spacing: 16,runSpacing: 8,children: [
                 for(var x in data.peopleTagged!)
                   InkWell(onTap: (){
-                    Get.to(()=>UserProfileScreen());
-                  },child: SmallText(text: "@${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,))
+                    Get.to(()=>UserProfileScreen(userId: x.userId,name: x.name,image: x.image,));
+                  },child: SmallText(text: "@${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,size: 16,))
               ],),
             ),
             if(data.location!=null)
@@ -205,8 +207,8 @@ class PostItemWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Row(spacing: 4,
                   children: [
-                    Icon(Icons.location_on_outlined,color:Colors.deepOrange,size: 16,),
-                    SmallText(text: "${data.location}",size: 13,color: Colors.deepOrange,),
+                    Icon(Icons.location_on_outlined,color:Colors.deepOrange,size: 18,),
+                    Expanded(child: SmallText(text: "${data.location}",size: 14,color: Colors.deepOrange,maxLine: 1,overflow: TextOverflow.ellipsis,)),
                   ],
                 ),
               )

@@ -110,6 +110,10 @@ Data copyWith({  num? id,
   num? get priority => _priority;
   String? get createdAt => _createdAt;
 
+  set setImage(value){
+    _image=value;
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;

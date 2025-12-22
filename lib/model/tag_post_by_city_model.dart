@@ -1,6 +1,6 @@
 import 'post_model.dart' as pm;
-class TagByCityModel {
-  TagByCityModel({
+class TagPostByCityModel {
+  TagPostByCityModel({
       String? message, 
       num? status, 
       Data? data,}){
@@ -9,7 +9,7 @@ class TagByCityModel {
     _data = data;
 }
 
-  TagByCityModel.fromJson(dynamic json) {
+  TagPostByCityModel.fromJson(dynamic json) {
     _message = json['message'];
     _status = json['status'];
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -17,10 +17,10 @@ class TagByCityModel {
   String? _message;
   num? _status;
   Data? _data;
-TagByCityModel copyWith({  String? message,
+  TagPostByCityModel copyWith({  String? message,
   num? status,
   Data? data,
-}) => TagByCityModel(  message: message ?? _message,
+}) => TagPostByCityModel(  message: message ?? _message,
   status: status ?? _status,
   data: data ?? _data,
 );
