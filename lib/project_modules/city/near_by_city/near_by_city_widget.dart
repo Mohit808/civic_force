@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../common_widget/network_image_widget.dart';
 import '../../../common_widget/text_common.dart';
+import '../../../screens/add_city_image/add_images/add_images_screen.dart';
 import 'controller_near_by_city.dart';
 
 class NearByCityWidget extends StatelessWidget {
@@ -30,11 +31,15 @@ class NearByCityWidget extends StatelessWidget {
                     Container(padding: EdgeInsets.all(8),decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),boxShadow: [
                       BoxShadow(color: Colors.black.withOpacity(0.3))
                     ]),
-                      child: Column(mainAxisSize: MainAxisSize.min,children: [
-                        Icon(Icons.add,color: Colors.white,),
-                        // SmallText(text: "Add Image",size: 12,color: Colors.white,fontWeight: FontWeight.w800,),
-                        // SizedBox(height: 8,)
-                      ],),
+                      child: InkWell(onTap: (){
+                        Get.to(()=>AddImagesScreen(name: controller.list[index].name,id: controller.list[index].id,isCity: true,));
+                      },
+                        child: Column(mainAxisSize: MainAxisSize.min,children: [
+                          Icon(Icons.add,color: Colors.white,),
+                          // SmallText(text: "Add Image",size: 12,color: Colors.white,fontWeight: FontWeight.w800,),
+                          // SizedBox(height: 8,)
+                        ],),
+                      ),
                     )
                   ],),),
                   Positioned(bottom: 0, child: ClipRRect(borderRadius: BorderRadius.circular(10),

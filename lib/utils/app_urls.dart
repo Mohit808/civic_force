@@ -34,5 +34,7 @@ class AppUrls {
   static String tagPostByCity="tagPostByCity";
   static String tagsByCity="tagsByCity";
   static String cityByTag="cityByTag";
+  static String notification="notification";
+  static String markAllReadNotifications="markAllReadNotifications";
 }
 

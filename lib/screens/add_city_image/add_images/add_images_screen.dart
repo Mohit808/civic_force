@@ -11,29 +11,34 @@ import 'package:image_picker/image_picker.dart';
 import 'controller_add_images.dart';
 
 class AddImagesScreen extends StatelessWidget {
-  const AddImagesScreen({super.key, this.tagId, this.tagName});
-  final dynamic tagId;
-  final dynamic tagName;
+  const AddImagesScreen({super.key, this.id, this.name, this.isCity});
+  final dynamic id;
+  final dynamic name;
+  final dynamic isCity;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(init: ControllerAddImages(),
       builder: (controller) {
         return Scaffold(
-          appBar: AppBarCommon(title: "Add Image"),
+          appBar: AppBarCommon(title: "Add ${isCity==true?"City":"Tag"} Image"),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+              SmallText(text: "${isCity==true?"City":"Tag"} name"),
+              SizedBox(height: 2,),
+              SmallText(text: "$name",size: 20,fontWeight: FontWeight.w600,),
+              SizedBox(height: 36,),
               SmallText(text: "Enter url",fontWeight: FontWeight.w600,size: 15,),
               SizedBox(height: 8,),
-              TextFieldCommon(hintText: "Enter url",controller: controller.textEditingController,),
+              TextFieldCommon(hintText: "Enter url",controller: controller.textEditingController,fillColor: Colors.white,),
 
               SizedBox(height: 36,),
               Row(spacing: 8,children: [
-                for(var x in [1,2,3,4,5,6,7,8,9])
+                for(var x in [1,2,3,4,5,6,7,8,9,0])
                   Expanded(child: ContainerDecorated(height: 1,width: 20,color: Colors.black38,)),
                 SmallText(text: "Or"),
-                for(var x in [1,2,3,4,5,6,7,8,9])
+                for(var x in [1,2,3,4,5,6,7,8,9,0])
                   Expanded(child: ContainerDecorated(height: 1,width: 20,color: Colors.black38,)),
               ],),
               SizedBox(height: 36,),
@@ -60,7 +65,7 @@ class AddImagesScreen extends StatelessWidget {
                 ImageCommon(src: "${controller.selectedImage}",height: 50,width: 50,fit: BoxFit.cover,borderRadius: 10,),
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,children: [
-                    SmallText(text: "${controller.selectedImage}",fontWeight: FontWeight.w500,),
+                    SmallText(text: "${controller.selectedImage}".split("/").last,fontWeight: FontWeight.w500,),
                     // SmallText(text: "2 MB",color: Colors.black54,)
                   ],),
                 ),
@@ -68,13 +73,13 @@ class AddImagesScreen extends StatelessWidget {
                   controller.selectedImage=null;
                   controller.update();
                 },child: Icon(Icons.delete_outline,color: Colors.black54,))
-              ],),)
+              ],),),
 
             ],),
           ),
           persistentFooterButtons: [
             ButtonSingleAtom(widget: "Submit",tap: (){
-              controller.putData(id: '$tagId');
+              controller.putData(id: '$id',isCity: isCity);
             },)
           ],
         );

@@ -42,7 +42,7 @@ class PostItemWidget extends StatelessWidget {
                     children: [
                       SizedBox(height: 40,width:40,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,))),
                       SizedBox(width: 16,),
-                      SmallText(text: data.user?.name??"Ivan",fontWeight: FontWeight.w600,letterSpacing: 0.3,size: 16,),
+                      SmallText(text: data.user?.userId==userInfo?.userId?"You": data.user?.name??"Ivan",fontWeight: FontWeight.w600,letterSpacing: 0.3,size: 16,),
                       SizedBox(width: 16,),
                       ContainerDecorated(padding: 2,borderRadius: 10,color:Colors.black54,),
                       SizedBox(width: 8,),

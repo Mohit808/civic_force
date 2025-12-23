@@ -51,6 +51,7 @@ class ControllerPostItem extends GetxController{
       var res=await NetworkManager().post(AppUrls.savedPost,data: {
         "post_id": "${id}"
       });
+      print(res);
       ModelX modelX=ModelX.fromJson(res);
       if(modelX.status==200){
         showToastSuccess(modelX.message);

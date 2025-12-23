@@ -1,3 +1,4 @@
+import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/project_modules/city/city_main_widget.dart';
 import 'package:civic_force/project_modules/post/controller_post_list.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
@@ -11,6 +12,8 @@ import '../../common_widget/app_bar.dart';
 import '../../common_widget/app_colors.dart';
 import '../../common_widget/text_common.dart';
 import '../../project_modules/post/post_main_list_widget.dart';
+import '../notification_screen/notification_screen.dart';
+import '../search/search_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -22,7 +25,19 @@ class HomeScreen extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
             appBar: AppBarCommon(title: SmallText(text: "Social Fabric",fontWeight: FontWeight.w800,size: 20,color: Colors.black,),color: AppColors.scaffoldBackgroundColor,elevation: 0,titleColor: AppColors.primary,centerTitle: false,actions: [
-              Image.asset(AppImages.message,height: 30,width: 30,),
+              InkWell(onTap: (){
+                Get.to(()=>SearchScreen());
+              },child: Icon(Icons.search,color: Colors.black,)),
+              SizedBox(width: 24,),
+              InkWell(onTap: (){
+                Get.to(()=>NotificationScreen());
+              },child: Icon(Icons.notifications,color: Colors.black,)),
+              SizedBox(width: 24,),
+              Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ContainerDecorated(color: AppColors.primary.withOpacity(0.2),padding: 8,borderRadius: 30,child: Image.asset(AppImages.message,height: 30,width: 30,)),
+                ],
+              ),
               SizedBox(width: 16,)
             ],),
             body: GetBuilder(init: ControllerPostList(),

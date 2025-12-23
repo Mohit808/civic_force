@@ -95,7 +95,7 @@ class Analysis2Screen extends StatelessWidget {
 
                             if(controller.list[index].image!=null && "${controller.list[index].image}".isNotEmpty)ImageCommon(src:controller.list[index].image??"",height: 100,width: 100,fit: BoxFit.cover,borderRadius: 20,),
                             if(controller.list[index].image==null || "${controller.list[index].image}".isEmpty)InkWell(onTap: (){
-                              Get.to(()=>AddImagesScreen(tagName: controller.list[index].name,tagId: controller.list[index].id,));
+                              Get.to(()=>AddImagesScreen(name: controller.list[index].name,id: controller.list[index].id,));
                             },
                               child: SizedBox(height: 100,width: 100,child: Column(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
                                 Icon(Icons.add),

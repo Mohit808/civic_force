@@ -94,6 +94,10 @@ Data copyWith({  num? id,
   String? get state => _state;
   String? get country => _country;
 
+  set setImage(value){
+    _image=value;
+  }
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;

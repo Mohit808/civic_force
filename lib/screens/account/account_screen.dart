@@ -10,6 +10,8 @@ import '../../common_widget/app_bar.dart';
 import '../../utils.dart';
 import '../add_city_image/add_city_image_screen.dart';
 import '../polls_screen/polls_screen.dart';
+import 'my_posts/my_post_screen.dart';
+import 'saved_post/saved_post_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -50,11 +52,15 @@ class AccountScreen extends StatelessWidget {
             
 
             Divider(),
-            Row(spacing: 16,children: [
-              ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.panorama_rounded,size: 16,color: Colors.white,)),
-              Expanded(child: SmallText(text: "My Posts",fontWeight: FontWeight.w600,)),
-              Icon(Icons.arrow_forward,size: 16,)
-            ],),
+            InkWell(onTap: (){
+              Get.to(()=>MyPostScreen());
+            },
+              child: Row(spacing: 16,children: [
+                ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.panorama_rounded,size: 16,color: Colors.white,)),
+                Expanded(child: SmallText(text: "My Posts",fontWeight: FontWeight.w600,)),
+                Icon(Icons.arrow_forward,size: 16,)
+              ],),
+            ),
 
             Divider(),
 
@@ -71,7 +77,7 @@ class AccountScreen extends StatelessWidget {
             Divider(),
 
             InkWell(onTap: (){
-              Get.to(()=>PollsScreen());
+              Get.to(()=>SavedPostScreen());
             },
               child: Row(spacing: 16,children: [
                 ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.bookmark_added,size: 16,color: Colors.white,)),

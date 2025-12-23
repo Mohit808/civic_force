@@ -17,7 +17,9 @@ class ControllerPostList extends GetxController{
   String? city;
   String? tags;
   String? userId;
-  ControllerPostList({this.listReceived,this.city,this.tags,this.userId});
+  dynamic my;
+  dynamic saved;
+  ControllerPostList({this.listReceived,this.city,this.tags,this.userId,this.my,this.saved});
 
   @override
   void onInit() {
@@ -31,10 +33,10 @@ class ControllerPostList extends GetxController{
     }
   }
 
-  refreshData(){
+  refreshData() async {
     page=1;
     loadMore=false;
-    list.clear();
+    list=[];
     apiResponse=ApiResponse(status: Status.LOADING);
     update();
     fetchData();
@@ -42,7 +44,7 @@ class ControllerPostList extends GetxController{
 
   fetchData() async {
     try{
-      var res=await NetworkManager().get("${AppUrls.post}?page=$page&city=${city??""}&tags=${tags??""}&user_id=${userId??""}");
+      var res=await NetworkManager().get("${AppUrls.post}?page=$page&city=${city??""}&tags=${tags??""}&user_id=${userId??""}&my=${my??""}&saved=${saved??""}");
       PostModel postModel=PostModel.fromJson(res);
       list.addAll(postModel.data!);
       apiResponse=ApiResponse(status: Status.COMPLETED);
