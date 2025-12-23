@@ -20,15 +20,7 @@ class SearchScreen extends StatelessWidget {
     return GetBuilder(init: ControllerSearch(),
       builder: (controller) {
         return Scaffold(
-          appBar: AppBarCommon(leadingWidth: 30,leading: Padding(
-            padding: const EdgeInsets.only(top: 8.0,left: 8),
-            child: InkWell(onTap: (){
-              Get.back();
-            },child: Icon(Icons.arrow_back)),
-          ),title: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: TextFieldCommon(hintText: "Search here",borderRadius: 30,),
-          ),color: AppColors.scaffoldBackgroundColor,colorIconTheme: Colors.black,),
+          appBar: AppBarCommon(leadingWidth: 30,title: TextFieldCommon(hintText: "Search here",borderRadius: 30,),color: AppColors.scaffoldBackgroundColor,colorIconTheme: Colors.black,),
           body: SingleChildScrollView(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
 
@@ -44,6 +36,8 @@ class SearchScreen extends StatelessWidget {
               ),
               if(controller.selectedTab==0)Container(decoration: BoxDecoration(gradient: LinearGradient(begin: AlignmentGeometry.topCenter,end: AlignmentGeometry.bottomCenter,colors: [
                 Colors.white,
+                // Colors.white,
+                // Colors.black,
                 Colors.black
               ])),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,

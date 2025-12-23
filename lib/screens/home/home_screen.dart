@@ -35,10 +35,19 @@ class HomeScreen extends StatelessWidget {
               SizedBox(width: 24,),
               Column(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ContainerDecorated(color: AppColors.primary.withOpacity(0.2),padding: 8,borderRadius: 30,child: Image.asset(AppImages.message,height: 30,width: 30,)),
+                  SizedBox(height: 4,),
+                  Stack(
+                    children: [
+                      ContainerDecorated(elevation: 3,color: Colors.blue,padding: 8,borderRadius: 30,child: Image.asset(AppImages.message,height: 24,width: 24,color: Colors.white,)),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40.0),
+                        child: ContainerDecorated(color: Colors.blue,elevation: 3,),
+                      )
+                    ],
+                  ),
                 ],
               ),
-              SizedBox(width: 16,)
+              SizedBox(width: 8,)
             ],),
             body: GetBuilder(init: ControllerPostList(),
               builder: (controllerPostItemList) {
@@ -48,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                   onLoading: controllerPostItemList.fetchData,
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           NormalHeadingText(text: "Story",letterSpacing: 2,size: 16,),
