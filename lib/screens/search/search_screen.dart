@@ -42,8 +42,27 @@ class SearchScreen extends StatelessWidget {
                   if(controller.selectedTab==3)SearchPlacesWidget(),
                 ],),
               ),
-              if(controller.selectedTab==0)SearchPostWidget(),
-              SizedBox(height: 50,)
+              if(controller.selectedTab==0)Container(decoration: BoxDecoration(gradient: LinearGradient(begin: AlignmentGeometry.topCenter,end: AlignmentGeometry.bottomCenter,colors: [
+                Colors.white,
+                Colors.black
+              ])),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SearchPostWidget(),
+                    SizedBox(height: 50,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: SmallText(text: "Let's change our",size: 35,fontWeight: FontWeight.w600,color: Colors.white60,),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0,bottom: 16),
+                      child: SmallText(text: "Social Fabric",size: 65,fontWeight: FontWeight.w800,color: Colors.white,),
+                    ),
+                  ],
+                ),
+              ),
+
+
 
 
 

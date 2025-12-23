@@ -15,11 +15,14 @@ class SearchPostWidget extends StatelessWidget {
       ),
       SizedBox(height: 16,),
 
-      Row(spacing: 4,children: [
-        Expanded(child: AspectRatio(aspectRatio: 1, child: ImageCommon(src: "https://i.pinimg.com/1200x/5d/00/2e/5d002e8845ef4ad052b5b6432c87a2fa.jpg",fit: BoxFit.cover,borderRadius: 10,))),
-        Expanded(child: AspectRatio(aspectRatio: 1, child: ImageCommon(src: "https://i.pinimg.com/736x/68/3b/50/683b50b794d06988e57e6b8a3a63bd1e.jpg",fit: BoxFit.cover,borderRadius: 10,))),
-        Expanded(child: AspectRatio(aspectRatio: 1, child: ImageCommon(src: "https://i.pinimg.com/736x/9d/2a/6e/9d2a6e386f606e7f8198fc87e4af5c44.jpg",fit: BoxFit.cover,borderRadius: 10,))),
-      ],),
+      Column(spacing: 4,children: [
+        for(var x in [1,2,3])
+          Row(spacing: 4,children: [
+            Expanded(child: AspectRatio(aspectRatio: 1, child: ImageCommon(src: "https://i.pinimg.com/736x/d5/b6/87/d5b6875a66775287fd43ea26829c2df5.jpg",fit: BoxFit.cover,borderRadius: 10,))),
+            Expanded(child: AspectRatio(aspectRatio: 1, child: ImageCommon(src: "https://i.pinimg.com/1200x/bc/fe/3b/bcfe3b9d5e411fa2ba0c1e4ad2a12b68.jpg",fit: BoxFit.cover,borderRadius: 10,))),
+            Expanded(child: AspectRatio(aspectRatio: 1, child: ImageCommon(src: "https://i.pinimg.com/736x/3d/a3/8e/3da38ed4d1a039039324c6decefe37e2.jpg",fit: BoxFit.cover,borderRadius: 10,))),
+          ],),
+      ],)
     ],);
   }
 }
