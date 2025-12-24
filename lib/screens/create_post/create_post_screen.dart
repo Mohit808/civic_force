@@ -207,7 +207,7 @@ class CreatePostScreen extends StatelessWidget {
                                           children: [
                                             TypeAheadField<tm.Data>(
                                               suggestionsCallback: (search){
-                                                return DataSourceCommon().fetchTags(search: controller.textEditingControllerTags.text);
+                                                return DataSourceCommon().fetchTags(search: controller.textEditingControllerTags.text,hideCount: true);
                                               },
                                               controller: controller.textEditingControllerTags,
                                               hideOnEmpty: true,
@@ -216,7 +216,7 @@ class CreatePostScreen extends StatelessWidget {
                                               builder: (context, controllerX, focusNode) {
                                                 return TextField(
                                                   onChanged: (value){
-                                                    DataSourceCommon().fetchTags(search: controller.textEditingControllerTags.text);
+                                                    DataSourceCommon().fetchTags(search: controller.textEditingControllerTags.text,hideCount: true);
                                                   },
                                                   style: TextStyle(fontSize: 13),
                                                   onTapOutside: (v){

@@ -37,18 +37,18 @@ class DataSourceCommon {
     return searchUserModel.data??[];
   }
 
-  Future<List<tm.Data>> fetchTags({page,search}) async {
+  Future<List<tm.Data>> fetchTags({page,search,hideCount}) async {
     try{
-      var res=await NetworkManager().get("${AppUrls.tags}?page=${page??""}&search=${search??""}");
+      var res=await NetworkManager().get("${AppUrls.tags}?page=${page??""}&search=${search??""}&hide_count=${hideCount??""}");
       tm.TagsModel tagsModel=tm.TagsModel.fromJson(res);
       return tagsModel.data??[];
     }catch(e){}
     return [];
   }
 
-  Future<List<cm.Data>> fetchCity({page,search,noImage}) async {
+  Future<List<cm.Data>> fetchCity({page,search,noImage,hideCount}) async {
     try{
-      var res=await NetworkManager().get("${AppUrls.city}?page=${page??""}&search=${search??""}&no_image=${noImage??""}");
+      var res=await NetworkManager().get("${AppUrls.city}?page=${page??""}&search=${search??""}&no_image=${noImage??""}&hide_count=${hideCount??""}");
       cm.CityModel cityModel=cm.CityModel.fromJson(res);
       if(cityModel.status==200){
         return cityModel.data??[];

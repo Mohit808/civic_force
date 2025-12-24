@@ -56,12 +56,14 @@ class Data {
       num? id, 
       String? name, 
       dynamic image, 
-      String? state, 
+      dynamic postCount,
+      String? state,
       String? country,}){
     _id = id;
     _name = name;
     _image = image;
     _state = state;
+    _postCount = postCount;
     _country = country;
 }
 
@@ -69,28 +71,33 @@ class Data {
     _id = json['id'];
     _name = json['name'];
     _image = json['image'];
+    _postCount = json['post_count'];
     _state = json['state'];
     _country = json['country'];
   }
   num? _id;
   String? _name;
   dynamic _image;
+  dynamic _postCount;
   String? _state;
   String? _country;
 Data copyWith({  num? id,
   String? name,
   dynamic image,
+  dynamic postCount,
   String? state,
   String? country,
 }) => Data(  id: id ?? _id,
   name: name ?? _name,
   image: image ?? _image,
+  postCount: postCount ?? _postCount,
   state: state ?? _state,
   country: country ?? _country,
 );
   num? get id => _id;
   String? get name => _name;
   dynamic get image => _image;
+  dynamic get postCount => _postCount;
   String? get state => _state;
   String? get country => _country;
 
@@ -103,6 +110,7 @@ Data copyWith({  num? id,
     map['id'] = _id;
     map['name'] = _name;
     map['image'] = _image;
+    map['post_count'] = _postCount;
     map['state'] = _state;
     map['country'] = _country;
     return map;

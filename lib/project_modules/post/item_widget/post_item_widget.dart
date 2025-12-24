@@ -87,7 +87,7 @@ class PostItemWidget extends StatelessWidget {
             if(hideRetweet!=true)Row(children: [
 
               Expanded(
-                child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+                child: Row(children: [
                   data.id==controller.indexLoadingLike? SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)) :
                   InkWell(onTap: () async {
                     var res=await controller.likePost(id: data.id);
@@ -108,7 +108,6 @@ class PostItemWidget extends StatelessWidget {
                 ],),
               ),
 
-              // Spacer(),
               Expanded(
                 child: InkWell(onTap: (){
                   showDialog(context: context, builder: (builder){
@@ -158,7 +157,7 @@ class PostItemWidget extends StatelessWidget {
                     ),);
                   });
                 },
-                  child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+                  child: Row(children: [
                     FaIcon(FontAwesomeIcons.retweet,size: 16,color: Colors.black54,),
                     SizedBox(width: 8,),
                     SmallText(text: "${data.retweetCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
@@ -171,7 +170,7 @@ class PostItemWidget extends StatelessWidget {
                 child: InkWell(onTap: (){
                   Get.to(()=>CommentScreen(postId: data.id,));
                 },
-                  child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+                  child: Row(children: [
                     FaIcon(FontAwesomeIcons.commentDots,size: 16,color: Colors.black54,),
                     SizedBox(width: 8,),
                     SmallText(text: "${data.commentsCount??"0"}",fontWeight: FontWeight.w600,color: Colors.black54,),
@@ -180,7 +179,7 @@ class PostItemWidget extends StatelessWidget {
               ),
 
               Expanded(
-                child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+                child: Row(children: [
                   FaIcon(FontAwesomeIcons.chartSimple,size: 16,color: Colors.black54,),
                   SizedBox(width: 8,),
                   SmallText(text: "-1",fontWeight: FontWeight.w600,color: Colors.black54,),
@@ -202,23 +201,17 @@ class PostItemWidget extends StatelessWidget {
                   child: Row(mainAxisAlignment: MainAxisAlignment.center,children: [
                     controller.apiResponseSavedPost.status==Status.LOADING && controller.indexLoadingSaved==data.id!.toInt()?SizedBox(height: 16,width: 16,child: CircularProgressIndicator(strokeWidth: 2,)):
                     FaIcon(data.isSaved==true?FontAwesomeIcons.solidBookmark: FontAwesomeIcons.bookmark,size: 14,color: data.isSaved==true?Colors.red:Colors.black54,),
+                    SizedBox(width: 8,)
                   ],),
                 ),
               ),
 
 
-              // SizedBox(width: 16,),
-              // SmallText(text: "Saved",fontWeight: FontWeight.w600,color: Colors.black54,),
-
-              // SizedBox(width: 16,),
-              // Spacer(),
-              Expanded(child: Row(mainAxisAlignment: MainAxisAlignment.center,
+              Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FaIcon(FontAwesomeIcons.shareFromSquare,size: 16,color: Colors.black54,),
                 ],
-              )),
-              // SizedBox(width: 8,),
-              // SmallText(text: "Share",fontWeight: FontWeight.w600,color: Colors.black54,),
+              ),
             ],),
             if(data.tagList!=null && data.tagList!.isNotEmpty)Padding(
               padding: const EdgeInsets.only(top: 8.0),
