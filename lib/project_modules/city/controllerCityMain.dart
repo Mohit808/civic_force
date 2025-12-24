@@ -4,8 +4,8 @@ import 'package:civic_force/network_handling/network_manager.dart';
 import 'package:civic_force/utils/app_urls.dart';
 import 'package:get/get.dart';
 
+String myCity="Prayagraj Division";
 class ControllerCityMain extends GetxController{
-  String myCity="Prayagraj Division";
   List<Tags> list=[];
   CityDetails? cityDetails;
   ApiResponse apiResponse=ApiResponse(status: Status.LOADING);

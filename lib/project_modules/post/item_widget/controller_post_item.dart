@@ -17,6 +17,7 @@ class ControllerPostItem extends GetxController{
   }
 
   likePost({id}) async {
+    bool value=false;
     indexLoadingLike =id.toInt();
     update();
     try{
@@ -26,6 +27,7 @@ class ControllerPostItem extends GetxController{
       like_model.LikeModel likeModel=like_model.LikeModel.fromJson(res);
       // int index=list.indexWhere((test)=>test.id==id);
       if(likeModel.status==200){
+        value= true;
         // showToastSuccess(likeModel.message);
         // list[index].setLike=likeModel.data?.like??false;
         // if(likeModel.data?.like==true){
@@ -41,9 +43,11 @@ class ControllerPostItem extends GetxController{
     }
     indexLoadingLike = -1;
     update();
+    return value;
   }
 
   postSavedPost({id}) async {
+    bool value=false;
     apiResponseSavedPost = ApiResponse(status: Status.LOADING);
     indexLoadingSaved=id;
     update();
@@ -55,6 +59,7 @@ class ControllerPostItem extends GetxController{
       ModelX modelX=ModelX.fromJson(res);
       if(modelX.status==200){
         showToastSuccess(modelX.message);
+        value=true;
         // int index=list.indexWhere((test)=>"${test.id}"=="$id");
         // list[index].setSaved=modelX.data['saved']??false;
       }else{
@@ -64,6 +69,7 @@ class ControllerPostItem extends GetxController{
 
     apiResponseSavedPost = ApiResponse(status: Status.COMPLETED);
     update();
+    return value;
   }
 
 }

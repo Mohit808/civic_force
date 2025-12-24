@@ -5,6 +5,7 @@ import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:civic_force/common_widget/textfield_atom.dart';
+import 'package:civic_force/data_source/data_source_common.dart';
 import 'package:civic_force/model/search_user_model.dart';
 import 'package:civic_force/network_handling/api_response.dart';
 import 'package:civic_force/screens/create_post/controller_create_post.dart';
@@ -19,6 +20,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../common_widget/app_bar.dart';
 import 'widget/select_location_widget.dart';
+import 'package:civic_force/model/tags_model.dart' as tm;
 
 
 
@@ -203,9 +205,9 @@ class CreatePostScreen extends StatelessWidget {
                                       if(controller.showOnMapValue)ContainerDecorated(colorBorder: Colors.blue.withOpacity(0.2),color: Colors.blue.withOpacity(0.1),padding: 8,
                                         child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,
                                           children: [
-                                            TypeAheadField<String>(
+                                            TypeAheadField<tm.Data>(
                                               suggestionsCallback: (search){
-                                                return controller.fetchTags();
+                                                return DataSourceCommon().fetchTags(search: controller.textEditingControllerTags.text);
                                               },
                                               controller: controller.textEditingControllerTags,
                                               hideOnEmpty: true,
@@ -214,13 +216,14 @@ class CreatePostScreen extends StatelessWidget {
                                               builder: (context, controllerX, focusNode) {
                                                 return TextField(
                                                   onChanged: (value){
-                                                    controller.fetchTags();
+                                                    DataSourceCommon().fetchTags(search: controller.textEditingControllerTags.text);
                                                   },
                                                   style: TextStyle(fontSize: 13),
                                                   onTapOutside: (v){
                                                     hideKeyboard();
                                                   },
                                                     onSubmitted: (value){
+
                                                       if(value.isNotEmpty){
                                                         controller.selectedTagList.add(value);
                                                         controller.update();
@@ -236,7 +239,7 @@ class CreatePostScreen extends StatelessWidget {
                                               itemBuilder: (context, city) {
                                                 return Padding(
                                                   padding: const EdgeInsets.all(12.0),
-                                                  child: SmallText(text: city,fontWeight: FontWeight.w600,),
+                                                  child: SmallText(text: city.name,fontWeight: FontWeight.w600,),
                                                 );
                                                 //   ListTile(
                                                 //   title: Text(city),
@@ -245,7 +248,7 @@ class CreatePostScreen extends StatelessWidget {
                                               },
                                               onSelected: (city) {
                                                 controller.textEditingControllerTags.text="";
-                                                controller.selectedTagList.add(city);
+                                                controller.selectedTagList.add(city.name);
                                                 controller.update();
                                               },
                                             ),
@@ -343,7 +346,7 @@ class CreatePostScreen extends StatelessWidget {
                                   },child: SmallText(text: "Tag people",color: Colors.black54)),
                                   if(controller.showUserTag)TypeAheadField<Data>(
                                     suggestionsCallback: (search){
-                                      return controller.fetchUsers();
+                                      return DataSourceCommon().fetchUsers(search: controller.textEditingControllerTags.text);
                                     },
                                     controller: controller.textEditingControllerUsers,
                                     hideOnEmpty: true,
@@ -352,7 +355,7 @@ class CreatePostScreen extends StatelessWidget {
                                     builder: (context, controllerX, focusNode) {
                                       return TextField(
                                           onChanged: (value){
-                                            controller.fetchUsers();
+                                            DataSourceCommon().fetchUsers(search: controller.textEditingControllerTags.text);
                                           },
                                           style: TextStyle(fontSize: 13),
                                           onTapOutside: (v){
@@ -369,7 +372,7 @@ class CreatePostScreen extends StatelessWidget {
                                         padding: const EdgeInsets.all(12.0),
                                         child: Row(spacing: 8,
                                           children: [
-                                            ImageCommon(src: "${data.profilePicture}",height: 24,width: 24,fit: BoxFit.cover,borderRadius: 30,),
+                                            ImageCommon(src: "${data.image}",height: 24,width: 24,fit: BoxFit.cover,borderRadius: 30,),
                                             Expanded(child: SmallText(text: "${data.name}",fontWeight: FontWeight.w600,maxLine: 1,)),
                                           ],
                                         ),

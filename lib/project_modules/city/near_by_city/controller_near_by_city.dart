@@ -1,3 +1,4 @@
+import 'package:civic_force/data_source/data_source_common.dart';
 import 'package:civic_force/model/city_model.dart';
 import 'package:civic_force/network_handling/network_manager.dart';
 import 'package:civic_force/utils/app_urls.dart';
@@ -8,14 +9,17 @@ class ControllerNearByCity extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    fetchData();
+    DataSourceCommon().fetchCity().then((onValue){
+      list.addAll(onValue);
+      update();
+    });
   }
 
-  fetchData() async {
-    var res=await NetworkManager().get(AppUrls.city);
-    CityModel cityModel=CityModel.fromJson(res);
-    if(cityModel.status==200){
-      list.addAll(cityModel.data??[]);
-    }
-  }
+  // fetchData() async {
+  //   var res=await NetworkManager().get(AppUrls.city);
+  //   CityModel cityModel=CityModel.fromJson(res);
+  //   if(cityModel.status==200){
+  //     list.addAll(cityModel.data??[]);
+  //   }
+  // }
 }

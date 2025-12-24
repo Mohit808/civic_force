@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:civic_force/common_widget/network_image_widget.dart';
+import 'package:civic_force/data_source/data_source_common.dart';
 import 'package:civic_force/model/model_x.dart';
 import 'package:civic_force/model/tags_model.dart' as tm;
 import 'package:flutter/material.dart';
@@ -60,7 +61,11 @@ class ControllerMap extends GetxController{
   void onInit() {
     super.onInit();
     fetchData();
-    fetchTags();
+    // fetchTags();
+    DataSourceCommon().fetchTags().then((onValue){
+      listTags.addAll(onValue);
+      update();
+    });
   }
 
 
@@ -93,14 +98,14 @@ class ControllerMap extends GetxController{
   }
 
   
-  fetchTags() async {
-    try{
-      var res=await NetworkManager().get(AppUrls.tags);
-      tm.TagsModel tagsModel=tm.TagsModel.fromJson(res);
-      listTags.addAll(tagsModel.data??[]);
-    }catch(e){}
-    update();
-  }
+  // fetchTags() async {
+  //   try{
+  //     var res=await NetworkManager().get(AppUrls.tags);
+  //     tm.TagsModel tagsModel=tm.TagsModel.fromJson(res);
+  //     listTags.addAll(tagsModel.data??[]);
+  //   }catch(e){}
+  //   update();
+  // }
 
   fetchData() async {
     try{

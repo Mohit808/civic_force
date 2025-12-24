@@ -1,3 +1,4 @@
+import 'package:civic_force/data_source/data_source_common.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../model/post_model.dart';
@@ -19,7 +20,8 @@ class ControllerPostList extends GetxController{
   String? userId;
   dynamic my;
   dynamic saved;
-  ControllerPostList({this.listReceived,this.city,this.tags,this.userId,this.my,this.saved});
+  dynamic top;
+  ControllerPostList({this.listReceived,this.city,this.tags,this.userId,this.my,this.saved,this.top});
 
   @override
   void onInit() {
@@ -44,16 +46,19 @@ class ControllerPostList extends GetxController{
 
   fetchData() async {
     try{
-      var res=await NetworkManager().get("${AppUrls.post}?page=$page&city=${city??""}&tags=${tags??""}&user_id=${userId??""}&my=${my??""}&saved=${saved??""}");
-      PostModel postModel=PostModel.fromJson(res);
-      list.addAll(postModel.data!);
-      apiResponse=ApiResponse(status: Status.COMPLETED);
-      if(postModel.data!.length<10){
-        loadMore=false;
-      }else{
+      // var res=await NetworkManager().get("${AppUrls.post}?page=$page&city=${city??""}&tags=${tags??""}&user_id=${userId??""}&my=${my??""}&saved=${saved??""}");
+      // PostModel postModel=PostModel.fromJson(res);
+
+      var res = await DataSourceCommon().fetchPosts(page: page,city: city,tags: tags,userId: userId,my: my,saved: saved,top:top);
+      if(res.length==10){
         loadMore=true;
         page++;
+      }else{
+        loadMore=false;
       }
+      list.addAll(res);
+      apiResponse=ApiResponse(status: Status.COMPLETED);
+
     }catch(e){
       print(e);
       apiResponse=ApiResponse(status: Status.ERROR);

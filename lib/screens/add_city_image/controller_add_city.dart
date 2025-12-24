@@ -1,4 +1,5 @@
 
+import 'package:civic_force/data_source/data_source_common.dart';
 import 'package:civic_force/network_handling/api_response.dart';
 import 'package:civic_force/network_handling/network_manager.dart';
 import 'package:civic_force/utils/app_urls.dart';
@@ -37,17 +38,19 @@ class ControllerAddCity extends GetxController{
     }
   }
   fetchData() async {
-    try{
-      var res=await NetworkManager().get("${AppUrls.city}?page=$page&no_image=true");
-      CityModel cityModel=CityModel.fromJson(res);
-      list.addAll(cityModel.data??[]);
-      if(cityModel.data?.length==10){
-        page++;
-        loadMore=true;
-      }else{
-        loadMore=false;
-      }
-    }catch(e){}
+      // var res=await NetworkManager().get("${AppUrls.city}?page=$page&no_image=true");
+      // CityModel cityModel=CityModel.fromJson(res);
+      // list.addAll(cityModel.data??[]);
+
+    var res=await DataSourceCommon().fetchCity(page: page,noImage: true);
+    list.addAll(res);
+    if(res.length==10){
+      page++;
+      loadMore=true;
+    }else{
+      loadMore=false;
+    }
+
     apiResponse = ApiResponse(status: Status.COMPLETED);
     update();
     refreshController.loadComplete();

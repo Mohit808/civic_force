@@ -50,8 +50,8 @@ PostModel copyWith({  String? message,
 
 /// id : 64
 /// retweeted_post : null
-/// user : {"id":1,"name":"Amit Yadav","email":null,"profile_picture":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}
-/// people_tagged : [{"id":1,"name":"Amit Yadav","email":null,"profile_picture":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}]
+/// user : {"id":1,"name":"Amit Yadav","email":null,"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}
+/// people_tagged : [{"id":1,"name":"Amit Yadav","email":null,"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}]
 /// tag_list : [{"id":15,"name":"road","color":"#3436bf"}]
 /// text : ""
 /// image : "http://res.cloudinary.com/dah5kgjjo/image/upload/v1765881788/eb9dbjlwrbttefvjikqz.jpg"

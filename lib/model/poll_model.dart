@@ -48,7 +48,7 @@ PollModel copyWith({  String? message,
 }
 
 /// id : 1
-/// user : {"id":1,"name":"Amit Yadav","email":null,"profile_picture":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}
+/// user : {"id":1,"name":"Amit Yadav","email":null,"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}
 /// question : "Are you a morning, afternoon, evening or night person?"
 /// is_multiple_choice : false
 /// expires_at : "2025-12-17T11:22:41Z"

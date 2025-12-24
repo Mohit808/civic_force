@@ -1,6 +1,7 @@
 class AppUrls {
   static String baseUrl="http://192.168.1.51:8000/social/";
-  // static String baseUrl="http://10.183.166.89:8000/social/";
+  // static String baseUrl="http://10.246.24.89:8000/social/";
+  // static String baseUrl="http://10.183.166.89:8000/social/";zz
   // static String baseUrl="http://10.14.125.89:8000/social/";
   // static String baseUrl="http://192.168.1.16:8000/social/";
   // static String baseUrl="http://172.17.237.89:8000/social/";
@@ -9,6 +10,7 @@ class AppUrls {
   static String getMapData="getMapData";
   static String tags="tags";
   static String userSearch="userSearch";
+  static String locationSearch="locationSearch";
   static String googleLogin="googleLogin";
   static String emailLogin="emailLogin";
   static String emailSignUp="emailSignUp";
@@ -36,5 +38,6 @@ class AppUrls {
   static String cityByTag="cityByTag";
   static String notification="notification";
   static String markAllReadNotifications="markAllReadNotifications";
+  static String trendingTags="trendingTags";
 }
 

@@ -43,20 +43,20 @@ OtherUserInfoModel copyWith({  String? message,
 /// id : 4
 /// name : "Base user"
 /// email : "a@b.com"
-/// profile_picture : null
+/// image : null
 /// user_id : 13
 /// follower_count : 0
 /// following_count : 1
 /// post_count : 2
 /// is_following : false
-/// posts : [{"id":69,"retweeted_post":{"id":64,"retweeted_post":null,"user":{"id":4,"name":"Base user","email":"a@b.com","profile_picture":null,"user_id":13},"people_tagged":[{"id":1,"name":"Amit Yadav","email":null,"profile_picture":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}],"poll":null,"tag_list":[{"id":15,"name":"Road","color":"#3436bf"}],"text":"","image":"https://i.pinimg.com/1200x/c0/98/4b/c0984bd4779ff9634f9d707ec6ad0f5b.jpg","location":"H9QM+FP6, Noida, Uttar Pradesh, India","latitude":28.588364583891593,"longitude":77.38430131226778,"description":"","can_reply":null,"is_public":true,"likes_count":1,"comments_count":0,"retweet_count":0,"is_deleted":false,"is_reported":false,"is_archived":false,"created_at":"2025-12-16T10:43:09.215745Z","updated_at":"2025-12-19T06:56:18.057215Z","city":13},"user":{"id":4,"name":"Base user","email":"a@b.com","profile_picture":null,"user_id":13},"people_tagged":[],"poll":null,"tag_list":[],"text":"","image":"","location":null,"latitude":null,"longitude":null,"description":"","can_reply":null,"is_public":true,"likes_count":0,"comments_count":0,"retweet_count":0,"is_deleted":false,"is_reported":false,"is_archived":false,"created_at":"2025-12-18T11:30:30.303047Z","updated_at":"2025-12-19T06:03:31.847628Z","city":null},{"id":64,"retweeted_post":null,"user":{"id":4,"name":"Base user","email":"a@b.com","profile_picture":null,"user_id":13},"people_tagged":[{"id":1,"name":"Amit Yadav","email":null,"profile_picture":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}],"poll":null,"tag_list":[{"id":15,"name":"Road","color":"#3436bf"}],"text":"","image":"https://i.pinimg.com/1200x/c0/98/4b/c0984bd4779ff9634f9d707ec6ad0f5b.jpg","location":"H9QM+FP6, Noida, Uttar Pradesh, India","latitude":28.588364583891593,"longitude":77.38430131226778,"description":"","can_reply":null,"is_public":true,"likes_count":1,"comments_count":0,"retweet_count":0,"is_deleted":false,"is_reported":false,"is_archived":false,"created_at":"2025-12-16T10:43:09.215745Z","updated_at":"2025-12-19T06:56:18.057215Z","city":13}]
+/// posts : [{"id":69,"retweeted_post":{"id":64,"retweeted_post":null,"user":{"id":4,"name":"Base user","email":"a@b.com","image":null,"user_id":13},"people_tagged":[{"id":1,"name":"Amit Yadav","email":null,"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}],"poll":null,"tag_list":[{"id":15,"name":"Road","color":"#3436bf"}],"text":"","image":"https://i.pinimg.com/1200x/c0/98/4b/c0984bd4779ff9634f9d707ec6ad0f5b.jpg","location":"H9QM+FP6, Noida, Uttar Pradesh, India","latitude":28.588364583891593,"longitude":77.38430131226778,"description":"","can_reply":null,"is_public":true,"likes_count":1,"comments_count":0,"retweet_count":0,"is_deleted":false,"is_reported":false,"is_archived":false,"created_at":"2025-12-16T10:43:09.215745Z","updated_at":"2025-12-19T06:56:18.057215Z","city":13},"user":{"id":4,"name":"Base user","email":"a@b.com","image":null,"user_id":13},"people_tagged":[],"poll":null,"tag_list":[],"text":"","image":"","location":null,"latitude":null,"longitude":null,"description":"","can_reply":null,"is_public":true,"likes_count":0,"comments_count":0,"retweet_count":0,"is_deleted":false,"is_reported":false,"is_archived":false,"created_at":"2025-12-18T11:30:30.303047Z","updated_at":"2025-12-19T06:03:31.847628Z","city":null},{"id":64,"retweeted_post":null,"user":{"id":4,"name":"Base user","email":"a@b.com","image":null,"user_id":13},"people_tagged":[{"id":1,"name":"Amit Yadav","email":null,"image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFRQjM-wM_nXMA03AGDXgJK3VeX7vtD3ctA&s","user_id":3}],"poll":null,"tag_list":[{"id":15,"name":"Road","color":"#3436bf"}],"text":"","image":"https://i.pinimg.com/1200x/c0/98/4b/c0984bd4779ff9634f9d707ec6ad0f5b.jpg","location":"H9QM+FP6, Noida, Uttar Pradesh, India","latitude":28.588364583891593,"longitude":77.38430131226778,"description":"","can_reply":null,"is_public":true,"likes_count":1,"comments_count":0,"retweet_count":0,"is_deleted":false,"is_reported":false,"is_archived":false,"created_at":"2025-12-16T10:43:09.215745Z","updated_at":"2025-12-19T06:56:18.057215Z","city":13}]
 
 class Data {
   Data({
       num? id, 
       String? name, 
       String? email, 
-      dynamic profilePicture, 
+      dynamic image,
       num? userId, 
       num? followerCount, 
       num? followingCount, 
@@ -66,7 +66,7 @@ class Data {
     _id = id;
     _name = name;
     _email = email;
-    _profilePicture = profilePicture;
+    _image = image;
     _userId = userId;
     _followerCount = followerCount;
     _followingCount = followingCount;
@@ -79,7 +79,7 @@ class Data {
     _id = json['id'];
     _name = json['name'];
     _email = json['email'];
-    _profilePicture = json['profile_picture'];
+    _image = json['image'];
     _userId = json['user_id'];
     _followerCount = json['follower_count'];
     _followingCount = json['following_count'];
@@ -95,7 +95,7 @@ class Data {
   num? _id;
   String? _name;
   String? _email;
-  dynamic _profilePicture;
+  dynamic _image;
   num? _userId;
   num? _followerCount;
   num? _followingCount;
@@ -105,7 +105,7 @@ class Data {
 Data copyWith({  num? id,
   String? name,
   String? email,
-  dynamic profilePicture,
+  dynamic image,
   num? userId,
   num? followerCount,
   num? followingCount,
@@ -115,7 +115,7 @@ Data copyWith({  num? id,
 }) => Data(  id: id ?? _id,
   name: name ?? _name,
   email: email ?? _email,
-  profilePicture: profilePicture ?? _profilePicture,
+  image: image ?? _image,
   userId: userId ?? _userId,
   followerCount: followerCount ?? _followerCount,
   followingCount: followingCount ?? _followingCount,
@@ -126,7 +126,7 @@ Data copyWith({  num? id,
   num? get id => _id;
   String? get name => _name;
   String? get email => _email;
-  dynamic get profilePicture => _profilePicture;
+  dynamic get image => _image;
   num? get userId => _userId;
   num? get followerCount => _followerCount;
   num? get followingCount => _followingCount;
@@ -142,7 +142,7 @@ Data copyWith({  num? id,
     map['id'] = _id;
     map['name'] = _name;
     map['email'] = _email;
-    map['profile_picture'] = _profilePicture;
+    map['image'] = _image;
     map['user_id'] = _userId;
     map['follower_count'] = _followerCount;
     map['following_count'] = _followingCount;

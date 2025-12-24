@@ -101,26 +101,6 @@ class ControllerCreatePost extends GetxController{
   }
 
 
-  Future<List<String>> fetchTags() async {
-    var res=await NetworkManager().get("${AppUrls.tags}?search=${textEditingControllerTags.text}");
-    print(res);
-    List<String> list=[];
-    for(var x in res['data']){
-      list.add(x['name']);
-    }
-    return list;
-  }
-
-  Future<List<Data>> fetchUsers() async {
-    var res=await NetworkManager().get("${AppUrls.userSearch}?search=${textEditingControllerTags.text}");
-    print(res);
-    SearchUserModel searchUserModel=SearchUserModel.fromJson(res);
-    List<Data> list=[];
-    for(var x in searchUserModel.data!){
-      list.add(x);
-    }
-    return list;
-  }
 
   locateMe() async {
     LocationService locationService = LocationService();

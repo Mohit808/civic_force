@@ -12,7 +12,7 @@ import '../../network_handling/network_widgets/something_went_wrong_widget.dart'
 import '../../model/post_model.dart';
 
 class PostMainListWidget extends StatelessWidget {
-  const PostMainListWidget({super.key, this.listReceived, this.tag, this.showCity, this.city, this.tags, this.userId, this.my, this.saved,});
+  const PostMainListWidget({super.key, this.listReceived, this.tag, this.showCity, this.city, this.tags, this.userId, this.my, this.saved,this.top});
   final List<Data>? listReceived;
   final String? tag;
   final bool? showCity;
@@ -21,10 +21,11 @@ class PostMainListWidget extends StatelessWidget {
   final String? userId;
   final dynamic my;
   final dynamic saved;
+  final dynamic top;
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(tag: tag,init: ControllerPostList(listReceived: listReceived,city: city,tags: tags,userId: userId,my: my,saved: saved),builder: (controller){
+    return GetBuilder(tag: tag,init: ControllerPostList(listReceived: listReceived,city: city,tags: tags,userId: userId,my: my,saved: saved,top: top),builder: (controller){
       return controller.apiResponse.status==Status.LOADING?ShimmerPost():
       controller.apiResponse.status==Status.ERROR?SomethingWentWrongWidget(center: true,):
       controller.list.isEmpty?NoDataWidget():

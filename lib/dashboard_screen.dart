@@ -26,33 +26,62 @@ class DashboardScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
-                    children: [
-                      InkWell(onTap: (){ controller.currentIndex = 0;controller.update();},child: Icon(Icons.home, color: controller.currentIndex == 0 ? Colors.deepOrangeAccent : Colors.blueGrey)),
-                      SmallText(text: "Home",color: controller.currentIndex == 0 ? Colors.deepOrangeAccent : Colors.blueGrey,)
-                    ],
+                  Expanded(
+                    child: InkWell(onTap: (){
+                      controller.currentIndex = 0;
+                      controller.update();
+                    },
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
+                        children: [
+                          Icon(Icons.home, color: controller.currentIndex == 0 ? Colors.deepOrangeAccent : Colors.blueGrey),
+                          SmallText(text: "Home",color: controller.currentIndex == 0 ? Colors.deepOrangeAccent : Colors.blueGrey,)
+                        ],
+                      ),
+                    ),
                   ),
 
-                  Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
-                    children: [
-                      InkWell(onTap: (){controller.currentIndex = 1;controller.update();},child: Icon(Icons.map_outlined, color: controller.currentIndex == 1 ? Colors.deepOrangeAccent : Colors.blueGrey)),
-                      SmallText(text: "Map",color: controller.currentIndex == 1 ? Colors.deepOrangeAccent : Colors.blueGrey,)
-                    ],
+                  Expanded(
+                    child: InkWell(onTap: (){
+                      controller.currentIndex = 1;
+                      controller.update();
+                    },
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
+                        children: [
+                          Icon(Icons.map_outlined, color: controller.currentIndex == 1 ? Colors.deepOrangeAccent : Colors.blueGrey),
+                          SmallText(text: "Map",color: controller.currentIndex == 1 ? Colors.deepOrangeAccent : Colors.blueGrey,)
+                        ],
+                      ),
+                    ),
                   ),
 
                   SizedBox(width: 48), // space for FAB
 
-                  Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
-                    children: [
-                      InkWell(onTap: (){controller.currentIndex = 2;controller.update();},child: Icon(Icons.trending_up, color: controller.currentIndex == 2 ? Colors.deepOrangeAccent : Colors.blueGrey)),
-                      SmallText(text: "Analysis",color: controller.currentIndex == 2 ? Colors.deepOrangeAccent : Colors.blueGrey,)
-                    ],
+                  Expanded(
+                    child: InkWell(onTap: (){
+                      controller.currentIndex = 2;
+                      controller.update();
+                    },
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
+                        children: [
+                          Icon(Icons.trending_up, color: controller.currentIndex == 2 ? Colors.deepOrangeAccent : Colors.blueGrey),
+                          SmallText(text: "Analysis",color: controller.currentIndex == 2 ? Colors.deepOrangeAccent : Colors.blueGrey,)
+                        ],
+                      ),
+                    ),
                   ),
-                  Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
-                    children: [
-                      InkWell(onTap: (){controller.currentIndex = 3;controller.update();},child: Icon(Icons.account_circle_rounded, color: controller.currentIndex == 3 ? Colors.deepOrangeAccent : Colors.blueGrey)),
-                      SmallText(text: "Account",color: controller.currentIndex == 3 ? Colors.deepOrangeAccent : Colors.blueGrey,)
-                    ],
+
+                  Expanded(
+                    child: InkWell(onTap: (){
+                      controller.currentIndex = 3;
+                      controller.update();
+                    },
+                      child: Column(mainAxisAlignment: MainAxisAlignment.center,spacing: 4,
+                        children: [
+                          Icon(Icons.account_circle_rounded, color: controller.currentIndex == 3 ? Colors.deepOrangeAccent : Colors.blueGrey),
+                          SmallText(text: "Account",color: controller.currentIndex == 3 ? Colors.deepOrangeAccent : Colors.blueGrey,)
+                        ],
+                      ),
+                    ),
                   ),
 
                 ],

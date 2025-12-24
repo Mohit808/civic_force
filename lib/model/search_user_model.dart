@@ -47,50 +47,50 @@ SearchUserModel copyWith({  String? message,
 
 /// id : 1
 /// name : null
-/// profile_picture : null
+/// image : null
 /// user_id : 3
 
 class Data {
   Data({
       num? id, 
       dynamic name, 
-      dynamic profilePicture, 
+      dynamic image,
       num? userId,}){
     _id = id;
     _name = name;
-    _profilePicture = profilePicture;
+    _image = image;
     _userId = userId;
 }
 
   Data.fromJson(dynamic json) {
     _id = json['id'];
     _name = json['name'];
-    _profilePicture = json['profile_picture'];
+    _image = json['image'];
     _userId = json['user_id'];
   }
   num? _id;
   dynamic _name;
-  dynamic _profilePicture;
+  dynamic _image;
   num? _userId;
 Data copyWith({  num? id,
   dynamic name,
-  dynamic profilePicture,
+  dynamic image,
   num? userId,
 }) => Data(  id: id ?? _id,
   name: name ?? _name,
-  profilePicture: profilePicture ?? _profilePicture,
+  image: image ?? _image,
   userId: userId ?? _userId,
 );
   num? get id => _id;
   dynamic get name => _name;
-  dynamic get profilePicture => _profilePicture;
+  dynamic get image => _image;
   num? get userId => _userId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['name'] = _name;
-    map['profile_picture'] = _profilePicture;
+    map['image'] = _image;
     map['user_id'] = _userId;
     return map;
   }

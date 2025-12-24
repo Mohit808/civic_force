@@ -1,4 +1,5 @@
 import 'post_model.dart' as pm;
+
 class TagPostByCityModel {
   TagPostByCityModel({
       String? message, 

@@ -23,8 +23,6 @@ class ShimmerPost extends StatelessWidget {
               Row(
                 children: [
                   ContainerDecorated(color: Colors.black12,height: 40,width: 40,borderRadius: 30,),
-                  SizedBox(width: 8,),
-                  ContainerDecorated(color: Colors.black12,height: 15,width: 30,),
                   SizedBox(width: 16,),
                   ContainerDecorated(color: Colors.black12,height: 16,width: 100,),
                   SizedBox(width: 16,),

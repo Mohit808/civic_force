@@ -9,6 +9,9 @@ class ControllerCity extends GetxController{
   List<Tags> listWithoutImage=[];
   final String? cityName;
   ControllerCity({this.cityName});
+
+  int selectedTab=0;
+
   @override
   void onInit() {
     super.onInit();
