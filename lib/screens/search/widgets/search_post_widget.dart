@@ -34,7 +34,7 @@ class SearchPostWidget extends StatelessWidget {
               });
             },child: Stack(
               children: [
-                AspectRatio(aspectRatio: 1,child: ImageCommon(src: "${controller.listPosts[index].image}".split(",").first,fit: BoxFit.cover,borderRadius: 10,)),
+                AspectRatio(aspectRatio: 1,child: ImageCommon( "${controller.listPosts[index].image}".split(",").first,borderRadius: 10,)),
                 if(false)Positioned(bottom: 8,right: 4,left: 8,
                   child: Row(children: [
                     Icon(Icons.play_arrow_rounded,size: 16,color: Colors.white,),

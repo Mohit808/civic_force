@@ -40,7 +40,7 @@ class PostItemWidget extends StatelessWidget {
                 },
                   child: Row(
                     children: [
-                      SizedBox(height: 40,width:40,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon(src: data.user?.image?? "https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,))),
+                      SizedBox(height: 40,width:40,child: ClipRRect(borderRadius: BorderRadius.circular(20),child: ImageCommon( data.user?.image?? "https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",))),
                       SizedBox(width: 16,),
                       SmallText(text: data.user?.userId==userInfo?.userId?"You": data.user?.name??"Ivan",fontWeight: FontWeight.w600,letterSpacing: 0.3,size: 16,),
                       SizedBox(width: 16,),
@@ -59,7 +59,7 @@ class PostItemWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0,bottom: 8),
               child:
               GridView.builder(physics: NeverScrollableScrollPhysics(),itemCount:data.image!.split(",").length==1?1:2,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: data.image!.split(",").length,mainAxisSpacing: 8,crossAxisSpacing: 8,childAspectRatio: 1), itemBuilder: (itemBuilder,indexXX){
-                return ImageCommon(src: data.image!.split(",")[indexXX],fit: BoxFit.cover,borderRadius: 15,);
+                return ImageCommon( data.image!.split(",")[indexXX],borderRadius: 15,);
               }),
             ),
 
@@ -127,7 +127,7 @@ class PostItemWidget extends StatelessWidget {
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(spacing: 8,children: [
-                                ImageCommon(src: "${userInfo?.image}",height: 40,width: 40,),
+                                ImageCommon( "${userInfo?.image}",height: 40,width: 40,),
                                 Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 2,
                                   children: [
                                     SmallText(text: "${userInfo?.name}",fontWeight: FontWeight.w700,size: 14,),

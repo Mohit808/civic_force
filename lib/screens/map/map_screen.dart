@@ -95,7 +95,7 @@ class _MapScreenState extends State<MapScreen> {
                         circles: controller.circles,
                         markers: controller.markers,
                       ),
-                      // Image.network("https://www.thestatesman.com/wp-content/uploads/2020/04/googl_ED.jpg",height: Get.height-70,fit: BoxFit.cover,),
+                      // Image.network("https://www.thestatesman.com/wp-content/uploads/2020/04/googl_ED.jpg",height: Get.height-70,),
 
 
                       Padding(

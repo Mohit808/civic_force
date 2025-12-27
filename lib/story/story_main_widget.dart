@@ -85,7 +85,7 @@ class StoryMainWidget extends StatelessWidget {
                         children: [
                           ContainerDecorated(borderRadius: 40,padding: controller.listMyStory.isNotEmpty? 2:0,color: controller.listMyStory.isNotEmpty?Colors.green:Colors.black,child: ClipRRect(borderRadius: BorderRadius.circular(50),child:
 
-                          ImageCommon(height: 60,width: 60,borderRadius: 50, src: '${userInfo?.image}',)
+                          ImageCommon(height: 60,width: 60,borderRadius: 50, '${userInfo?.image}',)
 
                           )),
                           SizedBox(width: 60,
@@ -111,14 +111,14 @@ class StoryMainWidget extends StatelessWidget {
                           children: [
                             InkWell(onTap: (){
                               Get.to(()=>ViewFullStoryScreen(listMyStory: [],listStory: controller.listStory,indexx: controller.listStory.indexWhere((test)=>test==x),));
-                            },child: ImageCommon(height: 120,width: 90,borderRadius: 10,src: "${x.mediaUrl}",fit: BoxFit.cover,)
+                            },child: ImageCommon(height: 120,width: 90,borderRadius: 10, "${x.mediaUrl}",)
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 4.0,left: 4),
                               child: InkWell(onTap: (){
                                 Get.to(()=>UserProfileScreen());
                                 // Get.to(()=>UserDetailsScreen(id: x.user?.userId,name: x.user?.name,image: x.user?.image,navigateOnMessage: true));
-                              },child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),border: Border.all(color: Colors.white,width: 0.5)),child: ImageCommon(src: "${x.user?.image}",height: 24,width: 24,borderRadius: 40,))),
+                              },child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),border: Border.all(color: Colors.white,width: 0.5)),child: ImageCommon( "${x.user?.image}",height: 24,width: 24,borderRadius: 40,))),
                             )
                           ],
                         )),
@@ -197,7 +197,7 @@ class StoryMainWidget extends StatelessWidget {
             //           },
             //             child: Stack(
             //               children: [
-            //                 ContainerDecorated(padding: 2,colorBorder: index==0?Colors.blue:Colors.grey,color: Colors.transparent,borderRadius: 50,child: SizedBox(height: 50,width: 50,child: ClipRRect(borderRadius: BorderRadius.circular(50),child: ImageCommon(src: "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",fit: BoxFit.cover,)))),
+            //                 ContainerDecorated(padding: 2,colorBorder: index==0?Colors.blue:Colors.grey,color: Colors.transparent,borderRadius: 50,child: SizedBox(height: 50,width: 50,child: ClipRRect(borderRadius: BorderRadius.circular(50),child: ImageCommon( "https://images.unsplash.com/photo-1593642532842-98d0fd5ebc1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80",)))),
             //
             //                 index!=0?SizedBox():Positioned(bottom: 0,right: 0,child: ContainerDecorated(borderRadius: 20,color: Colors.blue,padding: 2,child: Icon(Icons.add,color: Colors.white,size: 16,)))
             //               ],

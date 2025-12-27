@@ -26,7 +26,7 @@ class UserProfileScreen extends StatelessWidget {
             child: Column(children: [
 
               SizedBox(height: 16,),
-              SizedBox(height: 100,width: 100,child: ImageCommon(src: image??"https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",fit: BoxFit.cover,borderRadius: 50),),
+              SizedBox(height: 100,width: 100,child: ImageCommon(image??"https://i.pinimg.com/1200x/f0/38/38/f038383985e6289f4c208150818e01ab.jpg",borderRadius: 50),),
               SizedBox(height: 8,),
               SmallText(text: name??"Fons Mans",fontWeight: FontWeight.w600,size: 15,),
 
@@ -156,7 +156,7 @@ class UserProfileScreen extends StatelessWidget {
               ),
 
               if(controller.selectedTab==1) GridView.builder(itemCount: controller.list.length,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), itemBuilder: (itemBuilder,index){
-                return ImageCommon(src: controller.list[index].image??"",fit: BoxFit.cover,borderRadius: 10,);
+                return ImageCommon( controller.list[index].image??"",borderRadius: 10,);
               }),
 
 
@@ -183,28 +183,28 @@ class UserProfileScreen extends StatelessWidget {
   gridData(){
     return Column(children: [
       Row(spacing: 4,children: [
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/1200x/c0/98/4b/c0984bd4779ff9634f9d707ec6ad0f5b.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/736x/3d/01/f1/3d01f126c608d7555c8a99f3163421f7.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/1200x/49/e2/4c/49e24cb0657ca40c77e8c6a6831b6af5.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/1200x/c0/98/4b/c0984bd4779ff9634f9d707ec6ad0f5b.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/736x/3d/01/f1/3d01f126c608d7555c8a99f3163421f7.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/1200x/49/e2/4c/49e24cb0657ca40c77e8c6a6831b6af5.jpg",borderRadius: 10,),)),
 
       ],),
       SizedBox(height: 4,),
       Row(spacing: 4,children: [
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/1200x/00/a9/53/00a953273a1313f54350c7ee3e47fff4.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/1200x/62/31/41/623141fbb390209c9effd334a51db2b5.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/736x/61/2b/3a/612b3aa25e0c4fd49180b116934565fd.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/1200x/00/a9/53/00a953273a1313f54350c7ee3e47fff4.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/1200x/62/31/41/623141fbb390209c9effd334a51db2b5.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/736x/61/2b/3a/612b3aa25e0c4fd49180b116934565fd.jpg",borderRadius: 10,),)),
       ],),
       SizedBox(height: 4,),
       Row(spacing: 4,children: [
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/736x/4d/82/5a/4d825a0ea3706c2f60bce25526ebe31d.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/1200x/c1/51/b1/c151b141f2d7169dcdacb5b9a1a86964.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/736x/63/95/01/639501272f8a350415fac4d7b78014ab.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/736x/4d/82/5a/4d825a0ea3706c2f60bce25526ebe31d.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/1200x/c1/51/b1/c151b141f2d7169dcdacb5b9a1a86964.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/736x/63/95/01/639501272f8a350415fac4d7b78014ab.jpg",borderRadius: 10,),)),
       ],),
       SizedBox(height: 4,),
       Row(spacing: 4,children: [
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/1200x/5d/00/2e/5d002e8845ef4ad052b5b6432c87a2fa.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/736x/68/3b/50/683b50b794d06988e57e6b8a3a63bd1e.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-        Expanded(child: SizedBox(height: 150,child: ImageCommon(src: "https://i.pinimg.com/736x/9d/2a/6e/9d2a6e386f606e7f8198fc87e4af5c44.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/1200x/5d/00/2e/5d002e8845ef4ad052b5b6432c87a2fa.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/736x/68/3b/50/683b50b794d06988e57e6b8a3a63bd1e.jpg",borderRadius: 10,),)),
+        Expanded(child: SizedBox(height: 150,child: ImageCommon( "https://i.pinimg.com/736x/9d/2a/6e/9d2a6e386f606e7f8198fc87e4af5c44.jpg",borderRadius: 10,),)),
       ],),
     ],);
   }

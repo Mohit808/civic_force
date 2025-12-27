@@ -57,7 +57,7 @@ class AddCityImageScreen extends StatelessWidget {
                     },marginEdgeInsets: EdgeInsets.symmetric(vertical: 8),paddingEdgeInsets: EdgeInsets.only(left: 16,right: 0),
                       child: Row(children: [
                         Expanded(child: SmallText(text: "${controller.listTags[index].name}",fontWeight: FontWeight.w600,size: 16,)),
-                        if(controller.listTags[index].image!=null && "${controller.listTags[index].image}".isNotEmpty)ImageCommon(src:controller.listTags[index].image??"",height: 100,width: 100,fit: BoxFit.cover,borderRadius: 20,),
+                        if(controller.listTags[index].image!=null && "${controller.listTags[index].image}".isNotEmpty)ImageCommon(controller.listTags[index].image??"",height: 100,width: 100,borderRadius: 20,),
                         if(controller.listTags[index].image==null || "${controller.listTags[index].image}".isEmpty)SizedBox(height: 100,width: 100,child: Column(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
                           Icon(Icons.add),
                           SmallText(text: "Add Image",color: Colors.black87,)
@@ -79,7 +79,7 @@ class AddCityImageScreen extends StatelessWidget {
                       child: Row(children: [
                         Expanded(child: SmallText(text: "${controller.list[index].name}",fontWeight: FontWeight.w600,size: 16,)),
 
-                        if(controller.list[index].image!=null && "${controller.list[index].image}".isNotEmpty)ImageCommon(src:controller.list[index].image??"",height: 100,width: 100,fit: BoxFit.cover,borderRadius: 20,),
+                        if(controller.list[index].image!=null && "${controller.list[index].image}".isNotEmpty)ImageCommon(controller.list[index].image??"",height: 100,width: 100,borderRadius: 20,),
                         if(controller.list[index].image==null || "${controller.list[index].image}".isEmpty)SizedBox(height: 100,width: 100,child: Column(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
                           Icon(Icons.add),
                           SmallText(text: "Add Image",color: Colors.black87,)

@@ -21,7 +21,7 @@ class SearchPlacesWidget extends StatelessWidget {
           },
             child: Row(spacing: 16,children: [
               if(controller.listCity[index].image==null || controller.listCity[index].image!.isEmpty)ContainerDecorated(borderRadius: 30,padding: 12,child: Icon(Icons.location_on_outlined)),
-              if(controller.listCity[index].image!=null && controller.listCity[index].image!.isNotEmpty)ImageCommon(src: controller.listCity[index].image??"",borderRadius: 30,height: 50,width: 50,fit: BoxFit.cover,),
+              if(controller.listCity[index].image!=null && controller.listCity[index].image!.isNotEmpty)ImageCommon( controller.listCity[index].image??"",borderRadius: 30,height: 50,width: 50,),
               Expanded(
                 child: Column(spacing: 4,crossAxisAlignment: CrossAxisAlignment.start,children: [
                   SmallText(text: "City",color: Colors.black54,fontWeight: FontWeight.w500,),

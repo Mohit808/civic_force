@@ -23,7 +23,7 @@ class SearchAccountWidget extends StatelessWidget {
               Get.to(()=>UserProfileScreen(userId: controller.listAccounts[index].userId,name: controller.listAccounts[index].name,image: controller.listAccounts[index].image,));
             },
               child: Row(spacing: 24,children: [
-                ImageCommon(src: "${controller.listAccounts[index].image}",height: 50,width: 50,fit: BoxFit.cover,borderRadius: 50,),
+                ImageCommon( "${controller.listAccounts[index].image}",height: 50,width: 50,borderRadius: 50,),
                 Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,children: [
                   Row(spacing: 8,
                     children: [

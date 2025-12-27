@@ -29,7 +29,7 @@ class CityMainWidget extends StatelessWidget {
                 },
                   child: Stack(
                     children: [
-                      SizedBox(height: 200,width: 200,child: ImageCommon(src:  controller.cityDetails?.image?? "https://i.pinimg.com/736x/a1/8e/3b/a18e3b651fc065c5040f09108955430f.jpg",fit: BoxFit.cover,borderRadius: 10,),),
+                      SizedBox(height: 200,width: 200,child: ImageCommon(  controller.cityDetails?.image?? "https://i.pinimg.com/736x/a1/8e/3b/a18e3b651fc065c5040f09108955430f.jpg",borderRadius: 10,),),
                       Positioned(bottom: 0,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
@@ -50,10 +50,10 @@ class CityMainWidget extends StatelessWidget {
                   child: GridView.builder(scrollDirection: Axis.horizontal,itemCount: controller.list.length,shrinkWrap: true,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 8,crossAxisSpacing: 8,), itemBuilder: (itemBuilder,index){
                     return Stack(
                       children: [
-                        AspectRatio(aspectRatio: 1, child: ImageCommon(src: controller.list[index].post?.image??"https://i.pinimg.com/1200x/b0/55/af/b055afbd910458f46eae8b141f48532f.jpg",fit: BoxFit.cover,borderRadius: 10,)),
+                        AspectRatio(aspectRatio: 1, child: ImageCommon( controller.list[index].post?.image??"https://i.pinimg.com/1200x/b0/55/af/b055afbd910458f46eae8b141f48532f.jpg",borderRadius: 10,)),
                         Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Material(elevation: 2,borderRadius: BorderRadius.circular(20),child: ImageCommon(src: "${controller.list[index].post?.user?.image}",height: 24,width: 24,borderRadius: 20,fit: BoxFit.cover,)),
+                          child: Material(elevation: 2,borderRadius: BorderRadius.circular(20),child: ImageCommon( "${controller.list[index].post?.user?.image}",height: 24,width: 24,borderRadius: 20,)),
                         )
                       ],
                     );

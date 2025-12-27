@@ -108,7 +108,7 @@ class CreatePostScreen extends StatelessWidget {
                             Wrap(spacing: 8,runSpacing: 8,children: [
                               for(var x in controller.listSelectedImage)Stack(
                                 children: [
-                                  ImageCommon(borderRadius: 10,src:x,fit: BoxFit.cover,height: getSize(controller),width: getSize(controller),),
+                                  ImageCommon(x,borderRadius: 10,height: getSize(controller),width: getSize(controller),),
 
                                   // Padding(
                                   //   padding: const EdgeInsets.all(8.0),
@@ -372,7 +372,7 @@ class CreatePostScreen extends StatelessWidget {
                                         padding: const EdgeInsets.all(12.0),
                                         child: Row(spacing: 8,
                                           children: [
-                                            ImageCommon(src: "${data.image}",height: 24,width: 24,fit: BoxFit.cover,borderRadius: 30,),
+                                            ImageCommon( "${data.image}",height: 24,width: 24,borderRadius: 30,),
                                             Expanded(child: SmallText(text: "${data.name}",fontWeight: FontWeight.w600,maxLine: 1,)),
                                           ],
                                         ),

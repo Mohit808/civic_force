@@ -11,6 +11,7 @@ import '../model/search_user_model.dart' as um;
 import 'package:civic_force/model/tags_model.dart' as tm;
 import '../../model/post_model.dart' as pm;
 import '../../model/trending_tags_model.dart' as trm;
+import '../../model/chat_message_model.dart' as chm;
 
 class DataSourceCommon {
 
@@ -80,5 +81,28 @@ class DataSourceCommon {
   }
 
 
+
+  Future<chm.Data> sendMessagePost({userId,message,type,mediaType,mediaUrl, mediaSize ,replyId,replyText,replyUser}) async {
+    try{
+      var res=await NetworkManager().post(AppUrls.sendMessage,data: {
+        "user_id":"$userId",
+        "message":"$message",
+        "type":"chat",
+        "media_type": mediaType??"",
+        "media_url":mediaUrl??"",
+        "media_size":mediaSize??"",
+        "reply_id":replyId??"",
+        "reply_text": replyText??"",
+        "reply_user": replyUser??"",
+      });
+      print(res);
+      chm.Data chatMessageModel=chm.Data.fromJson(res['data']);
+      return chatMessageModel;
+    }catch(e){
+      print(e);
+    }
+
+    return chm.Data();
+  }
 
 }

@@ -41,7 +41,7 @@ class CityScreen extends StatelessWidget {
                               Get.to(()=>AnalysisDetailScreen(tagName: x.name,));
                             },
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 8,children: [
-                                ImageCommon(src: "${x.image}",height: 80,width:80,fit: BoxFit.cover,borderRadius: 10,),
+                                ImageCommon( "${x.image}",height: 80,width:80,borderRadius: 10,),
                                 Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 2,children: [
                                   SizedBox(width: 80,child: SmallText(text: "${x.name}",fontWeight: FontWeight.w500,maxLine: 2,overflow: TextOverflow.ellipsis,),),
                                   SmallText(text: "${x.postCount} case",fontWeight: FontWeight.w500,textAlign: TextAlign.center,size: 12,color: Colors.black54,),

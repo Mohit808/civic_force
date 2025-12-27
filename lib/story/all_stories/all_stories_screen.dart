@@ -31,7 +31,7 @@ class AllStoriesScreen extends StatelessWidget {
                       children: [
                         InkWell(onTap: (){
                           Get.to(()=>ViewFullStoryScreen(indexx: index,listStory: controller.listStory,listMyStory: [],));
-                        },child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(src:controller.listStory[index].mediaUrl??""))),
+                        },child: ClipRRect(borderRadius: BorderRadius.circular(10),child: ImageCommon(controller.listStory[index].mediaUrl??""))),
                         Column(
                           children: [
                             Row(
@@ -40,7 +40,7 @@ class AllStoriesScreen extends StatelessWidget {
                                   child: InkWell(onTap: (){
                                     Get.to(()=>UserProfileScreen());
                                     // Get.to(()=>UserDetailsScreen(id: controller.listStory[index].user?.userId,name: controller.listStory[index].user?.name,image: controller.listStory[index].user?.image,navigateOnMessage: true));
-                                  },child: ImageCommon(src: controller.listStory[index].user?.image??"",height: 30,width: 30,borderRadius: 30,)),
+                                  },child: ImageCommon( controller.listStory[index].user?.image??"",height: 30,width: 30,borderRadius: 30,)),
                                 ),
                               ],
                             ),

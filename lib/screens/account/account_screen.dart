@@ -1,5 +1,6 @@
 import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
+import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,10 @@ import '../add_city_image/add_city_image_screen.dart';
 import '../analysis_screen/analysis2_screen.dart';
 import '../polls_screen/polls_screen.dart';
 import 'my_posts/my_post_screen.dart';
+import 'privacy/privacy_screen.dart';
 import 'saved_post/saved_post_screen.dart';
+import 'settings/settings_screen.dart';
+import 'terms_and_condition/terms_and_conditions_screen.dart' show TermsAndConditionsScreen;
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -28,7 +32,6 @@ class AccountScreen extends StatelessWidget {
           PopupMenuButton(itemBuilder: (itemBuilder){
             return [
               PopupMenuItem(child: SmallText(text: "Logout")),
-              PopupMenuItem(child: SmallText(text: "Delete Account"))
             ];
           })
         ],),
@@ -40,8 +43,8 @@ class AccountScreen extends StatelessWidget {
               Column(spacing: 16,children: [
                 Stack(
                   children: [
-                    ClipRRect(borderRadius: BorderRadius.circular(50),child: Image.network(userInfo?.image??"https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg",height: 80,width: 80,fit: BoxFit.cover,)),
-                    Positioned(bottom: 0,right: 0,
+                    ClipRRect(borderRadius: BorderRadius.circular(50),child: ImageCommon(userInfo?.image??"https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg",sizeAndCircle: 100,)),
+                    Positioned(bottom: 4,right: 4,
                       child: ContainerDecorated(borderRadius: 40,color: Colors.black,
                         child: Row(mainAxisSize: MainAxisSize.min,children: [
                           Icon(Icons.edit,size: 16,color: Colors.white,),
@@ -100,19 +103,27 @@ class AccountScreen extends StatelessWidget {
 
               Divider(),
 
-              Row(spacing: 16,children: [
-                ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.priority_high_sharp,size: 24,color: Colors.white,)),
-                Expanded(child: SmallText(text: "Privacy",fontWeight: FontWeight.w600,)),
-                Icon(Icons.arrow_forward,size: 16,)
-              ],),
+              InkWell(onTap: (){
+                Get.to(()=>PrivacyScreen());
+              },
+                child: Row(spacing: 16,children: [
+                  ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.priority_high_sharp,size: 24,color: Colors.white,)),
+                  Expanded(child: SmallText(text: "Privacy",fontWeight: FontWeight.w600,)),
+                  Icon(Icons.arrow_forward,size: 16,)
+                ],),
+              ),
 
               Divider(),
 
-              Row(spacing: 16,children: [
-                ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.settings,size: 24,color: Colors.white,)),
-                Expanded(child: SmallText(text: "Settings",fontWeight: FontWeight.w600,)),
-                Icon(Icons.arrow_forward,size: 16,)
-              ],),
+              InkWell(onTap: (){
+                Get.to(()=>SettingsScreen());
+              },
+                child: Row(spacing: 16,children: [
+                  ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.settings,size: 24,color: Colors.white,)),
+                  Expanded(child: SmallText(text: "Settings",fontWeight: FontWeight.w600,)),
+                  Icon(Icons.arrow_forward,size: 16,)
+                ],),
+              ),
 
               Divider(),
               //
@@ -124,13 +135,29 @@ class AccountScreen extends StatelessWidget {
               //
               // Divider(),
 
-              Row(spacing: 16,children: [
-                ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.privacy_tip,size: 24,color: Colors.white,)),
-                Expanded(child: SmallText(text: "Terms and Condition",fontWeight: FontWeight.w600,)),
-                Icon(Icons.arrow_forward,size: 16,)
-              ],),
+              InkWell(onTap: (){
+                Get.to(()=>TermsAndConditionsScreen());
+              },
+                child: Row(spacing: 16,children: [
+                  ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.privacy_tip,size: 24,color: Colors.white,)),
+                  Expanded(child: SmallText(text: "Terms and Condition",fontWeight: FontWeight.w600,)),
+                  Icon(Icons.arrow_forward,size: 16,)
+                ],),
+              ),
 
-              // Divider(),
+              Divider(),
+
+              InkWell(onTap: (){
+                Get.to(()=>TermsAndConditionsScreen());
+              },
+                child: Row(spacing: 16,children: [
+                  ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.live_help_outlined,size: 24,color: Colors.white,)),
+                  Expanded(child: SmallText(text: "Help and support",fontWeight: FontWeight.w600,)),
+                  Icon(Icons.arrow_forward,size: 16,)
+                ],),
+              ),
+
+
               //
               // Row(spacing: 16,children: [
               //   ContainerDecorated(color: Colors.black,borderRadius: 40,child: Icon(Icons.info,size: 24,color: Colors.white,)),

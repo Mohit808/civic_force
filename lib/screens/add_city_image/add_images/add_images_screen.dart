@@ -1,14 +1,17 @@
 import 'package:civic_force/common_widget/app_bar.dart';
+import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/button_single_atom.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:civic_force/common_widget/textfield_atom.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'controller_add_images.dart';
+import 'web_view/web_view_screen.dart';
 
 class AddImagesScreen extends StatelessWidget {
   const AddImagesScreen({super.key, this.id, this.name, this.isCity});
@@ -31,7 +34,21 @@ class AddImagesScreen extends StatelessWidget {
               SizedBox(height: 36,),
               SmallText(text: "Enter url",fontWeight: FontWeight.w600,size: 15,),
               SizedBox(height: 8,),
-              TextFieldCommon(hintText: "Enter url",controller: controller.textEditingController,fillColor: Colors.white,),
+              Row(spacing: 16,
+                children: [
+                  Expanded(child: TextFieldCommon(hintText: "Enter url",controller: controller.textEditingController,fillColor: Colors.white,)),
+                  ContainerDecorated(onTap: (){
+                    Get.to(()=>WebViewScreen(search: name,))!.then((onValue){
+                      if(onValue!=null){
+                        controller.textEditingController.text=onValue;
+                        controller.update();
+                      }
+                    });
+                  },borderRadius: 30,padding: 10,color: AppColors.primary,child: FaIcon(FontAwesomeIcons.pinterest,color: Colors.white,)),
+                  ContainerDecorated(borderRadius: 30,padding: 10,color: AppColors.primary,child: FaIcon(FontAwesomeIcons.google,color: Colors.white,)),
+                  // FaIcon(FontAwesomeIcons.google),
+                ],
+              ),
 
               SizedBox(height: 36,),
               Row(spacing: 8,children: [
@@ -62,7 +79,7 @@ class AddImagesScreen extends StatelessWidget {
               SizedBox(height: 16,),
 
               if(controller.selectedImage!=null)ContainerDecorated(padding: 8,color: Colors.white,colorBorder: Colors.grey.shade400,child: Row(spacing: 16,children: [
-                ImageCommon(src: "${controller.selectedImage}",height: 50,width: 50,fit: BoxFit.cover,borderRadius: 10,),
+                ImageCommon( "${controller.selectedImage}",height: 50,width: 50,borderRadius: 10,),
                 Expanded(
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,children: [
                     SmallText(text: "${controller.selectedImage}".split("/").last,fontWeight: FontWeight.w500,),

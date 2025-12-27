@@ -101,7 +101,7 @@ class NotificationScreen extends StatelessWidget {
                       child: Row(crossAxisAlignment: CrossAxisAlignment.start,spacing: 16,children: [
                         Stack(
                           children: [
-                            ImageCommon(src: "${controller.list[index].sender?.name}",height: 45,width: 45,),
+                            ImageCommon( "${controller.list[index].sender?.name}",height: 45,width: 45,),
                             if(controller.list[index].isRead!=true)ContainerDecorated(color: Colors.red,height: 8,width: 8,)
                           ],
                         ),
@@ -129,7 +129,7 @@ class NotificationScreen extends StatelessWidget {
                           ],),
                         ),
 
-                        if(controller.list[index].post?.image!=null)ImageCommon(src: "${controller.list[index].post?.image}",height: 50,width: 50,fit: BoxFit.cover,borderRadius: 10,)
+                        if(controller.list[index].post?.image!=null)ImageCommon( "${controller.list[index].post?.image}",height: 50,width: 50,borderRadius: 10,)
                       ],),
                     );
 

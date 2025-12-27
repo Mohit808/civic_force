@@ -43,7 +43,7 @@ class AnalysisDetailScreen extends StatelessWidget {
                           },padding: 0,height: 190,child: Stack(
                             children: [
                               Row(children: [
-                                  Expanded(child: ImageCommon(src: controller.list.first.image??"https://i.pinimg.com/736x/e6/db/22/e6db22d8dc84cd25b5977292bc5ac2a0.jpg",fit: BoxFit.cover,borderRadius: 10,)),
+                                  Expanded(child: ImageCommon( controller.list.first.image??"https://i.pinimg.com/736x/e6/db/22/e6db22d8dc84cd25b5977292bc5ac2a0.jpg",borderRadius: 10,)),
                                 ],
                               ),
                               Column(mainAxisAlignment: MainAxisAlignment.end,
@@ -79,7 +79,7 @@ class AnalysisDetailScreen extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Expanded(child: ImageCommon( height: 90,width: 90, src:  controller.list[1].image??"https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",fit: BoxFit.cover,borderRadius: 10,)),
+                                          Expanded(child: ImageCommon( height: 90,width: 90, controller.list[1].image??"https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",borderRadius: 10,)),
                                         ],
                                       ),
                                       Column(mainAxisAlignment: MainAxisAlignment.end,
@@ -111,7 +111,7 @@ class AnalysisDetailScreen extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Expanded(child: ImageCommon(height: 90,width: 90,src:  controller.list[2].image?? "https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",fit: BoxFit.cover,borderRadius: 10,)),
+                                          Expanded(child: ImageCommon(height: 90,width: 90,controller.list[2].image?? "https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",borderRadius: 10,)),
                                         ],
                                       ),
                                       Column(mainAxisAlignment: MainAxisAlignment.end,
@@ -142,8 +142,8 @@ class AnalysisDetailScreen extends StatelessWidget {
                                     ],
                                   ),)),
 
-                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon(src: "https://i.pinimg.com/736x/3c/60/dd/3c60dd8a93f3abc9bd796927bc34b5f2.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon(src: "https://i.pinimg.com/1200x/7f/48/b5/7f48b5e5d5e70dd70a6f8b01ac8bd354.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
+                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon( "https://i.pinimg.com/736x/3c/60/dd/3c60dd8a93f3abc9bd796927bc34b5f2.jpg",borderRadius: 10,),)),
+                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon( "https://i.pinimg.com/1200x/7f/48/b5/7f48b5e5d5e70dd70a6f8b01ac8bd354.jpg",borderRadius: 10,),)),
                                 ],
                               ),
                               Row(spacing: 8,
@@ -152,7 +152,7 @@ class AnalysisDetailScreen extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Expanded(child: ImageCommon(height: 90,width: 90,src: controller.list[3].image??  "https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",fit: BoxFit.cover,borderRadius: 10,)),
+                                          Expanded(child: ImageCommon(height: 90,width: 90,controller.list[3].image??  "https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",borderRadius: 10,)),
                                         ],
                                       ),
                                       Column(mainAxisAlignment: MainAxisAlignment.end,
@@ -186,7 +186,7 @@ class AnalysisDetailScreen extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Expanded(child:  ImageCommon(height: 90,width: 90,src: controller.list[4].image?? "https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",fit: BoxFit.cover,borderRadius: 10,)),
+                                          Expanded(child:  ImageCommon(height: 90,width: 90, controller.list[4].image?? "https://i.pinimg.com/736x/70/cb/43/70cb4328c48f6c57426dbbe66c227ca2.jpg",borderRadius: 10,)),
                                         ],
                                       ),
                                       Column(mainAxisAlignment: MainAxisAlignment.end,
@@ -217,8 +217,8 @@ class AnalysisDetailScreen extends StatelessWidget {
                                       )
                                     ],
                                   ),)),
-                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon(src: "https://i.pinimg.com/736x/32/d1/9f/32d19f4783418484ef25f29d197992da.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
-                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon(src: "https://i.pinimg.com/736x/72/ca/0a/72ca0a0637fe9cfe884524ac94c48086.jpg",fit: BoxFit.cover,borderRadius: 10,),)),
+                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon( "https://i.pinimg.com/736x/32/d1/9f/32d19f4783418484ef25f29d197992da.jpg",borderRadius: 10,),)),
+                                  // Expanded(child: ContainerDecorated(padding: 0,height: 90,child: ImageCommon( "https://i.pinimg.com/736x/72/ca/0a/72ca0a0637fe9cfe884524ac94c48086.jpg",borderRadius: 10,),)),
 
                                 ],
                               ),

@@ -42,7 +42,7 @@ class BasicDetailsScreen extends StatelessWidget {
                           SizedBox(height: 24,),
                           Stack(
                             children: [
-                              ContainerDecorated(borderRadius: 100,padding: 0,color: Colors.black,colorBorder: Color(0xFF777778),child: ClipRRect(borderRadius: BorderRadius.circular(100),child: SizedBox(height: 100,width: 100,child: Image.network("${controller.image}",fit: BoxFit.cover,errorBuilder: (a,b,c)=>Image.asset(AppImages.user),),))),
+                              ContainerDecorated(borderRadius: 100,padding: 0,color: Colors.black,colorBorder: Color(0xFF777778),child: ClipRRect(borderRadius: BorderRadius.circular(100),child: SizedBox(height: 100,width: 100,child: Image.network("${controller.image}",errorBuilder: (a,b,c)=>Image.asset(AppImages.user),),))),
                               Positioned(bottom: 0,right: 0,child: ContainerDecorated(onTap: () async {
                                 XFile? xFile=await ImagePicker().pickImage(source: ImageSource.gallery);
                                 if(xFile==null) return;

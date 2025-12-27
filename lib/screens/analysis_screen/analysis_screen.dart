@@ -73,7 +73,7 @@ class AnalysisScreen extends StatelessWidget {
               // ),);
             }, separatorBuilder: (BuildContext context, int index) { return Divider(height: 36,); },),
 
-            // ImageCommon(src: AppImages.screenShot)
+            // ImageCommon( AppImages.screenShot)
           ],),
         ),
       ),

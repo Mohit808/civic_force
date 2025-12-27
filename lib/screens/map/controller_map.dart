@@ -268,7 +268,7 @@ class ControllerMap extends GetxController{
               SizedBox(height: 16),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Expanded(child: ImageCommon(src: "${x.image}")),
+                  // Expanded(child: ImageCommon( "${x.image}")),
                 ],
               ),
               // ElevatedButton(onPressed: () {}, child: Text("Close")),

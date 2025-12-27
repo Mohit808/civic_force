@@ -48,7 +48,7 @@ class TextFieldCommon extends TextFormField{
       textAlign: textAlign??TextAlign.start,
       obscureText: isPassword,
       onFieldSubmitted: onFieldSubmitted,
-      onTapOutside: tapOutsideOff!=null?null: (value){
+      onTapOutside:  onTapOutside!=null?onTapOutside(): (value){
         FocusManager.instance.primaryFocus?.unfocus();
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         if(onTapOutside!=null){

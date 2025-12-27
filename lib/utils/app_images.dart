@@ -24,4 +24,9 @@ class AppImages{
   static String get rightArrow => "${assetPath}right_arrow.png";
   static String get searching => "${assetPath}searching.lottie";
   static String get message => "${assetPath}message.png";
+  static String get forward => "${assetPath}forward.png";
+  static String get reply => "${assetPath}reply.png";
+  static String get delete => "${assetPath}delete.png";
+  static String get copy => "${assetPath}copy.png";
+  static String get click => "${assetPath}click.lottie";
 }

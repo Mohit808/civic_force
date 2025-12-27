@@ -37,7 +37,7 @@ class CommentScreen extends StatelessWidget {
                 controller.list.isEmpty?NoDataWidget(center: true,):
                 ListView.separated(padding: EdgeInsets.all(16),itemCount: controller.list.length,itemBuilder: (itemBuilder,index){
                   return Row(crossAxisAlignment: CrossAxisAlignment.start,spacing: 16,children: [
-                    ImageCommon(src: controller.list[index].user?.image??"",fit: BoxFit.cover,height: 40,width: 40,borderRadius: 30,),
+                    ImageCommon( controller.list[index].user?.image??"",height: 40,width: 40,borderRadius: 30,),
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,
                       children: [
                         SmallText(text: "${controller.list[index].user?.name}",fontWeight: FontWeight.w700,size: 13,),
@@ -105,7 +105,7 @@ class CommentScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 16.0),
                           child: ListView.separated(shrinkWrap: true,physics: NeverScrollableScrollPhysics(),itemCount: controller.listReply.length,itemBuilder: (itemBuilder,index){
                             return Row(spacing: 8,crossAxisAlignment: CrossAxisAlignment.start,children: [
-                              ImageCommon(src: "${controller.listReply[index].user?.image}",height: 30,width: 30,borderRadius: 30,fit: BoxFit.cover,),
+                              ImageCommon( "${controller.listReply[index].user?.image}",height: 30,width: 30,borderRadius: 30,),
                               Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 2,
                                 children: [
                                   SmallText(text: "${controller.listReply[index].user?.name}",fontWeight: FontWeight.w600,),

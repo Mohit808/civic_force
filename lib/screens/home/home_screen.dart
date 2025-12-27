@@ -11,6 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../common_widget/app_bar.dart';
 import '../../common_widget/app_colors.dart';
 import '../../common_widget/text_common.dart';
+import '../../project_modules/chat_module/chat_list_screen.dart';
 import '../../project_modules/post/post_main_list_widget.dart';
 import '../notification_screen/notification_screen.dart';
 import '../search/search_screen.dart';
@@ -33,19 +34,23 @@ class HomeScreen extends StatelessWidget {
                 Get.to(()=>NotificationScreen());
               },child: Icon(Icons.notifications,color: Colors.black,)),
               SizedBox(width: 24,),
-              Column(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 4,),
-                  Stack(
-                    children: [
-                      ContainerDecorated(elevation: 3,color: Colors.blue,padding: 8,borderRadius: 30,child: Image.asset(AppImages.message,height: 24,width: 24,color: Colors.white,)),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
-                        child: ContainerDecorated(color: Colors.blue,elevation: 3,),
-                      )
-                    ],
-                  ),
-                ],
+              InkWell(onTap: (){
+                Get.to(()=>ChatListScreen());
+              },
+                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 4,),
+                    Stack(
+                      children: [
+                        ContainerDecorated(elevation: 3,color: Colors.blue,padding: 8,borderRadius: 30,child: Image.asset(AppImages.message,height: 24,width: 24,color: Colors.white,)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40.0),
+                          child: ContainerDecorated(color: Colors.blue,elevation: 3,),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(width: 8,)
             ],),

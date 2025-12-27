@@ -57,6 +57,16 @@ dependencies:
   google_maps_cluster_manager: ^3.1.0
   intl: any
   package_info_plus: any
+  mime : any
+  path_provider : any
+  just_audio: any
+  open_file : any
+  file_picker : any
+  cached_network_image : any
+  emoji_picker_flutter : any
+  swipe_to : any
+  flutter_inappwebview : any
+
 #  fluttertoast: ^9.0.0
 #  flutter_chips_input: ^2.0.0
   # The following adds the Cupertino Icons font to your application.
