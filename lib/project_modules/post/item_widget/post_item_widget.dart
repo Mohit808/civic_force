@@ -219,26 +219,26 @@ class PostItemWidget extends StatelessWidget {
                 for(var x in data.tagList!)
                   InkWell(onTap: (){
                     Get.to(()=>AnalysisDetailScreen(tagName: x.name));
-                  },child: SmallText(text: "#${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,size: 16,))
+                  },child: SmallText(text: "#${x.name}",color: Colors.blue,fontWeight: FontWeight.w400,size: 15,))
               ],),
             ),
 
             if(data.peopleTagged!=null && data.peopleTagged!.isNotEmpty)Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 4.0),
               child: Wrap(spacing: 16,runSpacing: 8,children: [
                 for(var x in data.peopleTagged!)
                   InkWell(onTap: (){
                     Get.to(()=>UserProfileScreen(userId: x.userId,name: x.name,image: x.image,));
-                  },child: SmallText(text: "@${x.name}",color: Colors.blue,fontWeight: FontWeight.w600,size: 16,))
+                  },child: SmallText(text: "@${x.name}",color: Colors.blue,fontWeight: FontWeight.w400,size: 15,))
               ],),
             ),
             if(data.location!=null && data.location!.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 4.0),
                 child: Row(spacing: 4,
                   children: [
-                    Icon(Icons.location_on_outlined,color:Colors.deepOrange,size: 18,),
-                    Expanded(child: SmallText(text: "${data.location}",size: 14,color: Colors.deepOrange,maxLine: 1,overflow: TextOverflow.ellipsis,)),
+                    Icon(Icons.location_on_outlined,color:Colors.black54,size: 18,),
+                    Expanded(child: SmallText(text: "${data.location}",size: 14,color: Colors.black54,maxLine: 1,overflow: TextOverflow.ellipsis,)),
                   ],
                 ),
               )

@@ -1,4 +1,5 @@
 import 'package:civic_force/common_widget/app_bar.dart';
+import 'package:civic_force/common_widget/app_colors.dart';
 import 'package:civic_force/common_widget/container_decorated.dart';
 import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:civic_force/common_widget/text_common.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controller_chat_list.dart';
+import 'new_chat/new_chat_screen.dart';
 import 'one_to_one/one_to_one_screen.dart';
 
 class ChatListScreen extends StatelessWidget {
@@ -57,6 +59,9 @@ class ChatListScreen extends StatelessWidget {
 
             ],),
           ),
+          floatingActionButton: FloatingActionButton(backgroundColor: AppColors.primary,onPressed: (){
+            Get.to(()=>NewChatScreen());
+          },child: Icon(Icons.chat),),
         );
       }
     );
