@@ -35,7 +35,7 @@ class SearchAccountWidget extends StatelessWidget {
                     children: [
                       SmallText(text: "amit.ayx.360",color: Colors.black54,),
                       ContainerDecorated(color: Colors.black26,),
-                      SmallText(text: "56K followers",color: Colors.black54,)
+                      SmallText(text: "${controller.listAccounts[index].followersCount} followers",color: Colors.black54,)
                     ],
                   )
                 ],)

@@ -66,6 +66,12 @@ dependencies:
   emoji_picker_flutter : any
   swipe_to : any
   flutter_inappwebview : any
+  flutter_contacts : any
+  google_places_flutter : any
+  flutter_svg : any
+  agora_rtc_engine: ^6.5.2
+  agora_token_service: ^0.1.2
+  permission_handler: any
 
 #  fluttertoast: ^9.0.0
 #  flutter_chips_input: ^2.0.0

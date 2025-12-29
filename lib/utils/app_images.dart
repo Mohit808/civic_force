@@ -29,4 +29,6 @@ class AppImages{
   static String get delete => "${assetPath}delete.png";
   static String get copy => "${assetPath}copy.png";
   static String get click => "${assetPath}click.lottie";
+  static String get callCenter => "${assetPath}call_center.lottie";
+  static String get mobile => "${assetPath}mobile.svg";
 }

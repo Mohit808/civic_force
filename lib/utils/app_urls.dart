@@ -1,6 +1,6 @@
 class AppUrls {
-  // static String baseUrl="http://192.168.1.51:8000/social/";
-  static String baseUrl="http://10.170.76.89:8000/social/";
+  static String baseUrl="http://192.168.1.24:8000/social/";
+  // static String baseUrl="http://10.170.76.89:8000/social/";
   // static String baseUrl="http://10.246.24.89:8000/social/";
   // static String baseUrl="http://10.183.166.89:8000/social/";zz
   // static String baseUrl="http://10.14.125.89:8000/social/";
@@ -44,5 +44,8 @@ class AppUrls {
   static String getChatMessages="getChatMessages";
   static String sendMessage="sendMessage";
   static String deleteMessage="deleteMessage";
+  static String contact="contact";
+  static String feedback="feedback";
+  static String getMutualFromContacts="getMutualFromContacts";
 }
 

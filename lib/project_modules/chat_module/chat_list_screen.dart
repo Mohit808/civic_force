@@ -56,7 +56,6 @@ class ChatListScreen extends StatelessWidget {
                   ),
                 );
               })
-
             ],),
           ),
           floatingActionButton: FloatingActionButton(backgroundColor: AppColors.primary,onPressed: (){

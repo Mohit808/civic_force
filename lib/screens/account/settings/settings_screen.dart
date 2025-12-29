@@ -19,8 +19,6 @@ class SettingsScreen extends StatelessWidget {
           Divider(),
           PrivacyItemWidget(heading: "Sessions",description: "Restrict stories",),
           Divider(),
-          PrivacyItemWidget(heading: "Sessions",description: "Restrict stories",),
-          Divider(),
           PrivacyItemWidget(heading: "Delete Account",description: "Permanently remove account",),
 
         ],),

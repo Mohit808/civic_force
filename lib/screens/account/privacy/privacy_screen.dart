@@ -2,6 +2,9 @@ import 'package:civic_force/common_widget/app_bar.dart';
 import 'package:civic_force/common_widget/text_common.dart';
 import 'package:civic_force/screens/account/privacy/privacy_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../project_modules/contacts/contacts_screen.dart';
 
 class PrivacyScreen extends StatelessWidget {
   const PrivacyScreen({super.key});
@@ -23,7 +26,9 @@ class PrivacyScreen extends StatelessWidget {
           PrivacyItemWidget(heading: "Tags and mentions",description: "Manage tagging and mentions",defaultValue: "Everyone",),
 
           Divider(),
-          PrivacyItemWidget(heading: "My Contacts",description: "View, add, delete contacts",),
+          InkWell(onTap: (){
+            Get.to(()=>ContactsScreen());
+          },child: PrivacyItemWidget(heading: "My Contacts",description: "View, add, delete contacts",)),
           Divider(),
           PrivacyItemWidget(heading: "Blocked Contacts",description: "Manage blocked contacts",),
           Divider(),

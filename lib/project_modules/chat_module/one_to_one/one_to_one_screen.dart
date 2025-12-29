@@ -26,6 +26,7 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../../enums/media_type_enum.dart';
 import '../../../model/chat_message_model.dart';
+import '../video_call/video_call_screen.dart';
 import 'controller_one_to_one.dart';
 import 'widget/audio/audio_chat_widget.dart';
 import 'widget/emoji/emoji_chat_widget.dart';
@@ -54,7 +55,20 @@ class OneToOneScreen extends StatelessWidget {
                 Expanded(child: SmallText(text: "$name",size: 18,fontWeight: FontWeight.w600,)),
               ],
             ),
-          ),centerTitle: false,),
+          ),centerTitle: false,actions: [
+            InkWell(onTap: (){
+              Get.to(()=>VideoCallScreen());
+            },child: Icon(Icons.videocam_rounded)),
+            SizedBox(width: 24,),
+            Icon(Icons.call),
+            SizedBox(width: 8,),
+            PopupMenuButton(itemBuilder: (itemBuilder){
+              return [
+                PopupMenuItem(child: SmallText(text: "Block user")),
+                PopupMenuItem(child: SmallText(text: "Delete chat"))
+              ];
+            })
+          ],),
           body: Column(children: [
 
 

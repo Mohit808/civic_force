@@ -1,4 +1,5 @@
 import 'package:civic_force/common_widget/app_bar.dart';
+import 'package:civic_force/project_modules/address/add_address_screen.dart';
 import 'package:civic_force/screens/add_city_image/add_images/add_images_screen.dart';
 import 'package:civic_force/screens/analysis_screen/analysis_detail/analysis_detail_screen.dart';
 import 'package:civic_force/screens/map/controller_map.dart';
@@ -23,6 +24,8 @@ changeDashboardTab(){
   }catch(e){}
   return false;
 }
+
+
 class Analysis2Screen extends StatelessWidget {
   const Analysis2Screen({super.key});
 
@@ -34,7 +37,16 @@ class Analysis2Screen extends StatelessWidget {
           return changeDashboardTab();
         },
           child: Scaffold(
-            appBar: AppBarCommon(title: "Analysis"),
+            // appBar: AppBarCommon(title: "Analysis"),
+            appBar: AppBarCommon(title: InkWell(onTap: (){
+              Get.to(()=>AddAddressScreen());
+            },
+              child: Row(spacing: 8,children: [
+                Icon(Icons.location_on_outlined,size: 20,),
+                SmallText(text: "Noida",size: 18,),
+                Icon(Icons.keyboard_arrow_down)
+              ],),
+            )),
             body: SmartRefresher(controller: controller.refreshController,
               enablePullUp: controller.loadMore,
               onRefresh: controller.refreshData,

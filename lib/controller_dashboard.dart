@@ -3,8 +3,10 @@ import 'package:civic_force/screens/analysis_screen/analysis_screen.dart';
 import 'package:civic_force/screens/home/home_screen.dart';
 import 'package:civic_force/screens/map/map_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'project_modules/mobile/mobile_dialog.dart';
 import 'screens/analysis_screen/analysis2_screen.dart';
 
 class ControllerDashboard extends GetxController{
