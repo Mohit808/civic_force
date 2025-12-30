@@ -1,5 +1,5 @@
 class AppUrls {
-  static String baseUrl="http://192.168.1.24:8000/social/";
+  static String baseUrl="http://192.168.1.48:8000/social/";
   // static String baseUrl="http://10.170.76.89:8000/social/";
   // static String baseUrl="http://10.246.24.89:8000/social/";
   // static String baseUrl="http://10.183.166.89:8000/social/";zz

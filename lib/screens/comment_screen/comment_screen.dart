@@ -40,8 +40,8 @@ class CommentScreen extends StatelessWidget {
                     ImageCommon( controller.list[index].user?.image??"",height: 40,width: 40,borderRadius: 30,),
                     Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,spacing: 4,
                       children: [
-                        SmallText(text: "${controller.list[index].user?.name}",fontWeight: FontWeight.w700,size: 13,),
-                        SmallText(text: "${controller.list[index].text}",fontWeight: FontWeight.w500,),
+                        SmallText(text: "${controller.list[index].user?.name}",fontWeight: FontWeight.w700,size: 15,),
+                        SmallText(text: "${controller.list[index].text}",fontWeight: FontWeight.w400,),
                         Row(spacing: 8,children: [
                           SmallText(text: formatDateRelative(controller.list[index].createdAt),color: Colors.black54,),
                           ContainerDecorated(color: Colors.grey,height: 4,width: 4,),
