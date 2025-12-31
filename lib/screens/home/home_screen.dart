@@ -1,8 +1,6 @@
 import 'package:civic_force/common_widget/container_decorated.dart';
-import 'package:civic_force/project_modules/city/city_main_widget.dart';
 import 'package:civic_force/project_modules/post/controller_post_list.dart';
 import 'package:civic_force/screens/home/controller_home.dart';
-import 'package:civic_force/story/story_main_widget.dart';
 import 'package:civic_force/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +13,7 @@ import '../../project_modules/chat_module/chat_list_screen.dart';
 import '../../project_modules/post/post_main_list_widget.dart';
 import '../notification_screen/notification_screen.dart';
 import '../search/search_screen.dart';
+import '../story/story_main_widget.dart';
 
 
 class HomeScreen extends StatelessWidget {
