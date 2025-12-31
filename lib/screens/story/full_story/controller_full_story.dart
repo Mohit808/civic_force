@@ -57,7 +57,6 @@ class ControllerFullStory extends GetxController{
     }
   }
 
-
   bool canTriggerDrag() {
     if (lastDragActionTime == null) {
       lastDragActionTime = DateTime.now();
