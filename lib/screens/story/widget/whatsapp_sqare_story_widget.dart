@@ -94,13 +94,13 @@ class WhatsAppSquareStoryWidget extends StatelessWidget {
     ).toList();
 
     return SizedBox(
-      height: height ?? 120,
-      width: width ?? 90,
+      height: height ?? double.infinity,
+      width: width ?? double.infinity,
       child: Stack(
         alignment: Alignment.center,
         children: [
           CustomPaint(
-            size: Size(width ?? 90, height ?? 120),
+            size: Size(width ?? double.infinity, height ?? double.infinity),
             painter: WhatsAppSquareSegmentBorder(
               segments: segmentColors!.length,
               segmentColors: segmentColors,
@@ -110,8 +110,8 @@ class WhatsAppSquareStoryWidget extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.all(3),
-            height: (height ?? 120) - 4,
-            width: (width ?? 90) - 4,
+            height: (height ?? double.infinity) - 4,
+            width: (width ?? double.infinity) - 4,
             decoration: BoxDecoration(
               color: const Color(0xff25D366),
               borderRadius: BorderRadius.circular(10),

@@ -37,19 +37,24 @@ class ControllerFullStory extends GetxController{
       // print(progress);
       if (progress >= 1.0) {
         // progress = 0.0;
-        print("progress : $progress");
-        // nextUserStory();
-
-        if( selectedIndex < listGroupedStory[pageController.page!.toInt()].items!.length-1){
-          pageControllerItem.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-        }else if(pageController.page!.toInt() < listGroupedStory.length-1){
-          pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-        }
+        // print("progress : $progress");
+        tapToNext();
 
         if(timer!=null)timer?.cancel();
       }
       update();
     });
+  }
+
+  tapToNext(){
+    if( selectedIndex < listGroupedStory[pageController.page!.toInt()].items!.length-1){
+      pageControllerItem.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+    }else if(pageController.page!.toInt() < listGroupedStory.length-1){
+      pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+    }else{
+      timer?.cancel();
+      Get.back();
+    }
   }
 
 
@@ -70,6 +75,8 @@ class ControllerFullStory extends GetxController{
   @override
   void dispose() {
     timer?.cancel();
+    pageController.dispose();
+    pageControllerItem.dispose();
     super.dispose();
   }
 

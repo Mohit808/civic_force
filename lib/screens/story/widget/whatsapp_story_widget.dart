@@ -60,23 +60,25 @@ class WhatsAppSegmentBorder extends CustomPainter {
 class WhatsAppStoryWidget extends StatelessWidget {
   final Widget child;
   final int storyCount;
+  final double? size;
 
   const WhatsAppStoryWidget({
     super.key,
     required this.child,
     required this.storyCount,
+    this.size,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 65,
-      width: 65,
+      height: size??65,
+      width: size??65,
       child: Stack(
         alignment: Alignment.center,
         children: [
           CustomPaint(
-            size: const Size(65, 65),
+            size: Size(size??65, size??65),
             painter: WhatsAppSegmentBorder(
               segments: storyCount,
               color: Colors.green,
@@ -84,8 +86,8 @@ class WhatsAppStoryWidget extends StatelessWidget {
             ),
           ),
           Container(
-            height: 53,
-            width: 53,
+            height:  size!=null?(size!-4):53,
+            width: size!=null?(size!-4):53,
             decoration: const BoxDecoration(
               color: Color(0xff25D366),
               shape: BoxShape.circle,

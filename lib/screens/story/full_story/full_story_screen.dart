@@ -69,14 +69,18 @@ class FullStoryScreen extends StatelessWidget {
                       controller.startProgressTimer();
 
                     },itemCount: listGroupedStory[index].items?.length,itemBuilder: (itemBuilder,indexItem){
-                      return Stack(
-                        children: [
-                          ImageCommon("${controller.listGroupedStory[index].items?[indexItem].mediaUrl}",boxFit: BoxFit.fitWidth,),
-                          Positioned(bottom:24,left: 24,right: 24,child: Row(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
-                            Icon(Icons.remove_red_eye_outlined,color: Colors.black54,),
-                            SmallText(text: "${controller.listGroupedStory[index].items?[indexItem].viewCount}",color: Colors.black54,size: 16,)
-                          ],),)
-                        ],
+                      return InkWell(onTap: (){
+                        controller.tapToNext();
+                      },
+                        child: Stack(
+                          children: [
+                            ImageCommon("${controller.listGroupedStory[index].items?[indexItem].mediaUrl}",boxFit: BoxFit.fitWidth,),
+                            Positioned(bottom:24,left: 24,right: 24,child: Row(spacing: 8,mainAxisAlignment: MainAxisAlignment.center,children: [
+                              Icon(Icons.remove_red_eye_outlined,color: Colors.black54,),
+                              SmallText(text: "${controller.listGroupedStory[index].items?[indexItem].viewCount}",color: Colors.black54,size: 16,)
+                            ],),)
+                          ],
+                        ),
                       );
                     }),
                   ),
@@ -97,12 +101,6 @@ class FullStoryScreen extends StatelessWidget {
                           );
                         },),),
                       ),
-
-
-                      // Row(spacing: 8,children: [
-                      //   for(var x in [1,2,3,4,5])
-                      //     Expanded(child: ContainerDecorated(height: 4,color: Colors.green,borderRadius: 15,))
-                      // ],),
 
                       Row(spacing: 16,children: [
                         Icon(Icons.arrow_back_ios_new_outlined),

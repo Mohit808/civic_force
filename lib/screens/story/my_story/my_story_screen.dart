@@ -8,8 +8,8 @@ import '../../../common_widget/network_image_widget.dart';
 import '../../../common_widget/text_common.dart';
 import '../../home/home_screen.dart';
 import '../controller_main_story.dart';
+import '../full_story/my_full_story/my_full_story_screen.dart';
 import '../story_add_screen/story_add_screen.dart';
-import '../view_full_story/view_full_story_screen.dart';
 
 class MyStoryScreen extends StatelessWidget {
   const MyStoryScreen({super.key});
@@ -27,7 +27,8 @@ class MyStoryScreen extends StatelessWidget {
 
                 ListView.separated(shrinkWrap: true,itemCount: controller.listMyStory.length,itemBuilder: (itemBuilder,index){
                   return InkWell(onTap: (){
-                    Get.to(()=>ViewFullStoryScreen(indexx: index,listMyStory: controller.listMyStory,listStory: [],));
+                    Get.to(()=>MyFullStoryScreen(list: controller.listMyStory,));
+                    // Get.to(()=>ViewFullStoryScreen(indexx: index,listMyStory: controller.listMyStory,listStory: [],));
                   },
                     child: Row(spacing: 16,children: [
                       ImageCommon("${controller.listMyStory[index].mediaUrl}",height: 40,width: 40,borderRadius: 40,),
