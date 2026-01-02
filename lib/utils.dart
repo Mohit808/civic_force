@@ -10,6 +10,7 @@ import 'common_widget/app_colors.dart';
 import 'common_widget/app_sizes.dart';
 import 'common_widget/border_atom.dart';
 import 'model/user_model.dart';
+import 'package:modular_ui_package/utils/utils.dart' as uts;
 
 
 String token="";
@@ -113,6 +114,7 @@ class Utils {
     var value = box.read(Utils.userToken);
     if (value != null) {
       token = value;
+      uts.token=token;
     }
     var user = box.read(Utils.user);
     if(user!=null){

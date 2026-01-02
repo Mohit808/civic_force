@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:civic_force/common_widget/network_image_widget.dart';
 import 'package:croppy/croppy.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,8 +28,7 @@ class BasicDetailsScreen extends StatelessWidget {
     return GetBuilder(init: ControllerBasicDetails(),
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: AppBarCommon(centerTitle: false,title: SmallText(text: "Basic Details".tr,size: 20,fontWeight: FontWeight.w800,),elevation: 0,color: Colors.black,),
+          appBar: AppBarCommon(centerTitle: false,title: SmallText(text: "Basic Details".tr,size: 20,fontWeight: FontWeight.w800,),elevation: 0,),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Center(
@@ -42,7 +42,7 @@ class BasicDetailsScreen extends StatelessWidget {
                           SizedBox(height: 24,),
                           Stack(
                             children: [
-                              ContainerDecorated(borderRadius: 100,padding: 0,color: Colors.black,colorBorder: Color(0xFF777778),child: ClipRRect(borderRadius: BorderRadius.circular(100),child: SizedBox(height: 100,width: 100,child: Image.network("${controller.image}",errorBuilder: (a,b,c)=>Image.asset(AppImages.user),),))),
+                              ContainerDecorated(borderRadius: 100,padding: 0,color: Colors.black,colorBorder: Color(0xFF777778),child: ImageCommon(controller.image,sizeAndCircle: 100,)),
                               Positioned(bottom: 0,right: 0,child: ContainerDecorated(onTap: () async {
                                 XFile? xFile=await ImagePicker().pickImage(source: ImageSource.gallery);
                                 if(xFile==null) return;
@@ -82,7 +82,7 @@ class BasicDetailsScreen extends StatelessWidget {
                           Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                             SmallText(text: "Your name *".tr,color: Colors.white70,),
                             SizedBox(height: 8,),
-                            Form(key: controller.formKey,child: TextFieldCommon(textCapitalization: TextCapitalization.words,controller: controller.textEditingController,BorderColor: Colors.transparent,hintText: "Enter Your name",borderRadius: 30,fillColor: Colors.white.withOpacity(0.2),colorText: Colors.white,colorHint: Colors.white.withOpacity(0.9),)),
+                            Form(key: controller.formKey,child: TextFieldCommon(textCapitalization: TextCapitalization.words,controller: controller.textEditingController,BorderColor: Colors.transparent,hintText: "Enter Your name",borderRadius: 30,)),
                           ],),
 
                           SizedBox(height: 48,),

@@ -3,6 +3,7 @@ import 'package:civic_force/screens/basic_details/basic_details_screen.dart';
 import 'package:civic_force/screens/intro_slider_screen/intro_slider_screen.dart';
 import 'package:civic_force/screens/map/map_screen.dart';
 import 'package:civic_force/utils.dart';
+import 'package:civic_force/utils/app_urls.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ import 'common_widget/app_sizes.dart';
 Future<void> main() async {
   await Utils().init(colorCode: 0xFF282C35, radius: AppSizes.h_10);
   await Utils().initialize();
+  AppUrls.init();
 
   runApp(const MyApp());
 }

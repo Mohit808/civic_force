@@ -66,7 +66,7 @@ class AccountScreen extends StatelessWidget {
                   child: Row(mainAxisSize: MainAxisSize.min,spacing: 8,
                     children: [
                       SmallText(text: "${userInfo?.name}",fontWeight: FontWeight.w600,size: 18,),
-                      Icon(Icons.open_in_new_rounded,size: 16,color: Colors.green,),
+                      Icon(Icons.open_in_new_rounded,size: 16,color: AppColors.primary,),
                     ],
                   ),
                 ),
@@ -74,13 +74,13 @@ class AccountScreen extends StatelessWidget {
                 SmallText(text: "${userInfo?.email??userInfo?.phoneNumber}",color: Colors.black54,),
                 SizedBox(height: 4,),
 
-                ContainerDecorated(marginEdgeInsets: EdgeInsets.only(top: 8),paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 12,vertical: 6),borderRadius: 30,colorBorder: Colors.green.shade200,color: Colors.transparent,onTap: (){
+                ContainerDecorated(marginEdgeInsets: EdgeInsets.only(top: 8),paddingEdgeInsets: EdgeInsets.symmetric(horizontal: 12,vertical: 6),borderRadius: 30,colorBorder: AppColors.primary,color: Colors.transparent,onTap: (){
                   showDialog(context: Get.context!, builder: (builder){
                     return Dialog(child: MobileDialog(),);
                   });
                 },child: Row(spacing: 8,mainAxisSize: MainAxisSize.min,children: [
-                  Icon(Icons.add,size: 16,color: Colors.green,),
-                  SmallText(text: "Add mobile number",color: Colors.green,fontWeight: FontWeight.w500,)
+                  Icon(Icons.add,size: 16,color: AppColors.primary,),
+                  SmallText(text: "Add mobile number",color: AppColors.primary,fontWeight: FontWeight.w500,)
                 ],),),
                 
                 // ContainerDecorated(onTap: (){

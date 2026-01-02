@@ -16,8 +16,7 @@ class IntroSliderScreen extends StatelessWidget {
     return GetBuilder(init: ControllerIntroSlider(),
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: AppBarCommon(title: "",color: Colors.black,height: 0,),
+          appBar: AppBarCommon(title: "",height: 0,),
           body: Stack(
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -32,17 +31,10 @@ class IntroSliderScreen extends StatelessWidget {
                             controller.update();
                           },itemCount: controller.list.length,itemBuilder: (itemBuilder,index){
                             return Column(children: [
-                              // Expanded(child: DotLottieLoader.fromAsset(controller.list[index]['image'], frameBuilder: (BuildContext ctx, DotLottie? dotlottie) {
-                              //         if (dotlottie != null) {
-                              //           return Lottie.memory(dotlottie.animations.values.single);
-                              //         } else {
-                              //           return Container();
-                              //         }
-                              //       }),),
                               Expanded(child: controller.list[index]['image']),
-                              SmallText(text: controller.list[index]['heading'],color: Colors.white,textAlign: TextAlign.center,size: 20,fontWeight: FontWeight.w600,),
+                              SmallText(text: controller.list[index]['heading'],textAlign: TextAlign.center,size: 26,fontWeight: FontWeight.w800,),
                               SizedBox(height: 24,),
-                              SmallText(text: controller.list[index]['description'],color: Colors.white70,textAlign: TextAlign.center,size: 12,),
+                              SmallText(text: controller.list[index]['description'],color: Colors.black54,textAlign: TextAlign.center,size: 16,),
                             ],);
                           }),
                         ),
@@ -59,7 +51,7 @@ class IntroSliderScreen extends StatelessWidget {
                               controller.update();
                             },colorBorder: Colors.white,color: Colors.black,borderRadius: 40,child: Icon(Icons.arrow_back_ios_new_rounded,color: Colors.white,),),
                             Expanded(
-                              child: ButtonSingleAtom(color: Colors.green,widget:  controller.indexSelected==2?"Continue": "Next",tap: (){
+                              child: ButtonSingleAtom(widget:  controller.indexSelected==2?"Continue": "Next",tap: (){
                                 if( controller.indexSelected==2){
                                   Get.off(()=>LoginScreen());
                                   box.write(Utils.intro, true);

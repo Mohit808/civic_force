@@ -1,11 +1,21 @@
+import 'package:modular_ui_package/utils/app_urls.dart' as module_const;
 class AppUrls {
-  static String baseUrl="http://192.168.174.89:8000/social/";
+
+  static init(){
+    module_const.AppUrls.baseUrl = baseUrl;
+  }
+  AppConst(){
+    init();
+  }
+
+  // static String baseUrl="https://kodemotion.com/social/";
+  // static String baseUrl="http://192.168.174.89:8000/social/";
   // static String baseUrl="http://10.129.235.89:8000/social/";
   // static String baseUrl="http://10.170.76.89:8000/social/";
   // static String baseUrl="http://10.246.24.89:8000/social/";
   // static String baseUrl="http://10.183.166.89:8000/social/";zz
   // static String baseUrl="http://10.14.125.89:8000/social/";
-  // static String baseUrl="http://192.168.1.16:8000/social/";
+  static String baseUrl="http://192.168.1.26:8000/social/";
   // static String baseUrl="http://172.17.237.89:8000/social/";
   // static String baseUrl="https://commonmodule.pythonanywhere.com/social/";
   static String post="post";

@@ -4,6 +4,7 @@ import 'package:civic_force/screens/home/controller_home.dart';
 import 'package:civic_force/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modular_ui_package/project_modules/story/story_main_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../common_widget/app_bar.dart';
@@ -13,7 +14,7 @@ import '../../project_modules/chat_module/chat_list_screen.dart';
 import '../../project_modules/post/post_main_list_widget.dart';
 import '../notification_screen/notification_screen.dart';
 import '../search/search_screen.dart';
-import '../story/story_main_widget.dart';
+import '../user_profile/user_profile_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -41,11 +42,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(height: 4,),
                     Stack(
                       children: [
-                        ContainerDecorated(elevation: 3,color: Colors.blue,padding: 8,borderRadius: 30,child: Image.asset(AppImages.message,height: 24,width: 24,color: Colors.white,)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 40.0),
-                          child: ContainerDecorated(color: Colors.blue,elevation: 3,),
-                        )
+                        ContainerDecorated(elevation: 3,color: AppColors.primary,padding: 6,borderRadius: 30,child: Image.asset(AppImages.message,height: 20,width: 20,color: Colors.white,)),
                       ],
                     ),
                   ],
@@ -66,7 +63,9 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           NormalHeadingText(text: "Story",letterSpacing: 2,size: 16,),
                           SizedBox(height: 8,),
-                          StoryMainWidget(),
+                          StoryMainWidget(onUserTap: ({required image, required name, required userId}) {
+                            Get.to(()=>UserProfileScreen(userId: userId,name: name,image: image,));
+                          },),
                           SizedBox(height: 24,),
                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

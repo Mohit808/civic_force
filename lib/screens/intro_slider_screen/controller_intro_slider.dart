@@ -8,21 +8,21 @@ class ControllerIntroSlider extends GetxController{
   PageController pageController=PageController();
   List list=[
     {
-      // "image": AppImages.anim1,
-      "image": Icon(Icons.health_and_safety,color: Colors.white,size: 180,),
-      "heading": "Welcome to Red Strap – Celebrate Who You Are",
-      "description": "Join a vibrant and inclusive community where you can meet new people, make friends, and discover meaningful connections. Your journey starts here!"
+      "image": Icon(Icons.location_city, size: 280),
+      "heading": "Welcome to Social Fabric – Your City, Your Voice",
+      "description": "Stay connected to what’s happening around you. From local updates to real-time reports, Social Fabric brings your city’s stories to life."
     },
     {
-      "image":Icon(Icons.flood,color: Colors.white,size: 180,),
-      "heading": "Discover New Faces, Share Stories, and Make Genuine Connections",
-      "description": "Explore people around you, chat freely, and find friendships or deeper connections. Red_Stap is your safe space to be yourself."
+      "image": Icon(Icons.campaign,  size: 280),
+      "heading": "Report, Share, and Discuss What Matters Locally",
+      "description": "Traffic, safety, events, power cuts, or celebrations — report issues, share updates, and join conversations that impact your neighborhood."
     },
     {
-      "image": Icon(Icons.biotech,color: Colors.white,size: 180,),
-      "heading": "Love Is Blind – Real Connection Begins Where Appearances End",
-      "description": "We believe that true relationships grow from honesty, emotion, and conversation. Love is blind, but the connection you build here will feel truly seen."
+      "image": Icon(Icons.groups, size: 280),
+      "heading": "Built by the City, For the City",
+      "description": "Every post strengthens the social fabric of your community. Discover trending topics in your area and be part of a more informed, connected city."
     }
+
   ];
   @override
   void onInit() {

@@ -20,8 +20,7 @@ class LoginScreen extends StatelessWidget {
     return GetBuilder(init: ControllerLogin(),
       builder: (controller) {
         return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: AppBarCommon(title: SmallText(text: "Login",size: 18,),color: Colors.black,centerTitle: false,actions: [
+          appBar: AppBarCommon(title: SmallText(text: "Login",size: 18,),centerTitle: false,actions: [
             Column(mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(onTap: (){
@@ -38,24 +37,24 @@ class LoginScreen extends StatelessWidget {
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
 
                   const SizedBox(height: 36,),
-                  SmallText(text: "Email *",color: Colors.white,fontWeight: FontWeight.w600,),
+                  SmallText(text: "Email *",fontWeight: FontWeight.w600,),
                   SizedBox(height: 8,),
                   TextFieldCommon(keyboardType: TextInputType.emailAddress,textCapitalization: TextCapitalization.none,controller: controller.textEditingControllerEmail,validator: (value){
                     if(!GetUtils.isEmail("$value")) return "Invalid email";
                     return null;
                   },onChanged: (text){
                     controller.update();
-                  },BorderColor: Colors.transparent,hintText: "Enter email...",borderRadius: 30,fillColor: Colors.white.withOpacity(0.2),colorText: Colors.white,colorHint: Colors.white.withOpacity(0.5),),
+                  },BorderColor: Colors.transparent,hintText: "Enter email...",borderRadius: 30,),
 
                   SizedBox(height: 24,),
-                  SmallText(text: "Password *",color: Colors.white,fontWeight: FontWeight.w600,),
+                  SmallText(text: "Password *",fontWeight: FontWeight.w600,),
                   SizedBox(height: 8,),
                   TextFieldCommon(isPassword: true,controller: controller.textEditingControllerPass,validator: (value){
                     if("$value".length<5) return "Minimum 5 char required";
                     return null;
                   },onChanged: (text){
                     controller.update();
-                  },BorderColor: Colors.transparent,hintText: "Enter pass...",borderRadius: 30,fillColor: Colors.white.withOpacity(0.2),colorText: Colors.white,colorHint: Colors.white.withOpacity(0.5),),
+                  },BorderColor: Colors.transparent,hintText: "Enter pass...",borderRadius: 30,),
                   SizedBox(height: 16,),
                   InkWell(onTap: (){
                     Get.to(()=>ForgetPasswordScreen());
@@ -71,16 +70,16 @@ class LoginScreen extends StatelessWidget {
                     for(var x in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
                       Expanded(child: ContainerDecorated(height: 1,color: Color(0xFF555555),)),
                     SizedBox(),
-                    SmallText(text: "OR",color: Colors.white,),
+                    SmallText(text: "OR",),
                     SizedBox(),
                     for(var x in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
                       Expanded(child: ContainerDecorated(height: 1,color: Color(0xFF555555),)),
                   ],),
 
                   SizedBox(height: 48,),
-                  ButtonSingleAtom(color: Colors.black,colorBorder: Colors.white70,borderRadius: 24,widget: Row(children: [
-                    FaIcon(FontAwesomeIcons.google,color: Colors.white,size: 20,),
-                    Expanded(child: SmallText(text: "Continue with login",color: Colors.white,textAlign: TextAlign.center,)),
+                  ButtonSingleAtom(borderRadius: 24,widget: Row(children: [
+                    FaIcon(FontAwesomeIcons.google,size: 20,color: Colors.white,),
+                    Expanded(child: SmallText(text: "Continue with login",textAlign: TextAlign.center,color: Colors.white,)),
                   ],),tap: (){
                     GoogleSignInCommon().signInWithGoogle();
                   },),
@@ -89,7 +88,7 @@ class LoginScreen extends StatelessWidget {
 
                   Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SmallText(text: "Don't have account?",color: Colors.white60,),
+                      SmallText(text: "Don't have account?",color: Colors.black54,),
                       InkWell(onTap: (){
                         Get.to(()=>SignUpScreen());
                       },child: Container(padding: EdgeInsets.only(right: 8,left: 8),alignment: AlignmentGeometry.center,height: 40,child: SmallText(text: "Sign up",color: Colors.blue,fontWeight: FontWeight.w600,))),
